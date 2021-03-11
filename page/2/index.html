@@ -160,6 +160,144 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-ThinkPHP5-x-远程命令执行漏洞分析与复现" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/31/ThinkPHP5-x-%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/">ThinkPHP5.x 远程命令执行漏洞分析与复现</a>
+    </h1>
+  
+
+        
+        
+<a href="/2020/10/31/ThinkPHP5-x-%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/" class="archive-article-date">
+  	<time datetime="2020-10-31T03:46:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="ThinkPHP-5-0命令执行漏洞分析与复现"><a href="#ThinkPHP-5-0命令执行漏洞分析与复现" class="headerlink" title="ThinkPHP 5.0命令执行漏洞分析与复现"></a>ThinkPHP 5.0命令执行漏洞分析与复现</h1><p>ThinkPHP 5.0版本是一个颠覆和重构版本，也是ThinkPHP十周年献礼版本，基于PHP5.4设计（完美支持PHP7），采用全新的架构思想，引入了很多的PHP新特性，优化了核心，减少了依赖，支持Composer，实现了真正的惰性加载，并且为API开发做了深入的支持，在功能、性能以及灵活性方面都较为突出。</p>
+<h2 id="0X01-漏洞描述"><a href="#0X01-漏洞描述" class="headerlink" title="0X01 漏洞描述"></a>0X01 漏洞描述</h2><p>ThinkPHP5.0在核心代码中实现了表单请求类型伪装的功能，该功能利用$_POST[‘_method’]变量来传递真实的请求方法，当攻击者设置_$POST[‘_method’]=__construct时，Request类的method方法便会将该类的变量进行覆盖，攻击者利用该方法将filter变量覆盖为system等函数名，当内部进行参数过滤时便会进行任意命令执行。</p>
+        
+          <a class="article-more-a" href="/2020/10/31/ThinkPHP5-x-%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/10/31/ThinkPHP5-x-%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-反序列化的学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/24/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E5%AD%A6%E4%B9%A0/">反序列化的学习</a>
+    </h1>
+  
+
+        
+        
+<a href="/2020/10/24/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
+  	<time datetime="2020-10-24T13:59:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="php的序列号与反序列化"><a href="#php的序列号与反序列化" class="headerlink" title="php的序列号与反序列化"></a>php的序列号与反序列化</h1><h2 id="0X00-序列化"><a href="#0X00-序列化" class="headerlink" title="0X00 序列化"></a>0X00 序列化</h2><p>serialize()函数将一个对象转换为字符串形式</p>
+<p>我们来看一下直接输出对象是什么效果的：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">test</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> $name=<span class="string">"ghtwf01"</span>;</span><br><span class="line">	<span class="keyword">public</span> $age=<span class="string">"18"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	$a=<span class="keyword">new</span> test();</span><br><span class="line">	print_r($a);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img src="/2020/10/24/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E5%AD%A6%E4%B9%A0/image-20201025114330014.png" alt="image-20201025114330014"></p>
+        
+          <a class="article-more-a" href="/2020/10/24/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E5%AD%A6%E4%B9%A0/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/10/24/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E5%AD%A6%E4%B9%A0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-msf的基础用法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
