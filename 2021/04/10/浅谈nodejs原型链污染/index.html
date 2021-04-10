@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://yoursite.com/2021/04/10/%E6%B5%85%E8%B0%88nodejs%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/image-20210410194330826.png">
 <meta property="og:image" content="http://yoursite.com/2021/04/10/%E6%B5%85%E8%B0%88nodejs%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/image-20210410194707739.png">
 <meta property="article:published_time" content="2021-04-10T07:27:13.000Z">
-<meta property="article:modified_time" content="2021-04-10T11:49:09.498Z">
+<meta property="article:modified_time" content="2021-04-10T13:11:03.695Z">
 <meta property="article:author" content="y0lo-0924">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/2021/04/10/%E6%B5%85%E8%B0%88nodejs%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/Untitled.png">
@@ -192,6 +192,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="原型链污染"><a href="#原型链污染" class="headerlink" title="原型链污染"></a>原型链污染</h1><h2 id="0x01-原型prototype"><a href="#0x01-原型prototype" class="headerlink" title="0x01 原型prototype"></a>0x01 原型prototype</h2><p>​        在<code>js</code>中我们所创建的每一个函数，解析器都会向函数中添加一个属性<code>prototype</code> ，这个属性对应着一个对象，这个对象就是我们所谓的原型对象。如果函数作为普通函数调用prototype没有任何作用。原型对象就相当于一个公共的区域，所有同一个类的实例都可以访问到这个原型对象，我们可以将对象中公有的内容统一设置到原型对象中，当我们访问对象的一个属性或方法时，它会先在自身中寻找，如果有则直接使用，如果没有则会去原型对象中寻找，如果找到则直接使用。</p>
+<a id="more"></a>
+
+<hr>
 <p><img src="/2021/04/10/%E6%B5%85%E8%B0%88nodejs%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/Untitled.png" alt="Untitled"></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MyClass</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//向MyClass的原型中添加属性a</span></span><br><span class="line">MyClass.prototype.a = <span class="number">123</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//向MyClass的原型中添加一个方法</span></span><br><span class="line">MyClass.prototype.sayHello = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	alert(<span class="string">"Hello"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> mc = <span class="keyword">new</span> MyClass();</span><br><span class="line"><span class="keyword">var</span> mc2 = <span class="keyword">new</span> MyClass();</span><br><span class="line"><span class="comment">//console.log(mc.__proto__ == MyClass.prototype);</span></span><br><span class="line"><span class="comment">//向mc中添加属性a</span></span><br><span class="line">mc.a =  <span class="string">"我是mc中的a"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(mc.a);</span><br><span class="line"><span class="built_in">console</span>.log(mc2.a);</span><br></pre></td></tr></table></figure>
 
