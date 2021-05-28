@@ -196,7 +196,24 @@
       </header>
     
     <div class="article-entry" itemprop="articleBody">
-    
+
+
+	
+		<p>环境：CTFshow web4</p>
+<h1 id="日志注入漏洞"><a href="#日志注入漏洞" class="headerlink" title="日志注入漏洞"></a>日志注入漏洞</h1><h2 id="漏洞测试"><a href="#漏洞测试" class="headerlink" title="漏洞测试"></a>漏洞测试</h2><p>1、题目hint：日志注入 文件包含</p>
+<p>2、日志文件：本题中日志默认地址<code>/var/log/nginx/access.log</code></p>
+<a id="more"></a>
+
+<p><img src="/2021/02/27/Log-injection/image-20210227150502949.png" alt="image-20210227150502949"></p>
+<p>可以看到这里的服务器是由nginx搭建的网站，nginx的日志文件默认地址在<code>/var/log/nginx/access.log</code>和<code>/var/log/nginx/error.log</code></p>
+<p><img src="/2021/02/27/Log-injection/image-20210227150812832.png" alt="image-20210227150812832"></p>
+<p>访问可以发现日志中包含user-agent内容</p>
+<h2 id="日志注入"><a href="#日志注入" class="headerlink" title="日志注入"></a>日志注入</h2><p>1、向user-agent上传payload到日志文件</p>
+<p><img src="/2021/02/27/Log-injection/image-20210227151053486.png" alt="image-20210227151053486"></p>
+<p>2、使用蚁剑连接</p>
+<p><img src="/2021/02/27/Log-injection/image-20210227151245876.png" alt="image-20210227151245876"></p>
+
+	
 
       
         <p>环境：CTFshow web4</p>

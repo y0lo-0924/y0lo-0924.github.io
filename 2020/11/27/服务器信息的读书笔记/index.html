@@ -191,7 +191,102 @@
       </header>
     
     <div class="article-entry" itemprop="articleBody">
-    
+
+
+	
+		<h1 id="服务器信息"><a href="#服务器信息" class="headerlink" title="服务器信息"></a>服务器信息</h1><p>记录一下自己的读书笔记（水一下博客）吧，记录一下学习的服务器信息。</p>
+<a id="more"></a>
+
+<ul>
+<li><p><strong>/etc 目录</strong></p>
+<p>/etc 目录下多是各种应用或系统配置文件，所以其下的文件是进行文件读取的首要目标。</p>
+</li>
+<li><p><strong>/etc/passwd</strong></p>
+<p>/etc/passwd文件是Linux系统保存用户信息及其工作目录的文件，权限是所有用户/组可读，一般被用作Linux系统下文件读取漏洞存在性判断的基准。读到这个文件我们就可以知道系统存在哪些用户、他们所属的组是什么、工作目录是什么。</p>
+</li>
+<li><p><strong>/etc/shadow</strong></p>
+<p>/etc/shadow是Linux系统保存用户信息及（可能存在）密码（hash）的文件，权限是root用户可读写、shadow组可读。所以一般情况下，这个文件是不可读的。</p>
+</li>
+<li><p><strong>/etc/apache2/*</strong></p>
+<p>/etc/apache2/*是Apache配置文件，可以获知Web目录、服务端口等信息。</p>
+</li>
+<li><p><strong>/etc/nginx/*</strong></p>
+<p>/etc/nginx/*是Nginx配置文件（Ubuntu等系统），可以获知Web目录、服务端口等信息。</p>
+</li>
+<li><p><strong>/etc/apparmor(.d)/*</strong></p>
+<p>/etc/apparmor(.d)/*是Apparmor配置文件，可以获知各应用系统调用的白名单、黑名单。例如，通过读配置文件查看MySQL是否禁止了系统调用，从而确定是否可以使用UDF（User Defined Functions）执行系统命令。</p>
+</li>
+<li><p><strong>/etc/(cron.d/*|crontab)</strong></p>
+<p>/etc/(cron.d/*|crontab)是定时任务文件，读取这些配置文件就可以发现隐藏的目录或其他文件。</p>
+</li>
+<li><p><strong>/etc/environment</strong></p>
+<p>/etc/environment是环境变量配置文件之一。环境变量可能存在大量目录信息的泄露，甚至可能出现secret key泄露的情况。</p>
+</li>
+<li><p><strong>/etc/hostname</strong></p>
+<p>/etc/hostname表示主机名。</p>
+</li>
+<li><p><strong>/etc/hosts</strong></p>
+<p>/etc/hosts是主机名查询静态表，包含指定域名解析IP的成对信息。通过这个文件，参赛可以探测网卡信息和内网IP/域名。</p>
+</li>
+<li><p><strong>/etc/issue</strong></p>
+<p>/etc/issue指明系统版本。</p>
+</li>
+<li><p><strong>/etc/mysql/*</strong></p>
+<p>/etc/mysql/*是MySQL配置文件。</p>
+</li>
+<li><p><strong>/etc/php/*</strong></p>
+<p>/etc/php/*是PHP配置文件。</p>
+</li>
+<li><p><strong>/proc目录</strong></p>
+</li>
+</ul>
+<p>/proc目录通常存储着进程动态运行的各种信息，本质上是一种虚拟目录。</p>
+<p>注意：如果查看非当前进程的信息，pid是可以进行暴力破解的，如果要查看当前进程，只需/proc/self/代替/proc/[pid]/即可。</p>
+<p>对应目录下的cmdline可读出比较敏感的信息，如使用mysql -uxxx -pxxxx 登录MySQL，会在cmdline中显示明文密码：</p>
+<hr>
+<p>/proc/[pid]/cmdline            ([pid]指向进程所对应的终端命令)</p>
+<hr>
+<p>有时我们无法获取当前应用所在的目录，通过cwd命令可以直接跳转到当前目录：</p>
+<hr>
+<p>/proc/[pid]/cwd/            ([pid]指向进程的运行目录)</p>
+<hr>
+<p>环境变量中可能存在<code>secret_key</code>，这时也可以通过<code>environ</code>进行读取：</p>
+<hr>
+<p>/proc/[pid]/environ            ([pid]指向进程运行时的环境变量)</p>
+<ul>
+<li><strong>其他目录</strong></li>
+</ul>
+<p>Nginx配置文件可能存在其他路径：</p>
+<hr>
+<p>/usr/local/nginx/conf/*            (源代码安装或其他一些系统)</p>
+<hr>
+<p>日志文件：</p>
+<hr>
+<p>/var/log/*            (经常出现Apache2的Web应用可读<strong>/var/log/apache2/access.log</strong>从而分析日志)</p>
+<hr>
+<p>Apache默认Web根目录：</p>
+<hr>
+<p>/var/www/html/</p>
+<hr>
+<p>PHP session目录：</p>
+<hr>
+<p>/var/lib/php(5)/sessions/            (泄露用户session)</p>
+<hr>
+<p>用户目录：</p>
+<hr>
+<p>[user_dir_you_know]/.base_history            (泄露历史执行命令)</p>
+<p>[user_dir_you_know]/.bashrc                       (部分环境变量)</p>
+<p>[user_dir_you_know]/.ssh/id_rsa(.pub)       (ssh登录私钥/公钥)</p>
+<p>[user_dir_you_know]/.viminfo                       (vim使用记录)</p>
+<hr>
+<p>[pid]指向进程所对应的可执行文件。有时我们想读取当前应用的可执行文件再进行分析，但在实际利用时可能存在一些安全措施阻止我们去读可执行文件，这时可以尝试读取/proc/self/exe。例如：</p>
+<hr>
+<p>/proc/[pid]/fd/(1|2…)                        (读取[pid]指向进程的stdout或stderror或其他)</p>
+<p>/proc/[pid]/maps                               ([pid]指向进程的内存映射)</p>
+<p>/proc/[pid]/(mounts|mountinfo)    ([pid]指向进程所在的文件系统挂载情况。CTF常见的是Docker环境这时mounts会泄露一些敏感路径)</p>
+<p>/proc/[pid]/net/*                                ([pid]指向进程的网络信息，如读取TCP将获取进程所绑定的TCP端口ARP将泄露同网段内网IP信息)</p>
+
+	
 
       
         <h1 id="服务器信息"><a href="#服务器信息" class="headerlink" title="服务器信息"></a>服务器信息</h1><p>记录一下自己的读书笔记（水一下博客）吧，记录一下学习的服务器信息。</p>

