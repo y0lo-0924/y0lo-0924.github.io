@@ -65,6 +65,8 @@
 	        
 				<li><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
 	        
+				<li><a href="/categories">分类</a></li>
+	        
 			</ul>
 		</nav>
 		<nav class="header-smart-menu">
@@ -125,6 +127,8 @@
 			
 				
 			
+				
+			
 			
 			
 			<nav class="header-nav">
@@ -142,12 +146,14 @@
 			</nav>
 
 			<nav class="header-menu js-header-menu">
-				<ul style="width: 50%">
+				<ul style="width: 70%">
 				
 				
-					<li style="width: 50%"><a href="/">主页</a></li>
+					<li style="width: 33.333333333333336%"><a href="/">主页</a></li>
 		        
-					<li style="width: 50%"><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
+					<li style="width: 33.333333333333336%"><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
+		        
+					<li style="width: 33.333333333333336%"><a href="/categories">分类</a></li>
 		        
 				</ul>
 			</nav>
@@ -187,6 +193,8 @@
       </header>
     
     <div class="article-entry" itemprop="articleBody">
+    
+
       
         <h1 id="SQL注入绕过技巧"><a href="#SQL注入绕过技巧" class="headerlink" title="SQL注入绕过技巧"></a>SQL注入绕过技巧</h1><h2 id="0X01-绕过空格（注释符-a0）"><a href="#0X01-绕过空格（注释符-a0）" class="headerlink" title="0X01 绕过空格（注释符/**/,%a0）:"></a>0X01 绕过空格（注释符/**/,%a0）:</h2><p>两个空格代表一个空格，用tab代替空格，%a0=空格：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%20	%09	%0a	%0b	%0c %0d %a0 %00 &#x2F;**&#x2F;  &#x2F;*!*&#x2F;</span><br></pre></td></tr></table></figure>

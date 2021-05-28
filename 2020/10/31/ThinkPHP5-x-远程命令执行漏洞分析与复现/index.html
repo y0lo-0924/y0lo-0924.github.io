@@ -80,6 +80,8 @@
 	        
 				<li><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
 	        
+				<li><a href="/categories">分类</a></li>
+	        
 			</ul>
 		</nav>
 		<nav class="header-smart-menu">
@@ -140,6 +142,8 @@
 			
 				
 			
+				
+			
 			
 			
 			<nav class="header-nav">
@@ -157,12 +161,14 @@
 			</nav>
 
 			<nav class="header-menu js-header-menu">
-				<ul style="width: 50%">
+				<ul style="width: 70%">
 				
 				
-					<li style="width: 50%"><a href="/">主页</a></li>
+					<li style="width: 33.333333333333336%"><a href="/">主页</a></li>
 		        
-					<li style="width: 50%"><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
+					<li style="width: 33.333333333333336%"><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
+		        
+					<li style="width: 33.333333333333336%"><a href="/categories">分类</a></li>
 		        
 				</ul>
 			</nav>
@@ -202,6 +208,8 @@
       </header>
     
     <div class="article-entry" itemprop="articleBody">
+    
+
       
         <h1 id="ThinkPHP-5-0命令执行漏洞分析与复现"><a href="#ThinkPHP-5-0命令执行漏洞分析与复现" class="headerlink" title="ThinkPHP 5.0命令执行漏洞分析与复现"></a>ThinkPHP 5.0命令执行漏洞分析与复现</h1><p>ThinkPHP 5.0版本是一个颠覆和重构版本，也是ThinkPHP十周年献礼版本，基于PHP5.4设计（完美支持PHP7），采用全新的架构思想，引入了很多的PHP新特性，优化了核心，减少了依赖，支持Composer，实现了真正的惰性加载，并且为API开发做了深入的支持，在功能、性能以及灵活性方面都较为突出。</p>
 <h2 id="0X01-漏洞描述"><a href="#0X01-漏洞描述" class="headerlink" title="0X01 漏洞描述"></a>0X01 漏洞描述</h2><p>ThinkPHP5.0在核心代码中实现了表单请求类型伪装的功能，该功能利用$_POST[‘_method’]变量来传递真实的请求方法，当攻击者设置_$POST[‘_method’]=__construct时，Request类的method方法便会将该类的变量进行覆盖，攻击者利用该方法将filter变量覆盖为system等函数名，当内部进行参数过滤时便会进行任意命令执行。</p>

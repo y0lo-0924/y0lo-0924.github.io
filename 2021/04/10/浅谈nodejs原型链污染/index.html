@@ -68,6 +68,8 @@
 	        
 				<li><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
 	        
+				<li><a href="/categories">分类</a></li>
+	        
 			</ul>
 		</nav>
 		<nav class="header-smart-menu">
@@ -128,6 +130,8 @@
 			
 				
 			
+				
+			
 			
 			
 			<nav class="header-nav">
@@ -145,12 +149,14 @@
 			</nav>
 
 			<nav class="header-menu js-header-menu">
-				<ul style="width: 50%">
+				<ul style="width: 70%">
 				
 				
-					<li style="width: 50%"><a href="/">主页</a></li>
+					<li style="width: 33.333333333333336%"><a href="/">主页</a></li>
 		        
-					<li style="width: 50%"><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
+					<li style="width: 33.333333333333336%"><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
+		        
+					<li style="width: 33.333333333333336%"><a href="/categories">分类</a></li>
 		        
 				</ul>
 			</nav>
@@ -190,6 +196,8 @@
       </header>
     
     <div class="article-entry" itemprop="articleBody">
+    
+
       
         <h1 id="原型链污染"><a href="#原型链污染" class="headerlink" title="原型链污染"></a>原型链污染</h1><h2 id="0x01-原型prototype"><a href="#0x01-原型prototype" class="headerlink" title="0x01 原型prototype"></a>0x01 原型prototype</h2><p>​        在<code>js</code>中我们所创建的每一个函数，解析器都会向函数中添加一个属性<code>prototype</code> ，这个属性对应着一个对象，这个对象就是我们所谓的原型对象。如果函数作为普通函数调用prototype没有任何作用。原型对象就相当于一个公共的区域，所有同一个类的实例都可以访问到这个原型对象，我们可以将对象中公有的内容统一设置到原型对象中，当我们访问对象的一个属性或方法时，它会先在自身中寻找，如果有则直接使用，如果没有则会去原型对象中寻找，如果找到则直接使用。</p>
 <a id="more"></a>
