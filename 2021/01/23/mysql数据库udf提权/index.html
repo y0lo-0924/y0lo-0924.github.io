@@ -13,23 +13,23 @@
 <meta property="og:site_name" content="y0lo&#39;s blogs">
 <meta property="og:description" content="mysql数据库udf提权mysql数据库udf提权步骤UDF(user defined function)，即用户自定义函数。通过添加新函数，对MySQL数据库的功能进行扩充，就像使用本地MySQL函数如 database() 或 version() 一样。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/image-20210123160545484.png">
-<meta property="og:image" content="http://example.com/image-20210123161318014.png">
-<meta property="og:image" content="http://example.com/image-20210123161604962.png">
-<meta property="og:image" content="http://example.com/image-20210123161724680.png">
-<meta property="og:image" content="http://example.com/image-20210123162239962.png">
-<meta property="og:image" content="http://example.com/image-20210123162749418.png">
-<meta property="og:image" content="http://example.com/image-20210123162916234.png">
-<meta property="og:image" content="http://example.com/image-20210123163145888.png">
-<meta property="og:image" content="http://example.com/image-20210123163405039.png">
-<meta property="og:image" content="http://example.com/image-20210123163426249.png">
-<meta property="og:image" content="http://example.com/image-20210123163647707.png">
-<meta property="og:image" content="http://example.com/image-20210123163718855.png">
+<meta property="og:image" content="http://example.com/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/image-20210123160545484.png">
+<meta property="og:image" content="http://example.com/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/image-20210123161318014.png">
+<meta property="og:image" content="http://example.com/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/image-20210123161604962.png">
+<meta property="og:image" content="http://example.com/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/image-20210123161724680.png">
+<meta property="og:image" content="http://example.com/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/image-20210123162239962.png">
+<meta property="og:image" content="http://example.com/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/image-20210123162749418.png">
+<meta property="og:image" content="http://example.com/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/image-20210123162916234.png">
+<meta property="og:image" content="http://example.com/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/image-20210123163145888.png">
+<meta property="og:image" content="http://example.com/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/image-20210123163405039.png">
+<meta property="og:image" content="http://example.com/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/image-20210123163426249.png">
+<meta property="og:image" content="http://example.com/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/image-20210123163647707.png">
+<meta property="og:image" content="http://example.com/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/image-20210123163718855.png">
 <meta property="article:published_time" content="2021-01-23T07:34:30.000Z">
 <meta property="article:modified_time" content="2021-01-23T08:41:02.716Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/image-20210123160545484.png">
+<meta name="twitter:image" content="http://example.com/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/image-20210123160545484.png">
   
     <link rel="alternate" href="/atom.xml" title="y0lo's blogs" type="application/atom+xml">
   
@@ -114,7 +114,7 @@
 <hr>
 <p>1、在mysql&gt;5.1版本，udf.dll应放置在mysql安装目录的lib\plugin下。</p>
 <p> 在mysql&lt;5.1版本，udf.dll应放置在C:\windows或者C:\windows\system32目录。</p>
-<p><img src="/image-20210123160545484.png" alt="image-20210123160545484"></p>
+<p><img src="/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/image-20210123160545484.png" alt="image-20210123160545484"></p>
 <p>查看mysql数据库版本是8.0.12,所以udf.dll应该放置在mysql\lib\plugin目录下。</p>
 <hr>
 <p>2，查看数据库的导入导出文件权限，可以在my.ini配置文件修改secure_file_priv的值</p>
@@ -123,46 +123,46 @@
 <p><code>Secure_file_priv=’null’</code> 表示数据库不允许导入导出</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">global</span> variables <span class="keyword">like</span> <span class="string">&#x27;secure_file_priv&#x27;</span>;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/image-20210123161318014.png" alt="image-20210123161318014"></p>
+<p><img src="/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/image-20210123161318014.png" alt="image-20210123161318014"></p>
 <hr>
 <p>3、查看主机操作系统与数据库的位数</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> variables <span class="keyword">like</span> <span class="string">&#x27;%compile%&#x27;</span>;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/image-20210123161604962.png" alt="image-20210123161604962"></p>
+<p><img src="/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/image-20210123161604962.png" alt="image-20210123161604962"></p>
 <hr>
 <p>4、查看plugin的绝对路径</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> variables <span class="keyword">like</span> <span class="string">&#x27;%plugin%&#x27;</span>;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/image-20210123161724680.png" alt="image-20210123161724680"></p>
+<p><img src="/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/image-20210123161724680.png" alt="image-20210123161724680"></p>
 <p>5、查看数据库是否允许远程连接</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> databases;</span><br><span class="line">use mysql;</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">user</span>,host <span class="keyword">from</span> <span class="keyword">user</span>;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/image-20210123162239962.png" alt="image-20210123162239962"></p>
+<p><img src="/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/image-20210123162239962.png" alt="image-20210123162239962"></p>
 <p>如果需要更改用下面这条命令</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> <span class="keyword">user</span> <span class="keyword">set</span> host <span class="operator">=</span> <span class="string">&#x27;%&#x27;</span> <span class="keyword">where</span> <span class="keyword">user</span> <span class="operator">=</span> <span class="string">&#x27;root&#x27;</span>;</span><br></pre></td></tr></table></figure>
 
 <hr>
 <p>6、启动msf,加载exploit&#x2F;multi&#x2F;mysql&#x2F;mysql_udf_payload模块</p>
-<p><img src="/image-20210123162749418.png" alt="image-20210123162749418"></p>
+<p><img src="/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/image-20210123162749418.png" alt="image-20210123162749418"></p>
 <p>加资完模块后，设置好远程连接数据库的地址，连接数据库的用户名和密码。开始攻击</p>
-<p><img src="/image-20210123162916234.png" alt="image-20210123162916234"></p>
+<p><img src="/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/image-20210123162916234.png" alt="image-20210123162916234"></p>
 <hr>
 <p>7 攻击完成后，打开<code>D:\phpstudy_pro\Extensions\MySQL8.0.12\lib\plugin</code>，可以看到新生成的FWVPNtlC.dll     (dll名称是随机的)。</p>
-<p><img src="/image-20210123163145888.png" alt="image-20210123163145888"></p>
+<p><img src="/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/image-20210123163145888.png" alt="image-20210123163145888"></p>
 <hr>
 <p>8、hHhBWijL.dll文件中包含sys_exec()和sys_eval()两个函数，但是默认只创建sys_exec()函数，sys_exec()函数没有回显，执行正确时返回值为0，执行结果错误时返回值为1。我们可以手动创建 sys_eval() 函数，来执行有回显的命令。</p>
 <p><code>select sys_exec(&#39;whoami&#39;);</code>执行正确返回值为0</p>
-<p><img src="/image-20210123163405039.png" alt="image-20210123163405039"></p>
+<p><img src="/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/image-20210123163405039.png" alt="image-20210123163405039"></p>
 <p><code>select sys_exec(‘whoami1’)</code>执行错误返回值为1</p>
-<p><img src="/image-20210123163426249.png" alt="image-20210123163426249"></p>
+<p><img src="/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/image-20210123163426249.png" alt="image-20210123163426249"></p>
 <p><code>create function sys_eval returns string soname &#39;FWVPNtlC.dll&#39;;</code>创建eval函数</p>
-<p><img src="/image-20210123163647707.png" alt="image-20210123163647707"></p>
-<p><img src="/image-20210123163718855.png" alt="image-20210123163718855"></p>
+<p><img src="/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/image-20210123163647707.png" alt="image-20210123163647707"></p>
+<p><img src="/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/image-20210123163718855.png" alt="image-20210123163718855"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/" data-id="cl09mxta7000h30vj3kwc2kzf" data-title="mysql数据库udf提权" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/" data-id="cl0ae9tgo000ej0vj7dwphd63" data-title="mysql数据库udf提权" class="article-share-link">Share</a>
       
       
       

