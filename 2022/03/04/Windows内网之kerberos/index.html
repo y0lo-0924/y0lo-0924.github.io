@@ -6,17 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2021/1 | y0lo&#39;s blogs</title>
+  <title>Windows内网之kerberos | y0lo&#39;s blogs</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta property="og:type" content="website">
-<meta property="og:title" content="y0lo&#39;s blogs">
-<meta property="og:url" content="http://example.com/archives/2021/01/index.html">
+  <meta name="description" content="0x00 kerberos协议概述Kerberos是一种由MIT（麻省理工大学）提出的一种网络身份验证协议。它旨在通过使用密钥加密技术为客户端&#x2F;服务器应用程序提供强身份验证。 在Kerberos协议中主要是有三个角色的存在：  访问服务的Client(以下表述为Client 或者用户) 提供服务的Server(以下表述为服务) KDC（Key Distribution Center）密钥">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows内网之kerberos">
+<meta property="og:url" content="http://example.com/2022/03/04/Windows%E5%86%85%E7%BD%91%E4%B9%8Bkerberos/index.html">
 <meta property="og:site_name" content="y0lo&#39;s blogs">
+<meta property="og:description" content="0x00 kerberos协议概述Kerberos是一种由MIT（麻省理工大学）提出的一种网络身份验证协议。它旨在通过使用密钥加密技术为客户端&#x2F;服务器应用程序提供强身份验证。 在Kerberos协议中主要是有三个角色的存在：  访问服务的Client(以下表述为Client 或者用户) 提供服务的Server(以下表述为服务) KDC（Key Distribution Center）密钥">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2022/03/04/Windows%E5%86%85%E7%BD%91%E4%B9%8Bkerberos/t01aa65277619791dae.png">
+<meta property="og:image" content="http://example.com/2022/03/04/Windows%E5%86%85%E7%BD%91%E4%B9%8Bkerberos/t01378457d290d556ec.png">
+<meta property="og:image" content="http://example.com/2022/03/04/Windows%E5%86%85%E7%BD%91%E4%B9%8Bkerberos/t01f2440f36212756ff.png">
+<meta property="og:image" content="http://example.com/2022/03/04/Windows%E5%86%85%E7%BD%91%E4%B9%8Bkerberos/t012d8e6dc84e9bb423.png">
+<meta property="article:published_time" content="2022-03-04T12:45:31.000Z">
+<meta property="article:modified_time" content="2022-03-04T13:53:42.690Z">
 <meta property="article:author" content="y0lo">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/03/04/Windows%E5%86%85%E7%BD%91%E4%B9%8Bkerberos/t01aa65277619791dae.png">
   
     <link rel="alternative" href="/atom.xml" title="y0lo&#39;s blogs" type="application/atom+xml">
   
@@ -232,118 +241,329 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Windows内网之kerberos" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/" class="archive-article-date">
-        <time datetime="2021-01-23T07:34:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-23</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/" target="_blank">mysql数据库udf提权</a>
   
+    <h1 class="article-title" itemprop="name">
+      Windows内网之kerberos
     </h1>
   
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2021/01/08/SQL%E6%B3%A8%E5%85%A5%E4%B9%8B%E4%B8%87%E8%83%BD%E5%AF%86%E7%A0%81/" class="archive-article-date">
-        <time datetime="2021-01-08T03:36:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-08</time>
+  
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2022/03/04/Windows%E5%86%85%E7%BD%91%E4%B9%8Bkerberos/" class="archive-article-date">
+        <time datetime="2022-03-04T12:45:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-04</time>
 </a>
 
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">1.4k字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">5分</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="0x00-kerberos协议概述"><a href="#0x00-kerberos协议概述" class="headerlink" title="0x00 kerberos协议概述"></a>0x00 kerberos协议概述</h1><p>Kerberos是一种由MIT（麻省理工大学）提出的一种网络身份验证协议。它旨在通过使用密钥加密技术为客户端&#x2F;服务器应用程序提供强身份验证。</p>
+<p>在Kerberos协议中主要是有三个角色的存在：</p>
+<ol>
+<li>访问服务的Client(以下表述为Client 或者用户)</li>
+<li>提供服务的Server(以下表述为服务)</li>
+<li>KDC（Key Distribution Center）密钥分发中心 kerberos 测试工具介绍</li>
+</ol>
+<p>其中KDC服务默认会安装在一个域的域控中，而Client和Server为域内的用户或者是服务，如HTTP服务，SQL服务。在Kerberos中Client是否有权限访问Server端的服务由KDC发放的票据来决定。</p>
+<p>kerberos的简化认证认证过程如下图</p>
+<p><img src="/2022/03/04/Windows%E5%86%85%E7%BD%91%E4%B9%8Bkerberos/t01aa65277619791dae.png" alt="img"></p>
+<ol>
+<li>ASREQ：Client向KDC发起ASREQ，请求凭据是Client hash加密的时间戳。</li>
+<li>AS_REP：KDC使用Client hash进行解密，如果结果正确就返回用krbtg hash加密的TGT票据，TGT里面包含PAC，PAC包含Client的sid，Client所在的组。</li>
+<li>TGSREQ：Client凭借TGT票据向KDC发起针对特定服务的TGTREQ请求。</li>
+<li>TGS_REP：KDC使用krbtgt hash解密，如果结果正确，就返回服务hash加密的TGS票据（这一步不管用户有没有访问服务的权限，只要TGT正确，就返回TGS票据）。</li>
+<li>AP_REQ: Client拿着TGS票据去请求服务。</li>
+<li>AP_REP: 服务使用自己的hash解密TGS票据。如果解密正确，就拿着PAC去KDC那边问Client有没有访问权限，域控解密PAC。获取Client的sid，以及所在的组，再根据该服务的ACL，判断Client是否有访问服务的权限。</li>
+</ol>
+<h1 id="0x01-AS-REQ"><a href="#0x01-AS-REQ" class="headerlink" title="0x01 AS_REQ"></a>0x01 AS_REQ</h1><p>用户向KDC发起ASREQ,请求凭据是用户 hash加密的时间戳。请求凭据放在PADATA里面。详情见以下每个字段的详细介绍。</p>
+<ol>
+<li><p>pvno</p>
+<p>kerberos 版本号</p>
+</li>
+<li><p>msg-type</p>
+<p>类型，ASREQ对应的就是KRBAS_REQ(0x0a)</p>
+</li>
+<li><p>PA_DATA</p>
+<p>主要是一些认证信息。一个列表，包含若干个认证消息用于认证，我们也可以Authenticator。每个认证消息都有type和value。</p>
+<p>type主要有以下一些：</p>
+<p>NONE &#x3D; 0;</p>
+<p>TGS_REQ &#x3D; 1,<br>AP_REQ &#x3D; 1,<br>ENC_TIMESTAMP &#x3D; 2,<br>PW_SALT &#x3D; 3,<br>ENC_UNIX_TIME &#x3D; 5,<br>SANDIA_SECUREID &#x3D; 6,<br>SESAME &#x3D; 7,<br>OSF_DCE &#x3D; 8,<br>CYBERSAFE_SECUREID &#x3D; 9,<br>AFS3_SALT &#x3D; 10,<br>ETYPE_INFO &#x3D; 11,<br>SAM_CHALLENGE &#x3D; 12,<br>SAM_RESPONSE &#x3D; 13,<br>PK_AS_REQ_19 &#x3D; 14,<br>PK_AS_REP_19 &#x3D; 15,<br>PK_AS_REQ_WIN &#x3D; 15,<br>PK_AS_REQ &#x3D; 16,<br>PK_AS_REP &#x3D; 17,<br>PA_PK_OCSP_RESPONSE &#x3D; 18,<br>ETYPE_INFO2 &#x3D; 19,<br>USE_SPECIFIED_KVNO &#x3D; 20,<br>SVR_REFERRAL_INFO &#x3D; 20,<br>SAM_REDIRECT &#x3D; 21,<br>GET_FROM_TYPED_DATA &#x3D; 22,<br>SAM_ETYPE_INFO &#x3D; 23,<br>SERVER_REFERRAL &#x3D; 25,<br>TD_KRB_PRINCIPAL &#x3D; 102,<br>PK_TD_TRUSTED_CERTIFIERS &#x3D; 104,<br>PK_TD_CERTIFICATE_INDEX &#x3D; 105,<br>TD_APP_DEFINED_ERROR &#x3D; 106,<br>TD_REQ_NONCE &#x3D; 107,<br>TD_REQ_SEQ &#x3D; 108,<br>PA_PAC_REQUEST &#x3D; 128,<br>S4U2SELF &#x3D; 129,<br>PA_PAC_OPTIONS &#x3D; 167,<br>PK_AS_09_BINDING &#x3D; 132,<br>CLIENT_CANONICALIZED &#x3D; 133</p>
+<p>在AS_REQ阶段主要用到的有两个</p>
+<p>ENC_TIMESTAMP</p>
+<p>​     这个是预认证，就是用用户hash加密时间戳，作为value 发送给AS服务器。然后AS服务器那边有用户hash，使用用户hash进行解密，获得时间戳，如果能解密，且时间戳在一定的范围内，则证明认证通过</p>
+<p>PAPACREQUEST</p>
+<p>​     这个是启用PAC支持的扩展。PAC(Privilege Attribute Certificate)并不在原生的kerberos里面，是微软引进的扩展。PAC包含在ASREQ的响应body(ASREP)。这里的value对应的是include&#x3D;true或者include&#x3D;false(KDC根据include的值来判断返回的票据中是否携带PAC)。</p>
+</li>
+</ol>
+<p><img src="/2022/03/04/Windows%E5%86%85%E7%BD%91%E4%B9%8Bkerberos/t01378457d290d556ec.png" alt="img"></p>
+<ol start="4">
+<li>REQ_BODY</li>
+</ol>
+<p>kdc-options 一些flag 字段</p>
+<p>VALIDATE &#x3D; 0x00000001,<br>RENEW &#x3D; 0x00000002,<br>UNUSED29 &#x3D; 0x00000004,<br>ENCTKTINSKEY &#x3D; 0x00000008,<br>RENEWABLEOK &#x3D; 0x00000010,<br>DISABLETRANSITEDCHECK &#x3D; 0x00000020,<br>UNUSED16 &#x3D; 0x0000FFC0,<br>CANONICALIZE &#x3D; 0x00010000,<br>CNAMEINADDLTKT &#x3D; 0x00020000,<br>OK_AS_DELEGATE &#x3D; 0x00040000,<br>UNUSED12 &#x3D; 0x00080000,<br>OPTHARDWAREAUTH &#x3D; 0x00100000,<br>PREAUTHENT &#x3D; 0x00200000,<br>INITIAL &#x3D; 0x00400000,<br>RENEWABLE &#x3D; 0x00800000,<br>UNUSED7 &#x3D; 0x01000000,<br>POSTDATED &#x3D; 0x02000000,<br>ALLOWPOSTDATE &#x3D; 0x04000000,<br>PROXY &#x3D; 0x08000000,<br>PROXIABLE &#x3D; 0x10000000,<br>FORWARDED &#x3D; 0x20000000,<br>FORWARDABLE &#x3D; 0x40000000,<br>RESERVED &#x3D; 0x80000000</p>
+<p>cname</p>
+<p>PrincipalName 类型。PrincipalName包含type和value。</p>
+<ol>
+<li>KRBNTPRINCIPAL &#x3D; 1 means just the name of the principal 如daizhibin</li>
+<li>KRBNTSRV_INST &#x3D; 2 service and other unique instance (krbtgt) 如krbtgt，cifs</li>
+<li>KRBNTENTERPRISE_PRINCIPAL &#x3D; 10 如 <a href="mailto:&#117;&#115;&#x65;&#114;&#64;&#x64;&#x6f;&#x6d;&#x61;&#x69;&#x6e;&#46;&#99;&#x6f;&#109;">&#117;&#115;&#x65;&#114;&#64;&#x64;&#x6f;&#x6d;&#x61;&#x69;&#x6e;&#46;&#99;&#x6f;&#109;</a></li>
+</ol>
+<p>在AS_REQ里面<strong>cname 是请求的用户</strong>,这个用户名存在和不存在，返回的包有差异，可以用于枚举域内用户名。详情见<a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/190261#%E7%9B%B8%E5%85%B3%E7%9A%84%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98">相关的安全问题&gt;用户名枚举</a></p>
+<p>sname</p>
+<p>PrincipalName 类型</p>
+<p>在<strong>ASREQ里面sname是krbtgt</strong>，类型是KRBNTSRVINST</p>
+<p>realm –&gt; 域名</p>
+<p>form –&gt; 发送时间</p>
+<p>tll</p>
+<p>到期时间，rubeus和kekeo都是20370913024805Z，这个可以作为特征来检测工具。</p>
+<p>nonce</p>
+<p>随机生成的一个数kekeo&#x2F;mimikatz nonce是12381973，rubeus nonce是1818848256，这个也可以用来作为特征检测工具。</p>
+<p>etype</p>
+<p>加密类型，有</p>
+<p>des_cbc_crc &#x3D; 1,<br>des_cbc_md4 &#x3D; 2,<br>des_cbc_md5 &#x3D; 3,<br>des3_cbc_md5 &#x3D; 5,<br>des3_cbc_sha1 &#x3D; 7,<br>dsaWithSHA1_CmsOID &#x3D; 9,<br>md5WithRSAEncryption_CmsOID &#x3D; 10,<br>sha1WithRSAEncryption_CmsOID &#x3D; 11,<br>rc2CBC_EnvOID &#x3D; 12,<br>rsaEncryption_EnvOID &#x3D; 13,<br>rsaES_OAEP_ENV_OID &#x3D; 14,<br>des_ede3_cbc_Env_OID &#x3D; 15,<br>des3_cbc_sha1_kd &#x3D; 16,<br>aes128_cts_hmac_sha1 &#x3D; 17,<br>aes256_cts_hmac_sha1 &#x3D; 18,<br>rc4_hmac &#x3D; 23,<br>rc4_hmac_exp &#x3D; 24,<br>subkey_keymaterial &#x3D; 65</p>
+<p>这个地方要注意的是如果在配置里面选择用hash(不是plaintext)的话，hash的加密类型，要跟etype一样。因为KDC是按照etype类型选择用户对应加密方式的hash，如果是选择明文(plaintext)，那么client 会按照etype里面的加密方式将明文加密成hash。</p>
+<h1 id="0x02-AS-REP"><a href="#0x02-AS-REP" class="headerlink" title="0x02 AS_REP"></a>0x02 AS_REP</h1><p>KDC使用用户 hash进行解密，如果结果正确返回用krbtgt hash加密的TGT票据，TGT里面包含PAC,PAC包含用户的sid，用户所在的组。</p>
+<p><img src="/2022/03/04/Windows%E5%86%85%E7%BD%91%E4%B9%8Bkerberos/t01f2440f36212756ff.png" alt="img"></p>
+<ol>
+<li><p>msg-type</p>
+<p>ASREQ的响应body对应的就是KRBAS_REP(0x0b)</p>
+</li>
+<li><p>crealm</p>
+<p>域名</p>
+</li>
+<li><p>cname</p>
+<p>用户名</p>
+</li>
+<li><p>ticket</p>
+<p>这个ticket用于TGSREQ的认证。是加密的，用户不可读取里面的内容。在ASREQ请求里面是，是使用krbtgt的hash进行加密的，因此如果我们拥有krbtgt的hash就可以自己制作一个ticket，既黄金票据。详情见<a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/190261#%E7%9B%B8%E5%85%B3%E7%9A%84%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98">相关的安全问题&gt;黄金票据</a>.</p>
+</li>
+<li><p>enc_part</p>
+<p>这部分是可以解密的，key是用户hash，解密后得到Encryptionkey，Encryptionkey里面最重要的字段是session key，作为下阶段的认证密钥。</p>
+</li>
+</ol>
+<p><img src="/2022/03/04/Windows%E5%86%85%E7%BD%91%E4%B9%8Bkerberos/t012d8e6dc84e9bb423.png" alt="img"></p>
+<h1 id="0x03-导出的票据"><a href="#0x03-导出的票据" class="headerlink" title="0x03 导出的票据"></a>0x03 导出的票据</h1><p>凭据里面最核心的东西是session-key和加密的ticker。</p>
+<p>正常我们用工具生成的凭据是<code>.ccache</code>和<code>.kirbi</code>后缀用的，用</p>
+
+    
+
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/alipay.jpg">
+                    <span class="reward-type">支付宝</span>
+                  </div>
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/weixin.png">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2021/01/08/SQL%E6%B3%A8%E5%85%A5%E4%B9%8B%E4%B8%87%E8%83%BD%E5%AF%86%E7%A0%81/" target="_blank">SQL注入之万能密码</a>
-  
-    </h1>
-  
+      </a>
+    </div>
+    
 
-
-        <div class="article-info info-on-right">
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          y0lo
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="http://example.com/2022/03/04/Windows内网之kerberos/" title="Windows内网之kerberos" target="_blank">http://example.com/2022/03/04/Windows内网之kerberos/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
-          
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
 
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/03/04/Windows%E5%86%85%E7%BD%91%E4%B9%8Bkerberos/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2021/01/07/SQL%E6%B3%A8%E5%85%A5%E7%BB%95%E8%BF%87%E6%8A%80%E5%B7%A7/" class="archive-article-date">
-        <time datetime="2021-01-07T06:18:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-07</time>
-</a>
 
+
+<nav id="article-nav">
+  
+    <a href="/2022/03/07/IDEA%E5%90%AF%E5%8A%A8tomcat9.0.x/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/03/03/ctfshow%E5%86%85%E9%83%A8%E8%B5%9B/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ctfshow内部赛</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2021/01/07/SQL%E6%B3%A8%E5%85%A5%E7%BB%95%E8%BF%87%E6%8A%80%E5%B7%A7/" target="_blank">SQL注入绕过技巧</a>
-  
-    </h1>
-  
+        
+        
+    </div>
+</aside>
 
 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
+
+<div id="SOHUCS" sid="Windows内网之kerberos" ></div> 
+<script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
+<script type="text/javascript">
+    window.changyan.api.config({
+        appid: "true",
+        conf: "true"
+    });
+</script>
+</script>
+
+
+
+
+
+
+
+
 
 
           </div>
@@ -384,8 +604,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
