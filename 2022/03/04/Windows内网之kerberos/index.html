@@ -22,7 +22,7 @@
 <meta property="og:image" content="http://example.com/2022/03/04/Windows%E5%86%85%E7%BD%91%E4%B9%8Bkerberos/t01f2440f36212756ff.png">
 <meta property="og:image" content="http://example.com/2022/03/04/Windows%E5%86%85%E7%BD%91%E4%B9%8Bkerberos/t012d8e6dc84e9bb423.png">
 <meta property="article:published_time" content="2022-03-04T12:45:31.000Z">
-<meta property="article:modified_time" content="2022-03-04T13:53:42.690Z">
+<meta property="article:modified_time" content="2022-03-07T13:42:03.958Z">
 <meta property="article:author" content="y0lo">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2022/03/04/Windows%E5%86%85%E7%BD%91%E4%B9%8Bkerberos/t01aa65277619791dae.png">
@@ -296,6 +296,8 @@
 <li>KDC（Key Distribution Center）密钥分发中心 kerberos 测试工具介绍</li>
 </ol>
 <p>其中KDC服务默认会安装在一个域的域控中，而Client和Server为域内的用户或者是服务，如HTTP服务，SQL服务。在Kerberos中Client是否有权限访问Server端的服务由KDC发放的票据来决定。</p>
+<span id="more"></span>
+
 <p>kerberos的简化认证认证过程如下图</p>
 <p><img src="/2022/03/04/Windows%E5%86%85%E7%BD%91%E4%B9%8Bkerberos/t01aa65277619791dae.png" alt="img"></p>
 <ol>
@@ -337,7 +339,7 @@
 <ol>
 <li>KRBNTPRINCIPAL &#x3D; 1 means just the name of the principal 如daizhibin</li>
 <li>KRBNTSRV_INST &#x3D; 2 service and other unique instance (krbtgt) 如krbtgt，cifs</li>
-<li>KRBNTENTERPRISE_PRINCIPAL &#x3D; 10 如 <a href="mailto:&#117;&#115;&#x65;&#114;&#64;&#x64;&#x6f;&#x6d;&#x61;&#x69;&#x6e;&#46;&#99;&#x6f;&#109;">&#117;&#115;&#x65;&#114;&#64;&#x64;&#x6f;&#x6d;&#x61;&#x69;&#x6e;&#46;&#99;&#x6f;&#109;</a></li>
+<li>KRBNTENTERPRISE_PRINCIPAL &#x3D; 10 如 <a href="mailto:&#117;&#115;&#x65;&#x72;&#x40;&#100;&#111;&#109;&#x61;&#105;&#x6e;&#46;&#x63;&#x6f;&#x6d;">&#117;&#115;&#x65;&#x72;&#x40;&#100;&#111;&#109;&#x61;&#105;&#x6e;&#46;&#x63;&#x6f;&#x6d;</a></li>
 </ol>
 <p>在AS_REQ里面<strong>cname 是请求的用户</strong>,这个用户名存在和不存在，返回的包有差异，可以用于枚举域内用户名。详情见<a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/190261#%E7%9B%B8%E5%85%B3%E7%9A%84%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98">相关的安全问题&gt;用户名枚举</a></p>
 <p>sname</p>
