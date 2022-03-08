@@ -10,12 +10,12 @@
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="Tomcat 内存马(一)：Filter型0x00 前言内存马又名无文件马，见名知意，也就是无文件落地的 webshell 技术，是由于 webshell 特征识别、防篡改、目录监控等等针对 web 应用目录或服务器文件防御手段的介入，导致的文件 shell 难以写入和持久而衍生出的一种“概念型”木马。这种技术的核心思想非常简单，一句话就能概括，那就是对访问路径映射及相关处理代码的动态注册。 这种">
+  <meta name="description" content="Tomcat 内存马(一)：Filter型0x00 前言内存马又名无文件马，见名知意，也就是无文件落地的 webshell 技术，是由于 webshell 特征识别、防篡改、目录监控等等针对 web 应用目录或服务器文件防御手段的介入，导致的文件 shell 难以写入和持久而衍生出的一种“概念型”木马。这种技术的核心思想非常简单，一句话就能概括，那就是对访问路径映射及相关处理代码的动态注册。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Tomcat 内存马(一)：Filter型">
 <meta property="og:url" content="http://example.com/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/index.html">
 <meta property="og:site_name" content="y0lo&#39;s blogs">
-<meta property="og:description" content="Tomcat 内存马(一)：Filter型0x00 前言内存马又名无文件马，见名知意，也就是无文件落地的 webshell 技术，是由于 webshell 特征识别、防篡改、目录监控等等针对 web 应用目录或服务器文件防御手段的介入，导致的文件 shell 难以写入和持久而衍生出的一种“概念型”木马。这种技术的核心思想非常简单，一句话就能概括，那就是对访问路径映射及相关处理代码的动态注册。 这种">
+<meta property="og:description" content="Tomcat 内存马(一)：Filter型0x00 前言内存马又名无文件马，见名知意，也就是无文件落地的 webshell 技术，是由于 webshell 特征识别、防篡改、目录监控等等针对 web 应用目录或服务器文件防御手段的介入，导致的文件 shell 难以写入和持久而衍生出的一种“概念型”木马。这种技术的核心思想非常简单，一句话就能概括，那就是对访问路径映射及相关处理代码的动态注册。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/memory-shell.png">
 <meta property="og:image" content="http://example.com/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210402150543076.png">
@@ -47,7 +47,7 @@
 <meta property="og:image" content="http://example.com/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210402121710447.png">
 <meta property="og:image" content="https://gitee.com/KpLi0rn/BlogImag/raw/master/img/image-20210402121845672.png">
 <meta property="article:published_time" content="2022-03-08T13:26:25.220Z">
-<meta property="article:modified_time" content="2022-03-08T13:29:26.441Z">
+<meta property="article:modified_time" content="2022-03-08T13:32:07.900Z">
 <meta property="article:author" content="y0lo">
 <meta property="article:tag" content="web安全">
 <meta property="article:tag" content="java">
@@ -316,6 +316,8 @@
   <div class="article-entry" itemprop="articleBody">
     
     <h1 id="Tomcat-内存马-一-：Filter型"><a href="#Tomcat-内存马-一-：Filter型" class="headerlink" title="Tomcat 内存马(一)：Filter型"></a>Tomcat 内存马(一)：Filter型<img src="/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/memory-shell.png" alt="img"></h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>内存马又名无文件马，见名知意，也就是无文件落地的 webshell 技术，是由于 webshell 特征识别、防篡改、目录监控等等针对 web 应用目录或服务器文件防御手段的介入，导致的文件 shell 难以写入和持久而衍生出的一种“概念型”木马。这种技术的核心思想非常简单，一句话就能概括，那就是对访问路径映射及相关处理代码的动态注册。</p>
+<span id="more"></span>
+
 <p>这种动态注册技术来源非常久远，在安全行业里也一直是不温不火的状态，直到冰蝎的更新将 java agent 类型的内存马重新带入大众视野并且瞬间火爆起来。这种技术的爆红除了概念新颖外，也确实符合时代发展潮流，现在针对 webshell 的查杀和识别已经花样百出，大厂研发的使用分类、概率等等方式训练的机器学习算法模型，基于神经网络的流量层面的特征识别手段，基本上都花式吊打常规文件型 webshell。如果你不会写，不会绕，还仅仅使用网上下载的 jsp ，那肯定是不行的。</p>
 <p>内存马搭上了冰蝎和反序列化漏洞的快车，快速占领了人们的视野，成为了主流的 webshell 写入方式。作为 RASP 技术的使用者，自然也要来研究和学习一下内存马的思想、原理、添加方式，并探究较好、较通用的防御和查杀方式。</p>
 <p>目前安全行业主要讨论的内存马主要分为以下几种方式：</p>
