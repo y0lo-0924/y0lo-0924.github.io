@@ -233,6 +233,278 @@
             
 
   
+    <article id="post-java基础" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2022/03/13/java%E5%9F%BA%E7%A1%80/" target="_blank">java基础</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2022/03/13/java%E5%9F%BA%E7%A1%80/" class="archive-article-date">
+        <time datetime="2022-03-13T08:52:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-13</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>好久之前学的<code>java</code>了，之前也没有总结性的学习，在此想总结性的重新学习一下。</p>
+<h1 id="0x00-Java的介绍"><a href="#0x00-Java的介绍" class="headerlink" title="0x00 Java的介绍"></a>0x00 Java的介绍</h1><h2 id="Java帝国的诞生"><a href="#Java帝国的诞生" class="headerlink" title="Java帝国的诞生"></a>Java帝国的诞生</h2><p>一场旷日持久的战争</p>
+<h3 id="C-amp-C"><a href="#C-amp-C" class="headerlink" title="C &amp; C++"></a>C &amp; C++</h3><ul>
+<li><p>1972年C诞生</p>
+<ul>
+<li>贴近硬件，运行极快，效率极高</li>
+<li>操作系统，编译器，数据库，网络系统等</li>
+<li>指针和内存管理</li>
+</ul>
+</li>
+<li><p>1982年C++诞生</p>
+<ul>
+<li>面向对象</li>
+<li>兼容C</li>
+<li>图形领域、游戏等</li>
+</ul>
+</li>
+</ul>
+    
+    <a class="article-more-a" href="/2022/03/13/java%E5%9F%BA%E7%A1%80/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2022/03/13/java%E5%9F%BA%E7%A1%80/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-从零开始内网渗透学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2022/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0/" target="_blank">从零开始内网渗透学习</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2022/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
+        <time datetime="2022-03-09T11:57:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-09</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="域环境搭建"><a href="#域环境搭建" class="headerlink" title="域环境搭建"></a>域环境搭建</h1><p>准备</p>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>操作系统</th>
+<th>IP</th>
+<th>主机名</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DC</td>
+<td>Windows Server 2008 R2(x64)</td>
+<td>192.168.0.70</td>
+<td>win08</td>
+</tr>
+<tr>
+<td>DM</td>
+<td>Windows7</td>
+<td>192.168.0.71</td>
+<td>win7</td>
+</tr>
+</tbody></table>
+<ol>
+<li>这里记得关闭 windows 防火墙，否则 ping 不通</li>
+</ol>
+<p><img src="/2022/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0/image-20220309202646966.png" alt="image-20220309202646966"></p>
+<ol start="2">
+<li><p>服务器管理器—角色：</p>
+<p><img src="/2022/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0/image-20220310171839083.png" alt="image-20220310171839083"></p>
+</li>
+<li><p>配置域服务：dos下面输入 <code>dcpromo</code></p>
+<p><img src="/2022/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0/image-20220310172755753.png" alt="image-20220310172755753"></p>
+<p>Ps：这里可能会因为本地administrator的密码规则不合要求，导致安装失败，改一个强密码</p>
+</li>
+<li><p>设置林根域：林就是在多域情况下形成的森林,根表示基础,其他在此根部衍生 具体见：<a target="_blank" rel="noopener" href="http://angerfire.blog.51cto.com/198455/144123/">http://angerfire.blog.51cto.com/198455/144123/</a></p>
+<p><img src="/2022/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0/image-20220310172905746.png" alt="image-20220310172905746"></p>
+</li>
+<li><p>域数据存放的地址</p>
+<p><img src="/2022/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0/image-20220310173040277.png" alt="image-20220310173040277"></p>
+</li>
+</ol>
+<p>配置网络dns server为主域控ip地址</p>
+<p><img src="/2022/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0/image-20220310202505030.png" alt="image-20220310202505030"></p>
+<p>加入域控</p>
+<p><img src="/2022/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0/image-20220310202745859.png" alt="image-20220310202745859"></p>
+<p><img src="/2022/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0/image-20220310202918950.png" alt="image-20220310202918950"></p>
+<p><img src="/2022/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0/8.jpg" alt="img"></p>
+<p>域已经搭建完成，主域控会生成一个<code>krbtgt</code>账号 他是Windows活动目录中使用的客户&#x2F;服务器认证协议，为通信双方提供双向身份认证</p>
+<p><img src="/2022/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0/image-20220310204221690.png" alt="image-20220310204221690"></p>
+<h1 id="端口转发-amp-amp-边界代理"><a href="#端口转发-amp-amp-边界代理" class="headerlink" title="端口转发&amp;&amp;边界代理"></a>端口转发&amp;&amp;边界代理</h1><ol>
+<li><p>windows lcx</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">监听1234端口,转发数据到2333端口</span><br><span class="line">本地:lcx.exe -listen 1234 2333</span><br><span class="line"></span><br><span class="line">将目标的3389转发到本地的1234端口</span><br><span class="line">远程:lcx.exe -slave ip 1234 127.0.0.1 3389</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><img src="/2022/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0/image-20220310205254355.png" alt="image-20220310205254355"></p>
+<p>​        <img src="/2022/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0/image-20220310205320240.png" alt="image-20220310205320240"></p>
+<ol start="2">
+<li><p>netsh 只支持tcp协议</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">添加转发规则</span><br><span class="line">netsh interface portproxy set v4tov4 listenaddress=192.168.206.101 listenport=3333 connectaddress=192.168.206.100 connectport=3389</span><br><span class="line">此工具适用于，有一台双网卡服务器，你可以通过它进行内网通信，比如这个，你连接192.168.206.101:3388端口是连接到100上面的3389</span><br><span class="line"></span><br><span class="line">删除转发规则</span><br><span class="line">netsh interface portproxy delete v4tov4 listenport=9090</span><br><span class="line"></span><br><span class="line">查看现有规则</span><br><span class="line">netsh interface portproxy show all</span><br><span class="line"></span><br><span class="line">xp需要安装ipv6</span><br><span class="line">netsh interface ipv6 install</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>linux portmap</p>
+</li>
+</ol>
+<p><img src="/2022/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0/2.jpg" alt="img"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">监听1234端口,转发数据到2333端口</span><br><span class="line">本地:./portmap -m 2 -p1 1234 -p2 2333</span><br><span class="line"></span><br><span class="line">将目标的3389转发到本地的1234端口</span><br><span class="line">./portmap -m 1 -p1 3389 -h2 ip -p2 1234</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><p>iptables</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">1、编辑配置文件/etc/sysctl.conf的net.ipv4.ip_forward = 1</span><br><span class="line"></span><br><span class="line">2、关闭服务</span><br><span class="line">service iptables stop</span><br><span class="line"></span><br><span class="line">3、配置规则</span><br><span class="line">需要访问的内网地址：192.168.206.101</span><br><span class="line">内网边界web服务器：192.168.206.129</span><br><span class="line">iptables -t nat -A PREROUTING --dst 192.168.206.129 -p tcp --dport 3389 -j DNAT --to-destination 192.168.206.101:3389</span><br><span class="line"></span><br><span class="line">iptables -t nat -A POSTROUTING --dst 192.168.206.101 -p tcp --dport 3389 -j SNAT --to-source 192.168.206.129</span><br><span class="line"></span><br><span class="line">4、保存&amp;&amp;重启服务</span><br><span class="line">service iptables save &amp;&amp; service iptables start</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="socks代理"><a href="#socks代理" class="headerlink" title="socks代理"></a>socks代理</h1><ol>
+<li><p>windows xsocks</p>
+<p><img src="/2022/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0/3.jpg" alt="img"></p>
+<p>进行代理后，在windows下推荐使用Proxifier进行socket连接，规则自己定义</p>
+<p><img src="/2022/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0/4.jpg" alt="img"></p>
+</li>
+<li><p>linux 进行代理后，推荐使用proxychains进行socket连接 kali下的配置文件： &#x2F;etc&#x2F;proxychains.conf 添加一条：socks5 127.0.0.1 8888</p>
+<p>然后在命令前加proxychains就进行了代理</p>
+<p><img src="/2022/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0/5.jpg" alt="img"></p>
+</li>
+</ol>
+<p><img src="/2022/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0/image-20220310210506019.png" alt="image-20220310210506019"></p>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">内网渗透</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2022/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-java内存马01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -923,188 +1195,6 @@
     
     <p class="article-more-link">
       <a class="article-more-a" href="/2021/03/11/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Log-injection" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2021/02/27/Log-injection/" target="_blank">Log injection</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2021/02/27/Log-injection/" class="archive-article-date">
-        <time datetime="2021-02-27T06:54:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-27</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>环境：CTFshow web4</p>
-<h1 id="日志注入漏洞"><a href="#日志注入漏洞" class="headerlink" title="日志注入漏洞"></a>日志注入漏洞</h1><h2 id="漏洞测试"><a href="#漏洞测试" class="headerlink" title="漏洞测试"></a>漏洞测试</h2><p>1、题目hint：日志注入 文件包含</p>
-<p>2、日志文件：本题中日志默认地址<code>/var/log/nginx/access.log</code></p>
-    
-    <a class="article-more-a" href="/2021/02/27/Log-injection/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">注入</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">web安全</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2021/02/27/Log-injection/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-mysql数据库udf提权" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/" target="_blank">mysql数据库udf提权</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/" class="archive-article-date">
-        <time datetime="2021-01-23T07:34:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-23</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h1 id="mysql数据库udf提权"><a href="#mysql数据库udf提权" class="headerlink" title="mysql数据库udf提权"></a>mysql数据库udf提权</h1><h2 id="mysql数据库udf提权步骤"><a href="#mysql数据库udf提权步骤" class="headerlink" title="mysql数据库udf提权步骤"></a>mysql数据库udf提权步骤</h2><p>UDF(user defined function)，即用户自定义函数。通过添加新函数，对MySQL数据库的功能进行扩充，就像使用本地MySQL函数如 database() 或 version() 一样。</p>
-    
-    <a class="article-more-a" href="/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">内网渗透</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2021/01/23/mysql%E6%95%B0%E6%8D%AE%E5%BA%93udf%E6%8F%90%E6%9D%83/">展开全文 >></a>
     </p>
     
 

