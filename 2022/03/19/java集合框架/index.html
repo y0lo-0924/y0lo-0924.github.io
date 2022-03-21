@@ -18,8 +18,13 @@
 <meta property="og:description" content="0x00 集合接口   接口 接口描述    Collection接口 Collection 是最基本的集合接口，一个 Collection  代表一组 Object，即 Collection 的元素，Java不提供直接继承自 Collection 的类，只提供继承于的子接口（如 List 和 Set）。Collection 接口存储一组不唯一，无序的对象。   List接口 List 接口是一">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2022/03/19/java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6.png">
+<meta property="og:image" content="http://example.com/2022/03/19/java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/ArrayList-1-768x406-1.png">
+<meta property="og:image" content="http://example.com/2022/03/19/java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/linkedlist-2020-11-16.png">
+<meta property="og:image" content="http://example.com/2022/03/19/java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/java-hashset-hierarchy.png">
+<meta property="og:image" content="http://example.com/2022/03/19/java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/WV9wXLl.png">
+<meta property="og:image" content="http://example.com/2022/03/19/java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/ListIterator-Class-Diagram.jpg">
 <meta property="article:published_time" content="2022-03-19T11:57:49.000Z">
-<meta property="article:modified_time" content="2022-03-21T04:16:03.523Z">
+<meta property="article:modified_time" content="2022-03-21T12:49:01.854Z">
 <meta property="article:author" content="y0lo">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -266,7 +271,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">1.2k字</span>
+      <span class="post-count">5.1k字</span>
     </span>
   </span>
 
@@ -275,7 +280,7 @@
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">4分</span>
+      <span class="post-count">22分</span>
     </span>
   </span>
 </div>
@@ -287,7 +292,7 @@
   <div class="article-entry" itemprop="articleBody">
     
     <p><img src="/2022/03/19/java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6.png" alt="集合框架"></p>
-<h1 id="0x00-集合接口"><a href="#0x00-集合接口" class="headerlink" title="0x00 集合接口"></a>0x00 集合接口</h1><table>
+<h1><span id="0x00-集合接口">0x00 集合接口</span></h1><table>
 <thead>
 <tr>
 <th>接口</th>
@@ -328,21 +333,12 @@
 </tr>
 </tbody></table>
 <span id="more"></span>
-<h2 id="Set-和-List-的区别"><a href="#Set-和-List-的区别" class="headerlink" title="Set 和 List 的区别"></a>Set 和 List 的区别</h2><ul>
-<li><ol>
+<h2><span id="set-和-list-的区别">Set 和 List 的区别</span></h2><ul>
 <li>Set 接口实例存储的是无序的，不重复的数据。List 接口实例存储的是有序的，可以重复的元素。</li>
-</ol>
-</li>
-<li><ol start="2">
 <li>Set 检索效率低下，删除和插入效率高，插入和删除不会引起元素位置改变**&lt;实现类有 HashSet，TreeSet&gt;**</li>
-</ol>
-</li>
-<li><ol start="3">
 <li>List 和数组类似，可以动态增长，根据实际存储的数据的长度自动增长 List 的长度。查找元素效率高，插入删除效率低，因为会引起其他元素位置改变**&lt;实现类有 ArrayList，LinkedList，Vector&gt;**</li>
-</ol>
-</li>
 </ul>
-<h1 id="0x01-集合实现类"><a href="#0x01-集合实现类" class="headerlink" title="0x01 集合实现类"></a>0x01 集合实现类</h1><p>Java 提供了一套实现了 Collection 接口的标准集合类。其中一些是具体类，这些类可以直接拿来使用，而另外一些是抽象类，提供了接口的部分实现。<br><strong>标准集合类：</strong></p>
+<h1><span id="0x01-集合实现类">0x01 集合实现类</span></h1><p>Java 提供了一套实现了 Collection 接口的标准集合类。其中一些是具体类，这些类可以直接拿来使用，而另外一些是抽象类，提供了接口的部分实现。<br><strong>标准集合类：</strong></p>
 <table>
 <thead>
 <tr>
@@ -363,11 +359,11 @@
 <td>继承于 AbstractList，提供了对数据元素的访问而不是随机访问。</td>
 </tr>
 <tr>
-<td>LinkedList</td>
+<td><a href="#0x03-LinkedList">LinkedList</a></td>
 <td>该类实现了 List 接口，允许有 null（空）元素。主要用于创建链表数据结构，该类没有同步方法，如果多个线程同时访问一个 List，则必须自己实现访问同步，解决方法就是在创建 List 时候构造一个同步的 List。例如：<br><code>List list=Collections.synchronizedList(new LinkedList(...));</code> <br>LinkedList 查找效率低。</td>
 </tr>
 <tr>
-<td>[ArrayList](# 0x02 ArrayList)</td>
+<td><a href="#0x02-Arraylist">ArrayList</a></td>
 <td>该类也是实现了List的接口，实现了可变大小的数组，随机访问和遍历元素时，提供更好的性能。该类也是非同步的,在多线程的情况下不要使用。ArrayList 增长当前长度的50%，插入删除效率低。</td>
 </tr>
 <tr>
@@ -440,7 +436,554 @@
 <td>一个 BitSet 类创建一种特殊类型的数组来保存位值。BitSet 中数组大小随需要增加。</td>
 </tr>
 </tbody></table>
-<h1 id="0x02-ArrayList"><a href="#0x02-ArrayList" class="headerlink" title="0x02 ArrayList"></a>0x02 ArrayList</h1>
+<h1><span id="0x02-arraylist">0x02 ArrayList</span></h1><p><img src="/2022/03/19/java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/ArrayList-1-768x406-1.png" alt="img"></p>
+<p>ArrayList 类位于 java.util 包中，使用前需要引入它</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList; <span class="comment">// 引入 ArrayList 类</span></span><br><span class="line"></span><br><span class="line">ArrayList&lt;E&gt; objectName =<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();　 <span class="comment">// 初始化</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>E：泛型数据类型，用于设置 objectName 的数据类型，<strong>只能为引用数据类型。</strong></li>
+<li>objectName：对象名。</li>
+</ul>
+<p>ArrayList 是一个数组队列，提供了相关的添加、删除、修改、遍历等功能。</p>
+<h2><span id="添加元素">添加元素</span></h2><p><code>add()</code> 方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RunoobTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        ArrayList&lt;String&gt; sites = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;String&gt;();</span><br><span class="line">        sites.add(<span class="string">&quot;Google&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Runoob&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Taobao&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Weibo&quot;</span>);</span><br><span class="line">        System.out.println(sites); <span class="comment">//[Google, Runoob, Taobao, Weibo]</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2><span id="访问元素">访问元素</span></h2><p><code>get()</code> 方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RunoobTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        ArrayList&lt;String&gt; sites = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;String&gt;();</span><br><span class="line">        sites.add(<span class="string">&quot;Google&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Runoob&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Taobao&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Weibo&quot;</span>);</span><br><span class="line">        System.out.println(sites.get(<span class="number">1</span>));  <span class="comment">// 访问第二个元素  Runoob</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2><span id="修改元素">修改元素</span></h2><p><code>set()</code> 方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RunoobTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        ArrayList&lt;String&gt; sites = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;String&gt;();</span><br><span class="line">        sites.add(<span class="string">&quot;Google&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Runoob&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Taobao&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Weibo&quot;</span>);</span><br><span class="line">        sites.set(<span class="number">2</span>, <span class="string">&quot;Wiki&quot;</span>); <span class="comment">// 第一个参数为索引位置，第二个为要修改的值</span></span><br><span class="line">        System.out.println(sites); <span class="comment">// [Google, Runoob, Wiki, Weibo]</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2><span id="删除元素">删除元素</span></h2><p><code>remove()</code> 方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RunoobTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        ArrayList&lt;String&gt; sites = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;String&gt;();</span><br><span class="line">        sites.add(<span class="string">&quot;Google&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Runoob&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Taobao&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Weibo&quot;</span>);</span><br><span class="line">        sites.remove(<span class="number">3</span>); <span class="comment">// 删除第四个元素</span></span><br><span class="line">        System.out.println(sites); <span class="comment">// [Google, Runoob, Taobao]</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2><span id="计算大小">计算大小</span></h2><p><code>size()</code> 方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RunoobTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        ArrayList&lt;String&gt; sites = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;String&gt;();</span><br><span class="line">        sites.add(<span class="string">&quot;Google&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Runoob&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Taobao&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Weibo&quot;</span>);</span><br><span class="line">        System.out.println(sites.size()); <span class="comment">// 4</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2><span id="迭代数组列表">迭代数组列表</span></h2><p>我们可以使用 <code>for</code> 来迭代数组中的元素：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RunoobTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        ArrayList&lt;String&gt; sites = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;String&gt;();</span><br><span class="line">        sites.add(<span class="string">&quot;Google&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Runoob&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Taobao&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Weibo&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; sites.size(); i++) &#123;</span><br><span class="line">            System.out.print(sites.get(i)+<span class="string">&quot; &quot;</span>);  <span class="comment">// Google Runoob Taobao Weibo</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>也可以使用 <code>for-each</code> 来迭代元素：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RunoobTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        ArrayList&lt;String&gt; sites = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;String&gt;();</span><br><span class="line">        sites.add(<span class="string">&quot;Google&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Runoob&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Taobao&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Weibo&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (String i : sites) &#123;</span><br><span class="line">            System.out.print(i+<span class="string">&quot; &quot;</span>); <span class="comment">// Google Runoob Taobao Weibo</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2><span id="其他的引用类型">其他的引用类型</span></h2><p><e> 只能为引用数据类型，这时我们就需要使用到基本类型的包装类。</e></p>
+<table>
+<thead>
+<tr>
+<th>基本类型</th>
+<th>引用类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>boolean</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>byte</td>
+<td>Byte</td>
+</tr>
+<tr>
+<td>short</td>
+<td>Short</td>
+</tr>
+<tr>
+<td>int</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>long</td>
+<td>Long</td>
+</tr>
+<tr>
+<td>float</td>
+<td>Float</td>
+</tr>
+<tr>
+<td>double</td>
+<td>Double</td>
+</tr>
+<tr>
+<td>char</td>
+<td>Character</td>
+</tr>
+</tbody></table>
+<p>BigInteger、BigDecimal 用于高精度的运算，BigInteger 支持任意精度的整数，也是引用类型，但它们没有相对应的基本类型。 </p>
+<h2><span id="arraylist-排序">ArrayList 排序</span></h2><p>Collections 类也是一个非常有用的类，位于 java.util 包中，提供的 sort() 方法可以对字符或数字列表进行排序。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Collections;  <span class="comment">// 引入 Collections 类</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RunoobTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        ArrayList&lt;String&gt; sites = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;String&gt;();</span><br><span class="line">        sites.add(<span class="string">&quot;Taobao&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Wiki&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Runoob&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Weibo&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Google&quot;</span>);</span><br><span class="line">        Collections.sort(sites);  <span class="comment">// 字母排序</span></span><br><span class="line">        <span class="keyword">for</span> (String i : sites) &#123;</span><br><span class="line">            System.out.print(i + <span class="string">&quot; &quot;</span>); <span class="comment">// Google Runoob Taobao Weibo Wiki</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2><span id="java-arraylist-常用方法">Java ArrayList 常用方法</span></h2><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>add()</td>
+<td>将元素插入到指定位置的 arraylist 中</td>
+</tr>
+<tr>
+<td>addAll()</td>
+<td>添加集合中的所有元素到 arraylist 中</td>
+</tr>
+<tr>
+<td>clear()</td>
+<td>删除 arraylist 中的所有元素</td>
+</tr>
+<tr>
+<td>clone()</td>
+<td>复制一份 arraylist</td>
+</tr>
+<tr>
+<td>contains()</td>
+<td>判断元素是否在 arraylist</td>
+</tr>
+<tr>
+<td>get()</td>
+<td>通过索引值获取 arraylist 中的元素</td>
+</tr>
+<tr>
+<td>indexOf()</td>
+<td>返回 arraylist 中元素的索引值</td>
+</tr>
+<tr>
+<td>removeAll()</td>
+<td>删除存在于指定集合中的 arraylist 里的所有元素</td>
+</tr>
+<tr>
+<td>remove()</td>
+<td>删除 arraylist 里的单个元素</td>
+</tr>
+<tr>
+<td>size()</td>
+<td>返回 arraylist 里元素数量</td>
+</tr>
+<tr>
+<td>isEmpty()</td>
+<td>判断 arraylist 是否为空</td>
+</tr>
+<tr>
+<td>subList()</td>
+<td>截取部分 arraylist 的元素</td>
+</tr>
+<tr>
+<td>set()</td>
+<td>替换 arraylist 中指定索引的元素</td>
+</tr>
+<tr>
+<td>sort()</td>
+<td>对 arraylist 元素进行排序</td>
+</tr>
+<tr>
+<td>toArray()</td>
+<td>将 arraylist 转换为数组</td>
+</tr>
+<tr>
+<td>toString()</td>
+<td>将 arraylist 转换为字符串</td>
+</tr>
+<tr>
+<td>ensureCapacity()</td>
+<td>设置指定容量大小的 arraylist</td>
+</tr>
+<tr>
+<td>lastIndexOf()</td>
+<td>返回指定元素在 arraylist 中最后一次出现的位置</td>
+</tr>
+<tr>
+<td>retainAll()</td>
+<td>保留 arraylist 中在指定集合中也存在的那些元素</td>
+</tr>
+<tr>
+<td>containsAll()</td>
+<td>查看 arraylist 是否包含指定集合中的所有元素</td>
+</tr>
+<tr>
+<td>trimToSize()</td>
+<td>将 arraylist 中的容量调整为数组中的元素个数</td>
+</tr>
+<tr>
+<td>removeRange()</td>
+<td>删除 arraylist 中指定索引之间存在的元素</td>
+</tr>
+<tr>
+<td>replaceAll()</td>
+<td>将给定的操作内容替换掉数组中每一个元素</td>
+</tr>
+<tr>
+<td>removeIf()</td>
+<td>删除所有满足特定条件的 arraylist 元素</td>
+</tr>
+<tr>
+<td>forEach()</td>
+<td>遍历 arraylist 中每一个元素并执行特定操作</td>
+</tr>
+</tbody></table>
+<h1><span id="0x03-linkedlist">0x03 LinkedList</span></h1><p>链表（Linked list）是一种常见的基础数据结构，是一种线性表，但是并不会按线性的顺序存储数据，而是在每一个节点里存到下一个节点的地址。</p>
+<p>LinkedList 继承了 AbstractSequentialList 类。</p>
+<p>LinkedList 实现了 Queue 接口，可作为队列使用。</p>
+<p>LinkedList 实现了 List 接口，可进行列表的相关操作。</p>
+<p>LinkedList 实现了 Deque 接口，可作为队列使用。</p>
+<p>LinkedList 实现了 Cloneable 接口，可实现克隆。</p>
+<p>LinkedList 实现了 java.io.Serializable 接口，即可支持序列化，能通过序列化去传输。</p>
+<p><img src="/2022/03/19/java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/linkedlist-2020-11-16.png" alt="img"></p>
+<p>LinkedList 类位于 java.util 包中，使用前需要引入它</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入 LinkedList 类</span></span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList; </span><br><span class="line"></span><br><span class="line">LinkedList&lt;E&gt; list = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;E&gt;();   <span class="comment">// 普通创建方法</span></span><br><span class="line">或者</span><br><span class="line">LinkedList&lt;E&gt; list = <span class="keyword">new</span> <span class="title class_">LinkedList</span>(Collection&lt;? <span class="keyword">extends</span> <span class="title class_">E</span>&gt; c); <span class="comment">// 使用集合创建链表</span></span><br></pre></td></tr></table></figure>
+
+<h2><span id="不同情况下使用-arraylist-和-linkedlist">不同情况下使用 ArrayList 和 LinkedList：</span></h2><p><strong>以下情况使用 ArrayList :</strong></p>
+<ul>
+<li>频繁访问列表中的某一个元素。</li>
+<li>只需要在列表末尾进行添加和删除元素操作。</li>
+</ul>
+<p><strong>以下情况使用 LinkedList：</strong></p>
+<ul>
+<li>需要通过循环迭代来访问列表中的某些元素。</li>
+<li>需要频繁的在列表开头、中间、末尾等位置进行添加和删除元素操作。</li>
+</ul>
+<h2><span id="创建一个简单的链表实例">创建一个简单的链表实例：</span></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RunoobTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        LinkedList&lt;String&gt; sites = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;String&gt;();</span><br><span class="line">        sites.add(<span class="string">&quot;Google&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Runoob&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Taobao&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Weibo&quot;</span>);</span><br><span class="line">        System.out.println(sites); <span class="comment">// [Google, Runoob, Taobao, Weibo]</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3><span id="在列表开头添加元素">在列表开头添加元素：</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入 LinkedList 类</span></span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RunoobTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        LinkedList&lt;String&gt; sites = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;String&gt;();</span><br><span class="line">        sites.add(<span class="string">&quot;Google&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Runoob&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Taobao&quot;</span>);</span><br><span class="line">        <span class="comment">// 使用 addFirst() 在头部添加元素</span></span><br><span class="line">        sites.addFirst(<span class="string">&quot;Wiki&quot;</span>);</span><br><span class="line">        System.out.println(sites); <span class="comment">// [Wiki, Google, Runoob, Taobao]</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3><span id="在列表结尾添加元素">在列表结尾添加元素：</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入 LinkedList 类</span></span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RunoobTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        LinkedList&lt;String&gt; sites = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;String&gt;();</span><br><span class="line">        sites.add(<span class="string">&quot;Google&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Runoob&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Taobao&quot;</span>);</span><br><span class="line">        <span class="comment">// 使用 addLast() 在尾部添加元素</span></span><br><span class="line">        sites.addLast(<span class="string">&quot;Wiki&quot;</span>);</span><br><span class="line">        System.out.println(sites); <span class="comment">// [Google, Runoob, Taobao, Wiki]</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3><span id="在列表开头移除元素">在列表开头移除元素：</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入 LinkedList 类</span></span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RunoobTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        LinkedList&lt;String&gt; sites = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;String&gt;();</span><br><span class="line">        sites.add(<span class="string">&quot;Google&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Runoob&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Taobao&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Weibo&quot;</span>);</span><br><span class="line">        <span class="comment">// 使用 removeFirst() 移除头部元素</span></span><br><span class="line">        sites.removeFirst();</span><br><span class="line">        System.out.println(sites); <span class="comment">//  [Runoob, Taobao, Weibo] </span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3><span id="在列表结尾移除元素">在列表结尾移除元素：</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入 LinkedList 类</span></span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RunoobTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        LinkedList&lt;String&gt; sites = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;String&gt;();</span><br><span class="line">        sites.add(<span class="string">&quot;Google&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Runoob&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Taobao&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Weibo&quot;</span>);</span><br><span class="line">        <span class="comment">// 使用 removeLast() 移除尾部元素</span></span><br><span class="line">        sites.removeLast();</span><br><span class="line">        System.out.println(sites); <span class="comment">//  [Google, Runoob, Taobao] </span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3><span id="获取列表开头的元素">获取列表开头的元素：</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入 LinkedList 类</span></span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RunoobTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        LinkedList&lt;String&gt; sites = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;String&gt;();</span><br><span class="line">        sites.add(<span class="string">&quot;Google&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Runoob&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Taobao&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Weibo&quot;</span>);</span><br><span class="line">        <span class="comment">// 使用 getFirst() 获取头部元素</span></span><br><span class="line">        System.out.println(sites.getFirst()); <span class="comment">// Google</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3><span id="获取列表结尾的元素">获取列表结尾的元素：</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入 LinkedList 类</span></span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RunoobTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        LinkedList&lt;String&gt; sites = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;String&gt;();</span><br><span class="line">        sites.add(<span class="string">&quot;Google&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Runoob&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Taobao&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Weibo&quot;</span>);</span><br><span class="line">        <span class="comment">// 使用 getLast() 获取尾部元素</span></span><br><span class="line">        System.out.println(sites.getLast()); <span class="comment">// Weibo</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2><span id="迭代元素">迭代元素</span></h2><p>我们可以使用 for 配合 size() 方法来迭代列表中的元素：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入 LinkedList 类</span></span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RunoobTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        LinkedList&lt;String&gt; sites = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;String&gt;();</span><br><span class="line">        sites.add(<span class="string">&quot;Google&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Runoob&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Taobao&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Weibo&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> sites.size(), i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">            System.out.print(sites.get(i) + <span class="string">&quot; &quot;</span>); <span class="comment">// Google Runoob Taobao Weibo</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>也可以使用 for-each 来迭代元素：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入 LinkedList 类</span></span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RunoobTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        LinkedList&lt;String&gt; sites = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;String&gt;();</span><br><span class="line">        sites.add(<span class="string">&quot;Google&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Runoob&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Taobao&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Weibo&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (String i : sites) &#123;</span><br><span class="line">            System.out.print(i + <span class="string">&quot; &quot;</span>); <span class="comment">// Google Runoob Taobao Weibo</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2><span id="常用方法">常用方法</span></h2><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public boolean add(E e)</td>
+<td>链表末尾添加元素，返回是否成功，成功为 true，失败为 false。</td>
+</tr>
+<tr>
+<td>public void add(int index, E element)</td>
+<td>向指定位置插入元素。</td>
+</tr>
+<tr>
+<td>public boolean addAll(Collection c)</td>
+<td>将一个集合的所有元素添加到链表后面，返回是否成功，成功为 true，失败为 false。</td>
+</tr>
+<tr>
+<td>public boolean addAll(int index, Collection c)</td>
+<td>将一个集合的所有元素添加到链表的指定位置后面，返回是否成功，成功为 true，失败为 false。</td>
+</tr>
+<tr>
+<td>public void addFirst(E e)</td>
+<td>元素添加到头部。</td>
+</tr>
+<tr>
+<td>public void addLast(E e)</td>
+<td>元素添加到尾部。</td>
+</tr>
+<tr>
+<td>public boolean offer(E e)</td>
+<td>向链表末尾添加元素，返回是否成功，成功为 true，失败为 false。</td>
+</tr>
+<tr>
+<td>public boolean offerFirst(E e)</td>
+<td>头部插入元素，返回是否成功，成功为 true，失败为 false。</td>
+</tr>
+<tr>
+<td>public boolean offerLast(E e)</td>
+<td>尾部插入元素，返回是否成功，成功为 true，失败为 false。</td>
+</tr>
+<tr>
+<td>public void clear()</td>
+<td>清空链表。</td>
+</tr>
+<tr>
+<td>public E removeFirst()</td>
+<td>删除并返回第一个元素。</td>
+</tr>
+<tr>
+<td>public E removeLast()</td>
+<td>删除并返回最后一个元素。</td>
+</tr>
+<tr>
+<td>public boolean remove(Object o)</td>
+<td>删除某一元素，返回是否成功，成功为 true，失败为 false。</td>
+</tr>
+<tr>
+<td>public E remove(int index)</td>
+<td>删除指定位置的元素。</td>
+</tr>
+<tr>
+<td>public E poll()</td>
+<td>删除并返回第一个元素。</td>
+</tr>
+<tr>
+<td>public E remove()</td>
+<td>删除并返回第一个元素。</td>
+</tr>
+<tr>
+<td>public boolean contains(Object o)</td>
+<td>判断是否含有某一元素。</td>
+</tr>
+<tr>
+<td>public E get(int index)</td>
+<td>返回指定位置的元素。</td>
+</tr>
+<tr>
+<td>public E getFirst()</td>
+<td>返回第一个元素。</td>
+</tr>
+<tr>
+<td>public E getLast()</td>
+<td>返回最后一个元素。</td>
+</tr>
+<tr>
+<td>public int indexOf(Object o)</td>
+<td>查找指定元素从前往后第一次出现的索引。</td>
+</tr>
+<tr>
+<td>public int lastIndexOf(Object o)</td>
+<td>查找指定元素最后一次出现的索引。</td>
+</tr>
+<tr>
+<td>public E peek()</td>
+<td>返回第一个元素。</td>
+</tr>
+<tr>
+<td>public E element()</td>
+<td>返回第一个元素。</td>
+</tr>
+<tr>
+<td>public E peekFirst()</td>
+<td>返回头部元素。</td>
+</tr>
+<tr>
+<td>public E peekLast()</td>
+<td>返回尾部元素。</td>
+</tr>
+<tr>
+<td>public E set(int index, E element)</td>
+<td>设置指定位置的元素。</td>
+</tr>
+<tr>
+<td>public Object clone()</td>
+<td>克隆该列表。</td>
+</tr>
+<tr>
+<td>public Iterator descendingIterator()</td>
+<td>返回倒序迭代器。</td>
+</tr>
+<tr>
+<td>public int size()</td>
+<td>返回链表元素个数。</td>
+</tr>
+<tr>
+<td>public ListIterator listIterator(int index)</td>
+<td>返回从指定位置开始到末尾的迭代器。</td>
+</tr>
+<tr>
+<td>public Object[] toArray()</td>
+<td>返回一个由链表元素组成的数组。</td>
+</tr>
+<tr>
+<td>public  T[] toArray(T[] a)</td>
+<td>返回一个由链表元素转换类型而成的数组。</td>
+</tr>
+</tbody></table>
+<h1><span id="0x04-hashset">0x04 HashSet</span></h1><p>HashSet 基于 HashMap 来实现的，是一个不允许有重复元素的集合。</p>
+<p>HashSet 允许有 null 值。</p>
+<p>HashSet 是无序的，即不会记录插入的顺序。</p>
+<p>HashSet 不是线程安全的，如果多个线程尝试同时修改 HashSet，则最终结果是不确定的。必须在多线程访问时显式同步对 HashSet 的并发访问。</p>
+<p>HashSet 实现了 Set 接口。</p>
+<p><img src="/2022/03/19/java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/java-hashset-hierarchy.png" alt="img"></p>
+<p>HashSet 类位于 java.util 包中，使用前需要引入它</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.HashSet <span class="comment">// 引入 HashSet 类</span></span><br></pre></td></tr></table></figure>
+
+<h2><span id="常用方法">常用方法</span></h2><table>
+<thead>
+<tr>
+<th>变量和类型</th>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>boolean</code></td>
+<td><code>add(E e)</code></td>
+<td>如果指定的元素尚不存在，则将其添加到此集合中。</td>
+</tr>
+<tr>
+<td><code>void</code></td>
+<td><code>clear()</code></td>
+<td>从该集中删除所有元素。</td>
+</tr>
+<tr>
+<td><code>Object</code></td>
+<td><code>clone()</code></td>
+<td>返回此                <code>HashSet</code>实例的浅表副本：未克隆元素本身。</td>
+</tr>
+<tr>
+<td><code>boolean</code></td>
+<td><code>contains(Object o)</code></td>
+<td>如果此set包含指定的元素，则返回                <code>true</code> 。</td>
+</tr>
+<tr>
+<td><code>boolean</code></td>
+<td><code>isEmpty()</code></td>
+<td>如果此集合不包含任何元素，则返回                <code>true</code> 。</td>
+</tr>
+<tr>
+<td><code>Iterator&lt;E&gt;</code></td>
+<td><code>iterator()</code></td>
+<td>返回此set中元素的迭代器。</td>
+</tr>
+<tr>
+<td><code>boolean</code></td>
+<td><code>remove(Object o)</code></td>
+<td>如果存在，则从该集合中移除指定的元素。</td>
+</tr>
+<tr>
+<td><code>int</code></td>
+<td><code>size()</code></td>
+<td>返回此集合中的元素数（基数）。</td>
+</tr>
+<tr>
+<td><code>Spliterator&lt;E&gt;</code></td>
+<td><code>spliterator()</code></td>
+<td>在此集合中的元素上创建*<a target="_blank" rel="noopener" href="https://www.runoob.com/manual/jdk11api/java.base/java/util/Spliterator.html#binding">late-binding</a>和<em>失败快速</em> <a target="_blank" rel="noopener" href="https://www.runoob.com/manual/jdk11api/java.base/java/util/Spliterator.html"><code>Spliterator</code></a> 。</td>
+</tr>
+</tbody></table>
+<h1><span id="0x05-hashmap">0x05 HashMap</span></h1><p>HashMap 是一个散列表，它存储的内容是键值对（key-valuie）映射。</p>
+<p>HashMap 实现了 Map 接口，根据键的 HashCode 值存储数据，具有很快的访问速度，最多允许一条记录的键为 null，不支持线程同步。</p>
+<p>HashMap 是无序的，即不会记录插入的顺序。</p>
+<p>HashMap 继承于AbstractMap，实现了 Map、Cloneable、java.io.Serializable 接口。</p>
+<p><img src="/2022/03/19/java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/WV9wXLl.png" alt="img"></p>
+<h2><span id="常用方法">常用方法</span></h2><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-hashmap-clear.html">clear()</a></td>
+<td>删除 hashMap 中的所有键&#x2F;值对</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-hashmap-clone.html">clone()</a></td>
+<td>复制一份 hashMap</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-hashmap-isempty.html">isEmpty()</a></td>
+<td>判断 hashMap 是否为空</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-hashmap-size.html">size()</a></td>
+<td>计算 hashMap 中键&#x2F;值对的数量</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-hashmap-put.html">put()</a></td>
+<td>将键&#x2F;值对添加到 hashMap 中</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-hashmap-putall.html">putAll()</a></td>
+<td>将所有键&#x2F;值对添加到 hashMap 中</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-hashmap-putifabsent.html">putIfAbsent()</a></td>
+<td>如果 hashMap 中不存在指定的键，则将指定的键&#x2F;值对插入到 hashMap 中。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-hashmap-remove.html">remove()</a></td>
+<td>删除 hashMap 中指定键 key 的映射关系</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-hashmap-containskey.html">containsKey()</a></td>
+<td>检查 hashMap 中是否存在指定的 key 对应的映射关系。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-hashmap-containsvalue.html">containsValue()</a></td>
+<td>检查 hashMap 中是否存在指定的 value 对应的映射关系。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-hashmap-replace.html">replace()</a></td>
+<td>替换 hashMap 中是指定的 key 对应的 value。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-hashmap-replaceall.html">replaceAll()</a></td>
+<td>将 hashMap 中的所有映射关系替换成给定的函数所执行的结果。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-hashmap-get.html">get()</a></td>
+<td>获取指定 key 对应对 value</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-hashmap-getordefault.html">getOrDefault()</a></td>
+<td>获取指定 key 对应对 value，如果找不到 key ，则返回设置的默认值</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-hashmap-foreach.html">forEach()</a></td>
+<td>对 hashMap 中的每个映射执行指定的操作。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-hashmap-entryset.html">entrySet()</a></td>
+<td>返回 hashMap 中所有映射项的集合集合视图。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-hashmap-keyset.html">keySet</a>()</td>
+<td>返回 hashMap 中所有 key 组成的集合视图。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-hashmap-values.html">values()</a></td>
+<td>返回 hashMap 中存在的所有 value 值。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-hashmap-merge.html">merge()</a></td>
+<td>添加键值对到 hashMap 中</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-hashmap-compute.html">compute()</a></td>
+<td>对 hashMap 中指定 key 的值进行重新计算</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-hashmap-computeifabsent.html">computeIfAbsent()</a></td>
+<td>对 hashMap 中指定 key 的值进行重新计算，如果不存在这个 key，则添加到 hasMap 中</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-hashmap-computeifpresent.html">computeIfPresent()</a></td>
+<td>对 hashMap 中指定 key 的值进行重新计算，前提是该 key 存在于 hashMap 中。</td>
+</tr>
+</tbody></table>
+<h1><span id="0x06-iterator">0x06 Iterator</span></h1><p>Java Iterator（迭代器）不是一个集合，它是一种用于访问集合的方法，可用于迭代   <a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-arraylist.html">ArrayList</a> 和 <a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-hashset.html">HashSet</a> 等集合。</p>
+<p>Iterator 是 Java 迭代器最简单的实现，ListIterator 是 Collection API 中的接口， 它扩展了 Iterator 接口。</p>
+<p><img src="/2022/03/19/java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/ListIterator-Class-Diagram.jpg" alt="img"></p>
+<p>迭代器 it 的两个基本操作是 next、hasNext 和 remove。</p>
+<p>调用 it.next() 会返回迭代器的下一个元素，并且更新迭代器的状态。</p>
+<p>调用 it.hasNext() 用于检测集合中是否还有元素。</p>
+<p>调用 it.remove() 将迭代器返回的元素删除。</p>
+<p>Iterator 类位于 java.util 包中，使用前需要引入它</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Iterator; <span class="comment">// 引入 Iterator 类</span></span><br></pre></td></tr></table></figure>
+
+<h2><span id="获取一个迭代器">获取一个迭代器</span></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入 ArrayList 和 Iterator 类</span></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Iterator;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RunoobTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 创建集合</span></span><br><span class="line">        ArrayList&lt;String&gt; sites = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;String&gt;();</span><br><span class="line">        sites.add(<span class="string">&quot;Google&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Runoob&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Taobao&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Zhihu&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取迭代器</span></span><br><span class="line">        Iterator&lt;String&gt; it = sites.iterator();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 输出集合中的第一个元素</span></span><br><span class="line">        System.out.println(it.next()); <span class="comment">// Google</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2><span id="循环集合元素">循环集合元素</span></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(it.hasNext()) &#123;</span><br><span class="line">    System.out.println(it.next());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2><span id="删除元素">删除元素</span></h2><p>要删除集合中的元素可以使用 remove() 方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入 ArrayList 和 Iterator 类</span></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Iterator;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RunoobTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        ArrayList&lt;Integer&gt; numbers = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;Integer&gt;();</span><br><span class="line">        numbers.add(<span class="number">12</span>);</span><br><span class="line">        numbers.add(<span class="number">8</span>);</span><br><span class="line">        numbers.add(<span class="number">2</span>);</span><br><span class="line">        numbers.add(<span class="number">23</span>);</span><br><span class="line">        Iterator&lt;Integer&gt; it = numbers.iterator();</span><br><span class="line">        <span class="keyword">while</span>(it.hasNext()) &#123;</span><br><span class="line">            <span class="type">Integer</span> <span class="variable">i</span> <span class="operator">=</span> it.next();</span><br><span class="line">            <span class="keyword">if</span>(i &lt; <span class="number">10</span>) &#123;  </span><br><span class="line">                it.remove();  <span class="comment">// 删除小于 10 的元素</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(numbers); <span class="comment">// [12, 23]</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
     
 
     
@@ -601,6 +1144,19 @@
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">0x00 集合接口</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">Set 和 List 的区别</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">0x01 集合实现类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">0x02 ArrayList</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">3.1.</span> <span class="toc-text">添加元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">3.2.</span> <span class="toc-text">访问元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">3.3.</span> <span class="toc-text">修改元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">3.4.</span> <span class="toc-text">删除元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">3.5.</span> <span class="toc-text">计算大小</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">3.6.</span> <span class="toc-text">迭代数组列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">3.7.</span> <span class="toc-text">其他的引用类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">3.8.</span> <span class="toc-text">ArrayList 排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">3.9.</span> <span class="toc-text">Java ArrayList 常用方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">0x03 LinkedList</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">4.1.</span> <span class="toc-text">不同情况下使用 ArrayList 和 LinkedList：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">4.2.</span> <span class="toc-text">创建一个简单的链表实例：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">4.2.1.</span> <span class="toc-text">在列表开头添加元素：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">4.2.2.</span> <span class="toc-text">在列表结尾添加元素：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">4.2.3.</span> <span class="toc-text">在列表开头移除元素：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">4.2.4.</span> <span class="toc-text">在列表结尾移除元素：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">4.2.5.</span> <span class="toc-text">获取列表开头的元素：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">4.2.6.</span> <span class="toc-text">获取列表结尾的元素：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">4.3.</span> <span class="toc-text">迭代元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">4.4.</span> <span class="toc-text">常用方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">5.</span> <span class="toc-text">0x04 HashSet</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">5.1.</span> <span class="toc-text">常用方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">6.</span> <span class="toc-text">0x05 HashMap</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">6.1.</span> <span class="toc-text">常用方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">7.</span> <span class="toc-text">0x06 Iterator</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">7.1.</span> <span class="toc-text">获取一个迭代器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">7.2.</span> <span class="toc-text">循环集合元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">7.3.</span> <span class="toc-text">删除元素</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
 
@@ -670,7 +1226,7 @@
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
-		toc_hide_index: true,
+		toc_hide_index: false,
 		root: "/",
 		innerArchive: true,
 		showTags: true

@@ -559,6 +559,19 @@
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SQL%E6%B3%A8%E5%85%A5%E7%BB%95%E8%BF%87%E6%8A%80%E5%B7%A7"><span class="toc-number">1.</span> <span class="toc-text">SQL注入绕过技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0X01-%E7%BB%95%E8%BF%87%E7%A9%BA%E6%A0%BC%EF%BC%88%E6%B3%A8%E9%87%8A%E7%AC%A6-x2F-x2F-a0%EF%BC%89"><span class="toc-number">1.1.</span> <span class="toc-text">0X01 绕过空格（注释符&#x2F;**&#x2F;,%a0）:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0X02-%E6%8B%AC%E5%8F%B7%E7%BB%95%E8%BF%87%E7%A9%BA%E6%A0%BC"><span class="toc-number">1.2.</span> <span class="toc-text">0X02 括号绕过空格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0X03-%E5%BC%95%E5%8F%B7%E7%BB%95%E8%BF%87"><span class="toc-number">1.3.</span> <span class="toc-text">0X03 引号绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0X04-%E9%80%97%E5%8F%B7%E7%BB%95%E8%BF%87%EF%BC%88%E4%BD%BF%E7%94%A8from%E6%88%96%E8%80%85offset%EF%BC%89"><span class="toc-number">1.4.</span> <span class="toc-text">0X04 逗号绕过（使用from或者offset）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0X05-%E6%AF%94%E8%BE%83%E7%AC%A6%E5%8F%B7%EF%BC%88-lt-gt-%EF%BC%89%E7%BB%95%E8%BF%87%EF%BC%88%E8%BF%87%E6%BB%A4%E4%BA%86-lt-gt-sqlmap%E7%9B%B2%E6%B3%A8%E7%BB%8F%E5%B8%B8%E4%BD%BF%E7%94%A8-lt-gt-%EF%BC%8C%E4%BD%BF%E7%94%A8between%E7%9A%84%E8%84%9A%E6%9C%AC%EF%BC%89%EF%BC%9A"><span class="toc-number">1.5.</span> <span class="toc-text">0X05 比较符号（&lt;&gt;）绕过（过滤了&lt;&gt;:sqlmap盲注经常使用&lt;&gt;，使用between的脚本）：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0X06-or-and-xor-not%E7%BB%95%E8%BF%87%EF%BC%9A"><span class="toc-number">1.6.</span> <span class="toc-text">0X06 or and xor not绕过：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0X07-%E7%BB%95%E8%BF%87%E6%B3%A8%E9%87%8A%E7%AC%A6%E5%8F%B7%EF%BC%88-%EF%BC%8C%E2%80%93%EF%BC%88%E5%90%8E%E9%9D%A2%E8%B7%9F%E4%B8%80%E4%B8%AA%E7%A9%BA%E6%A0%BC%EF%BC%89%EF%BC%89%E8%BF%87%E6%BB%A4%EF%BC%9A"><span class="toc-number">1.7.</span> <span class="toc-text">0X07 绕过注释符号（#，–（后面跟一个空格））过滤：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0X08-x3D-%E7%BB%95%E8%BF%87"><span class="toc-number">1.8.</span> <span class="toc-text">0X08 &#x3D;绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0X09-%E7%BB%95%E8%BF%87union%EF%BC%8Cselect%EF%BC%8Cwhere%E7%AD%89%EF%BC%9A"><span class="toc-number">1.9.</span> <span class="toc-text">0X09 绕过union，select，where等：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0X10-%E9%80%9A%E7%94%A8%E7%BB%95%E8%BF%87%EF%BC%88%E7%BC%96%E7%A0%81%EF%BC%89%EF%BC%9A"><span class="toc-number">1.10.</span> <span class="toc-text">0X10 通用绕过（编码）：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0X11-%E7%AD%89%E4%BB%B7%E5%87%BD%E6%95%B0%E7%BB%95%E8%BF%87"><span class="toc-number">1.11.</span> <span class="toc-text">0X11 等价函数绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0X12-%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5"><span class="toc-number">1.12.</span> <span class="toc-text">0X12 宽字节注入</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
 
@@ -628,7 +641,7 @@
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
-		toc_hide_index: true,
+		toc_hide_index: false,
 		root: "/",
 		innerArchive: true,
 		showTags: true
